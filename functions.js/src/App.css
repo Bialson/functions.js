@@ -20,9 +20,9 @@ html, body{
 .navbar{
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(17, 25, 40, 0.75);
   border-right: 1px solid rgba(255, 255, 255, 0.125);
   padding: 20px 30px;
+  background-color: rgba(40, 40, 40, 0.75);
 }
 
 .logoNav{
@@ -44,24 +44,24 @@ html, body{
   padding: 0;
 }
 
-.item{position: relative;}
-.item:nth-child(5){
-  margin-top: auto;
-}
-
 .item:hover{
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(154, 112, 224, 0.3);
   border-radius: 6px;
   transition: 200ms ease-in-out;
 }
 
-.item a{
+.item a, .item:nth-child(5){
   color: white;
   text-decoration: none;
   padding: 5px 10px;
   display: flex;
   align-items: center;
   font-family: sans-serif;
+}
+
+.item:nth-child(5){
+  cursor: pointer;
+  margin-top: auto;
 }
 
 .text{
@@ -88,12 +88,12 @@ html, body{
   font-size: 2rem;
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(40, 40, 40, 0.75);
   border-radius: 12px;
 }
 
 .terminal:hover{
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(154, 112, 224, 0.3);
   transition: 0.5s ease;
   cursor: pointer;
 }
@@ -101,4 +101,70 @@ html, body{
 .terminal i{
   display: flex;
   justify-content: center;
+}
+
+.settings-box{
+  bottom: 5rem;
+  position: absolute;
+  width: 180px;
+  height: 60px;
+  border-radius: 8px;
+  padding: 5px 0;
+  flex-direction: column;
+  background-color: rgba(40, 40, 40, 0.95);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.75);
+  display: flex;
+}
+
+.closeSettings{
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-left: calc(100% - 20px);
+}
+
+.closeSettings:hover{
+  color: red;
+}
+
+.settings-box p{
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.themeBox{
+  background-color: rgba(154, 112, 224, 0.3);
+  border-radius: 100px;
+  height: 22px;
+  width: 42px;
+  display: block;
+  padding: 2px;
+}
+
+.themeCircle{
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  height: 22px;
+  width: 22px;
+  position: relative;
+  border-radius: 100px;
+}
+
+.light{
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark{
+  background-color: rgba(40, 40, 40, 0.75);
+}
+
+@keyframes showSettingsBox{
+  from{opacity: 0;}
+  to{opacity: 1;}
+}
+
+@keyframes hideSettingsBox{
+  from{opacity: 1;}
+  to{opacity: 0;}
 }

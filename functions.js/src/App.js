@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Plot from 'react-plotly.js';
 import { ReactComponent as Icon} from './img/logo.svg';
 
@@ -56,14 +56,26 @@ class Code extends Component {
   }
 }
 
-class Navbar extends Component {
-  render() {
+const Navbar = () => {
+    const [isActive, setIsActive] = useState(false);
+    const [style, setStyle] = useState('dark');
+    const showSettingsBox = () => {
+      setIsActive(true);
+    }
+    const closeSettingsBox = () => {
+      setIsActive(false);
+    }
+    const changeStyle = () => {
+      setStyle((style === 'dark') ? 'light' : 'dark');
+    }
+    const navClasses = `navbar ${style}`;
+    const themeIcon = `bi ${(style === 'dark') ? 'bi-moon-fill' : 'bi-brightness-high-fill'}`;
     return(
-      <nav className='navbar'>
+      <nav className={navClasses}>
           <p className='logoNav'><Icon alt='icon' width={64} height={64}/>&nbsp;Functions.js</p>
           <hr></hr>
           <ul>
-            <li className='item'>
+            <li className='item' title='Home'>
               <a href='index.html'>
                 <span className='icon'>
                   <i className="bi bi-house-fill"></i>
@@ -71,7 +83,7 @@ class Navbar extends Component {
                 <span className='text'>Home</span>
               </a>
             </li>
-            <li className='item'>
+            <li className='item' title='Charts'>
               <a href='index.html'>
                 <span className='icon'>
                   <i className="bi bi-graph-up"></i>
@@ -79,7 +91,7 @@ class Navbar extends Component {
                 <span className='text'>Charts</span>
               </a>
             </li>
-            <li className='item'>
+            <li className='item' title='Docs'>
               <a href='index.html'>
                 <span className='icon'>
                   <i className="bi bi-journal-code"></i>
@@ -87,7 +99,7 @@ class Navbar extends Component {
                 <span className='text'>Docs</span>
               </a>
             </li>
-            <li className='item'>
+            <li className='item' title='About'>
               <a href='index.html'>
                 <span className='icon'>
                   <i className="bi bi-people-fill"></i>
@@ -95,18 +107,28 @@ class Navbar extends Component {
                 <span className='text'>About</span>
               </a>
             </li>
-            <li className='item'>
-              <a href='index.html'>
+            <li className='item' onClick={showSettingsBox} title='Settings'>
                 <span className='icon'>
                   <i className="bi bi-gear-wide-connected"></i>
                 </span>
                 <span className='text'>Settings</span>
-              </a>
             </li>
+            <div className='settings-box' style={{
+              animation: isActive ? 'showSettingsBox 0.5s forwards' : 'hideSettingsBox 0.5s forwards'
+            }}>
+              <i className="bi bi-x-lg closeSettings" title='Close' onClick={closeSettingsBox}></i>
+              <p>
+                <span className='themeBox' onClick={changeStyle}>
+                  <span className='themeCircle' style={{left: (style === 'dark') ? '0px' : '20px'}}>
+                     <i className={themeIcon} style={{color: 'black'}}></i>
+                  </span>
+                </span>
+                Theme
+              </p>
+            </div>
           </ul>
       </nav>
-    )
-  }
+    );
 }
 
 class Main extends Component {
