@@ -1,50 +1,16 @@
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import React, { Component, useState } from 'react';
-import Plot from 'react-plotly.js';
 import { ReactComponent as Icon} from './img/logo.svg';
+import Chart from './Plot';
+// import Plotly from "plotly.js/dist/plotly.js";
 
-const Chart = (props) => {
-  const z1 = [
-    [8.83,8.89,8.81,8.87,8.9,8.87],
-    [8.89,8.94,8.85,8.94,8.96,8.92],
-    [8.84,8.9,8.82,8.92,8.93,8.91],
-    [8.79,8.85,8.79,8.9,8.94,8.92],
-    [8.79,8.88,8.81,8.9,8.95,8.92],
-    [8.8,8.82,8.78,8.91,8.94,8.92],
-    [8.75,8.78,8.77,8.91,8.95,8.92],
-    [8.8,8.8,8.77,8.91,8.95,8.94],
-    [8.74,8.81,8.76,8.93,8.98,8.99],
-    [8.89,8.99,8.92,9.1,9.13,9.11],
-    [8.97,8.97,8.91,9.09,9.11,9.11],
-    [9.04,9.08,9.05,9.25,9.28,9.27],
-    [9,9.01,9,9.2,9.23,9.2],
-    [8.99,8.99,8.98,9.18,9.2,9.19],
-    [8.93,8.97,8.97,9.18,9.2,9.18]
-];
-  return(
-    <div className="plotContainer">
-      <Plot className='plot'
-        data={[
-          {
-            z: z1,
-            type: 'surface',
-          }
-        ]}
-        layout={{
-          title: 'Support',
-          scene:{
-            camera:{
-              eye:{x: 1.5, y: 1.5, z: 1.25}
-            }
-          },
-          template: 'plotly_dark'
-        }}
-        config={{responsive: true}}
-      />
-    </div>
-  )
-}
+/*Implement change function for plot component */
+
+// function changeLayout(){
+//   // const div = document.querySelector('.js-plotly-plot');
+//   // Plotly.update(div, {colorscale: 'Hot'}, {title: 'jd'});
+// }
 
 class Code extends Component {
   render(){
@@ -125,6 +91,11 @@ const Navbar = () => {
                 </span>
                 Theme
               </p>
+              <br></br>
+              <p style={{fontWeight: '600'}}>Functions.JS: v0.0.1
+                  React: v{React.version}
+              </p>
+              <p style={{fontWeight: '300'}}>Copyright &copy; 2022 Bartłomiej Białek</p>
             </div>
           </ul>
       </nav>
@@ -135,7 +106,21 @@ class Main extends Component {
   render() {
     return(
       <div className='main'>
-        {/* <Chart /> */}
+        <div className='chart-container'>
+          <Chart />
+        </div>
+        <div className='plot-settings'>
+          <ul>
+            <li>
+              <p>Function: </p>
+              <p><input type='text' placeholder='f(x, y = ...'></input></p>
+            </li>
+            <li>
+              <p>Surface: </p>
+            </li>
+          </ul>
+          <Code />
+        </div>
       </div>
     )
   }
@@ -143,7 +128,7 @@ class Main extends Component {
 
 function App() {
   return (
-    <><Navbar /><Main className='main' /><Code /></>
+    <><Navbar /><Main className='main' /></>
   );
 }
 
