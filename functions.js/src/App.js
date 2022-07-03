@@ -3,6 +3,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import React, { Component, useState } from 'react';
 import { ReactComponent as Icon} from './img/logo.svg';
 import Chart from './Plot';
+import {motion} from 'framer-motion';
 // import Plotly from "plotly.js/dist/plotly.js";
 
 /*Implement change function for plot component */
@@ -24,6 +25,7 @@ class Code extends Component {
 
 const Navbar = () => {
     const [isActive, setIsActive] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
     const [style, setStyle] = useState('dark');
     const showSettingsBox = () => {
       setIsActive(true);
@@ -73,22 +75,22 @@ const Navbar = () => {
                 <span className='text'>About</span>
               </a>
             </li>
-            <li className='item' onClick={showSettingsBox} title='Settings'>
-                <span className='icon'>
+            <motion.li onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='item' onClick={showSettingsBox} title='Settings'>
+                <motion.span animate={{rotateZ: isHovered ? '360deg' : '0deg'}} transition={{duration: 1}} className='icon'>
                   <i className="bi bi-gear-wide-connected"></i>
-                </span>
+                </motion.span>
                 <span className='text'>Settings</span>
-            </li>
+            </motion.li>
             <div className='settings-box' style={{
               animation: isActive ? 'showSettingsBox 0.5s forwards' : 'hideSettingsBox 0.5s forwards'
             }}>
               <i className="bi bi-x-lg closeSettings" title='Close' onClick={closeSettingsBox}></i>
               <p>
-                <span className='themeBox' onClick={changeStyle}>
-                  <span className='themeCircle' style={{left: (style === 'dark') ? '0px' : '20px'}}>
+                <motion.span className='themeBox' onClick={changeStyle}>
+                  <motion.span className='themeCircle' animate={{left: (style === 'dark') ? '0px' : '20px'}}>
                      <i className={themeIcon} style={{color: 'black'}}></i>
-                  </span>
-                </span>
+                  </motion.span>
+                </motion.span>
                 Theme
               </p>
               <br></br>

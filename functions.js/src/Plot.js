@@ -5,7 +5,62 @@ import Plot from "react-plotly.js";
 export default class Chart extends Component {
     constructor(props){
         super(props);
-        this.state = {data: [{z: this.generateData(), type: 'surface'}], layout: {title: 'Chart', datarevision: 0}, config: {}, revision: 0};
+        this.state = {
+            data: [
+                {
+                    z: this.generateData(), 
+                    type: 'surface',
+                    colorbar: {
+                        tickfont:{
+                            color: 'white'
+                        }
+                    }
+                }
+            ], 
+        layout: {
+            paper_bgcolor: 'rgba(40, 40, 40, 0.75);',
+            scene:{
+                xaxis:{
+                    gridcolor: 'white',
+                    tickfont:{
+                        color: 'white'
+                    },
+                    titlefont:{
+                        color: 'white'
+                    }
+                },
+                yaxis:{
+                    gridcolor: 'white',
+                    tickfont:{
+                        color: 'white'
+                    },
+                    titlefont:{
+                        color: 'white'
+                    }
+                },
+                zaxis:{
+                    gridcolor: 'white',
+                    tickfont:{
+                        color: 'white'
+                    },
+                    titlefont:{
+                        color: 'white'
+                    }
+                },
+            },
+            title: 'Chart', 
+            titlefont: {
+                color: 'white'
+            },
+            datarevision: 0, 
+            margin:{
+                b: 50,
+                l: 0,
+                r: 0,
+                t: 50
+            }
+        }, 
+        config: {}, revision: 0};
     }
     generateData(){
         const z1 = [

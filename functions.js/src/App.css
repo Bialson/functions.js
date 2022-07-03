@@ -7,7 +7,8 @@ html, body{
 
 *{
   color-scheme: dark;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI' Static Variable;
+  font-style: normal;
 }
 
 #root{
@@ -177,7 +178,7 @@ html, body{
   margin: 0;
   width: max-content;
   border-radius: 10px;
-  background-color: white;
+  background-color: transparent;
 }
 
 .main-svg{
