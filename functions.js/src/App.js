@@ -13,15 +13,6 @@ import {motion} from 'framer-motion';
 //   // Plotly.update(div, {colorscale: 'Hot'}, {title: 'jd'});
 // }
 
-class Code extends Component {
-  render(){
-    return(
-      <div className="terminal">
-        <i className="bi bi-terminal-fill"></i>
-      </div>
-    )
-  }
-}
 
 const Navbar = () => {
     const [isActive, setIsActive] = useState(false);
@@ -112,16 +103,25 @@ class Main extends Component {
           <Chart />
         </div>
         <div className='plot-settings'>
+          <div className='settings-dock'></div>
+          <hr></hr>
           <ul>
-            <li>
-              <p>Function: </p>
-              <p><input type='text' placeholder='f(x, y = ...'></input></p>
+            <li className='dock-item' title='Colors' id='colors'>
+              <i class="bi bi-palette-fill"></i>
             </li>
-            <li>
-              <p>Surface: </p>
+            <li className='dock-item' title='Layout' id='layout'>
+              <i class="bi bi-grid-1x2-fill"></i>
+            </li>
+            <li className='dock-item' title='Math' id='math'>
+              <i class="bi bi-plus-slash-minus"></i>
+            </li>
+            <li className='dock-item' title='Code' id='code'>
+              <i class="bi bi-code-slash"></i>
+            </li>
+            <li className='dock-item' title='Export as image' id='export_img'>
+              <i class="bi bi-image-fill"></i>
             </li>
           </ul>
-          <Code />
         </div>
       </div>
     )

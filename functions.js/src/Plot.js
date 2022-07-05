@@ -21,6 +21,7 @@ export default class Chart extends Component {
             paper_bgcolor: 'rgba(40, 40, 40, 0.75);',
             scene:{
                 xaxis:{
+                    color: 'white',
                     gridcolor: 'white',
                     tickfont:{
                         color: 'white'
@@ -30,6 +31,7 @@ export default class Chart extends Component {
                     }
                 },
                 yaxis:{
+                    color: 'white',
                     gridcolor: 'white',
                     tickfont:{
                         color: 'white'
@@ -39,6 +41,7 @@ export default class Chart extends Component {
                     }
                 },
                 zaxis:{
+                    color: 'white',
                     gridcolor: 'white',
                     tickfont:{
                         color: 'white'
@@ -54,7 +57,7 @@ export default class Chart extends Component {
             },
             datarevision: 0, 
             margin:{
-                b: 50,
+                b: 40,
                 l: 0,
                 r: 0,
                 t: 50
