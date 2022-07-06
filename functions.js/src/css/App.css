@@ -11,13 +11,25 @@ html, body{
   font-style: normal;
 }
 
+/*====Themes =====*/
+
+.light{
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.dark{
+  background-color: rgba(40, 40, 40, 0.75);
+}
+
 #root{
   display: flex;
   /* background-image: url('https://wallpaperaccess.com/full/1308200.jpg'); */
-  background-image: url('./img/bg2.jpg');
+  background-image: url('./../img/background.jpg');
   background-clip: content-box;
   background-size: cover;
 }
+
+/*====Navigation =====*/
 
 .navbar{
   backdrop-filter: blur(16px) saturate(180%);
@@ -81,38 +93,6 @@ html, body{
 
 .text{margin-left: 1rem;font-weight: 400;}
 
-.main{
-  width: calc(100% - 242.13px);
-  backdrop-filter: blur(10px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.terminal{
-  align-self: flex-end;
-  margin-top: auto;
-  padding: 10px;
-  font-size: 2rem;
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  background-color: rgba(40, 40, 40, 0.75);
-  border-radius: 12px;
-}
-
-.terminal:hover{
-  background-color: rgba(154, 112, 224, 0.3);
-  transition: 0.5s ease;
-  cursor: pointer;
-}
-
-.terminal i{
-  display: flex;
-  justify-content: center;
-}
-
 .settings-box{
   bottom: 5rem;
   position: absolute;
@@ -145,7 +125,8 @@ html, body{
 }
 
 .themeBox{
-  background-color: rgba(154, 112, 224, 0.3);
+  cursor: pointer;
+  background-color: #60CDFF;
   border-radius: 100px;
   height: 22px;
   width: 42px;
@@ -163,22 +144,16 @@ html, body{
   border-radius: 100px;
 }
 
-.light{
-  background-color: rgba(255, 255, 255, 0.3);
-}
+/*====Main section =====*/
 
-.dark{
-  background-color: rgba(40, 40, 40, 0.75);
-}
-
-@keyframes showSettingsBox{
-  from{opacity: 0;}
-  to{opacity: 1;}
-}
-
-@keyframes hideSettingsBox{
-  from{opacity: 1;}
-  to{opacity: 0;}
+.main{
+  width: calc(100% - 242.13px);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .chart-container{
@@ -239,8 +214,19 @@ html, body{
   animation: showHover 200ms ease-in-out;
 }
 
-@keyframes showHover {
+/*====Animations =====*/
+
+@keyframes showSettingsBox{
   from{opacity: 0;}
   to{opacity: 1;}
 }
 
+@keyframes hideSettingsBox{
+  from{opacity: 1;}
+  to{opacity: 0;}
+}
+
+@keyframes showHover {
+  from{opacity: 0;}
+  to{opacity: 1;}
+}
