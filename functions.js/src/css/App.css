@@ -8,7 +8,6 @@ html, body{
 *{
   color-scheme: dark;
   font-family: 'Segoe UI' Static Variable;
-  font-style: normal;
 }
 
 /*====Themes =====*/
@@ -169,6 +168,24 @@ html, body{
   border-radius: 10px;
 }
 
+/*====Animations =====*/
+
+@keyframes showSettingsBox{
+  from{opacity: 0;}
+  to{opacity: 1;}
+}
+
+@keyframes hideSettingsBox{
+  from{opacity: 1;}
+  to{opacity: 0;}
+}
+
+@keyframes showHover {
+  from{opacity: 0;}
+  to{opacity: 1;}
+}
+
+/*====Settings docks =====*/
 .plot-settings{
   height: calc(100% - 50px);
   backdrop-filter: blur(10px) saturate(180%);
@@ -177,11 +194,11 @@ html, body{
   padding: 10px 20px;
   background-color: rgba(40, 40, 40, 0.5);
   display: flex;
-  width: 350px;
+  width: auto;
 }
 
 .plot-settings hr{
-  margin: 0 20px 0 auto;
+  margin: 0 20px 0 20px;
   border-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
 }
@@ -195,6 +212,11 @@ html, body{
 .plot-settings li{
   margin: 10px 0 10px 0;
   cursor: pointer;
+}
+
+.settings-dock{
+  overflow-x: hidden;
+  padding-top: 20px;
 }
 
 .dock-item{
@@ -214,19 +236,44 @@ html, body{
   animation: showHover 200ms ease-in-out;
 }
 
-/*====Animations =====*/
-
-@keyframes showSettingsBox{
-  from{opacity: 0;}
-  to{opacity: 1;}
+.input-container{
+  width: 263px;
 }
 
-@keyframes hideSettingsBox{
-  from{opacity: 1;}
-  to{opacity: 0;}
+.input-item{
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-@keyframes showHover {
-  from{opacity: 0;}
-  to{opacity: 1;}
+.input{
+  margin: 10px 10px;
+  display: block;
+  padding: 5px;
+  font-size: 15px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  transition: all 200ms ease-in-out;
+  box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+  outline: none;
+  -webkit-appearance: searchfield;
+  width: 90%;
+}
+
+.input:hover::placeholder{
+  transition: 200ms ease-in-out;
+  color: white;
+}
+
+.input:focus{
+  border-bottom: 2px solid #60CDFF;
+  background-color: rgba(40, 40, 40, 0.75);
+}
+
+.settings-name{
+  font-weight: 500;
+  font-size: 1.2rem;
 }
