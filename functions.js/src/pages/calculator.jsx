@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Navbar from './../components/navbar';
 import Chart from './../components/plot';
 import {Colors, Layout, Math, Code, Export} from './../components/docks.js';
+import {motion} from 'framer-motion';
 
 const docks = {
   'Colors': Colors,
@@ -20,15 +21,23 @@ const switchDock = (tag) => {
 
 const Main = () => {
     const [dockSelected, setDock] = useState('Colors');
+    const [codeActive, setCodeActive] = useState(false);
     const changeDock = (title) => {
-      setDock(title);
+      if(title !== 'Code'){
+        setCodeActive(false);
+        setDock(title);
+      }
+      else{
+        setCodeActive(true);
+        setDock(title);
+      }
     }
     return(
       <div className='main'>
         <div className='chart-container'>
           <Chart />
         </div>
-        <div className='plot-settings'>
+        <motion.div className='plot-settings' animate={{width: codeActive ? '604px' : '350px'}}>
           <div className='settings-dock'>
             {switchDock(dockSelected)}
           </div>
@@ -50,7 +59,7 @@ const Main = () => {
               <i className="bi bi-image-fill"></i>
             </li>
           </ul>
-        </div>
+        </motion.div>
       </div>
     )
 }
