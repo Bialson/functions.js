@@ -153,12 +153,14 @@ html, body{
   padding: 20px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .chart-container{
   padding: 10px 5px;
+  width: 50%;
+  height: 879px;
   margin: 0 auto;
-  width: max-content;
   border-radius: 10px;
   background-color: transparent;
   box-shadow: 4px 4px 50px 1px rgba(0, 0, 0, 0.75);
@@ -276,4 +278,30 @@ html, body{
 .settings-name{
   font-weight: 500;
   font-size: 1.2rem;
+}
+
+.formats{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formats input{
+  margin: 0 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: field;
+  border: 1px solid gray;
+  transition: all 200ms ease-in-out;
+}
+
+.formats input:hover{
+  border: 6px solid #60CDFF;
+}
+
+.formats input:checked{
+  border: 6px solid #60CDFF;
 }
