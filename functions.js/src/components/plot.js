@@ -61,9 +61,10 @@ export default class Chart extends Component {
                 l: 0,
                 r: 0,
                 t: 50
-            }
+            }, 
+            autosize: true,
         }, 
-        config: {}, revision: 0};
+        config: {responive: true}, revision: 0};
     }
     generateData(){
         const z1 = [
@@ -96,7 +97,9 @@ export default class Chart extends Component {
                 data={this.state.data}
                 layout={this.state.layout}
                 revision={this.state.revision}
-                // onClick={this.changeLayout}
+                config={this.state.config}
+                useResizeHandler={true}
+                style={{width: '100%', height: '100%'}}
             />
         )
     }

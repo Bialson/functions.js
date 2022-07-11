@@ -73,11 +73,10 @@ const Navbar = () => {
                 </motion.span>
                 Theme
               </p>
-              <br></br>
-              <p style={{fontWeight: '600'}}>Functions.JS: v0.0.1
+              {/* <p style={{fontWeight: '600'}}>Functions.JS: v0.0.1
                   React: v{React.version}
               </p>
-              <p style={{fontWeight: '300'}}>Copyright &copy; 2022 Bartłomiej Białek</p>
+              <p style={{fontWeight: '300'}}>Copyright &copy; 2022 Bartłomiej Białek</p> */}
             </div>
           </ul>
       </nav>
