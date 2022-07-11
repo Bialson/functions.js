@@ -80,7 +80,15 @@ class Export extends Component{
         this.getImage();
         return(
             <div className='input-container'>
-               <img ref={this.imgRef} alt='Export previev' width={263}/>
+                <img ref={this.imgRef} alt='Export previev' width={263}/>
+                <p>Format</p>
+                <div className='formats'>
+                    <input type="radio" value="svg" name="format" /> .svg
+                    <input type="radio" value="png" name="format" /> .png
+                    <input type="radio" value="jpg" name="format" /> .jpg
+                </div>
+                <br></br><br></br>
+                <input type='submit' value='Download' />
             </div>
         )
     }
