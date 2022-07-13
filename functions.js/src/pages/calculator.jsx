@@ -32,10 +32,11 @@ const Main = () => {
         setDock(title);
       }
     }
+    // const chartStyle = {width: codeActive ? 'calc(100% - 1000px)' : 'calc(100% - 1000px)'};
     return(
       <div className='main'>
         <div className='chart-container'>
-          <Chart />
+          <Chart/>
         </div>
         <motion.div className='plot-settings' animate={{width: codeActive ? '604px' : '350px'}}>
           <div className='settings-dock'>

@@ -4,7 +4,7 @@ import {githubDark} from '@uiw/codemirror-theme-github';
 import { javascript } from '@codemirror/lang-javascript';
 import Chart from './../components/plot';
 import Plotly from "plotly.js/dist/plotly.js";
-
+import loadingImg  from './../img/icons/Photos-app-icon-256-colorful.png';
 
 class Colors extends Component {
     render(){
@@ -70,25 +70,32 @@ class Export extends Component{
     constructor(props){
         super(props);
         this.imgRef = React.createRef();
+        this.state = {
+            format: 'svg'
+        }
     }
     async getImage() {
         const div = document.querySelector('.js-plotly-plot');
         const url = await Plotly.toImage(div, {format: 'svg'});
         this.imgRef.current.src = url;
     };
+    downloadImage(){
+        const div = document.querySelector('.js-plotly-plot');
+        Plotly.downloadImage(div, {format: this.state.format, filename: 'plot'});
+    }
     render(){
         this.getImage();
         return(
             <div className='input-container'>
-                <img ref={this.imgRef} alt='Export previev' width={263}/>
+                <img ref={this.imgRef} src={loadingImg} alt='Export previev' width={263}/>
                 <p>Format</p>
                 <div className='formats'>
-                    <input type="radio" value="svg" name="format" /> .svg
-                    <input type="radio" value="png" name="format" /> .png
-                    <input type="radio" value="jpg" name="format" /> .jpg
+                    <input type="radio" value="svg" name="format" onClick={() => this.setState({format: 'svg'})}/> .svg
+                    <input type="radio" value="png" name="format" onClick={() => this.setState({format: 'png'})}/> .png
+                    <input type="radio" value="jpg" name="format" onClick={() => this.setState({format: 'jpg'})}/> .jpg
                 </div>
                 <br></br><br></br>
-                <input type='submit' value='Download' />
+                <input type='submit' className='downloadImgBtn' value='Download' onClick={() => this.downloadImage()} />
             </div>
         )
     }

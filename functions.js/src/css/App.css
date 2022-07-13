@@ -10,6 +10,21 @@ html, body{
   font-family: 'Segoe UI' Static Variable;
 }
 
+.modebar-group {
+  background-color: transparent !important;
+}
+.plotlyjsicon{
+  display: none;
+}
+
+.modebar-btn .icon path{
+  fill: rgba(255,255,255,0.5) !important;
+}
+
+.modebar-btn.active .icon path{
+  fill: rgba(255,255,255,1) !important;
+}
+
 /*====Themes =====*/
 
 .light{
@@ -157,8 +172,8 @@ html, body{
 }
 
 .chart-container{
-  padding: 10px 5px;
   width: 50%;
+  padding: 10px 5px;
   height: 879px;
   margin: 0 auto;
   border-radius: 10px;
@@ -239,7 +254,9 @@ html, body{
 }
 
 .input-container{
+  display: flex;
   width: 263px;
+  flex-direction: column;
 }
 
 .input-item{
@@ -300,8 +317,24 @@ html, body{
 
 .formats input:hover{
   border: 6px solid #60CDFF;
+  cursor: pointer;
 }
 
 .formats input:checked{
   border: 6px solid #60CDFF;
+}
+
+.downloadImgBtn{
+  background-color: field;
+  border-radius: 4px;
+  padding: 10px 30px;
+  border: none;
+  transition: all 200ms ease-in-out;
+  align-self: center;
+}
+
+.downloadImgBtn:hover{
+  background-color: #60CDFF;
+  color: black;
+  cursor: pointer;
 }

@@ -50,6 +50,11 @@ export default class Chart extends Component {
                         color: 'white'
                     }
                 },
+                camera:{
+                    eye:{
+                        x: 2
+                    }
+                }
             },
             title: 'Chart', 
             titlefont: {
@@ -64,7 +69,10 @@ export default class Chart extends Component {
             }, 
             autosize: true,
         }, 
-        config: {responive: true}, revision: 0};
+        config: {
+            responive: true,
+            modeBarButtonsToRemove: ['toImage', 'resetCameraDefault3d'] 
+        }, revision: 0};
     }
     generateData(){
         const z1 = [
