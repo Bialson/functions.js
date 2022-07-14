@@ -32,7 +32,6 @@ const Main = () => {
         setDock(title);
       }
     }
-    // const chartStyle = {width: codeActive ? 'calc(100% - 1000px)' : 'calc(100% - 1000px)'};
     return(
       <div className='main'>
         <div className='chart-container'>

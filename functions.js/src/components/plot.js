@@ -17,62 +17,63 @@ export default class Chart extends Component {
                     }
                 }
             ], 
-        layout: {
-            paper_bgcolor: 'rgba(40, 40, 40, 0.75);',
-            scene:{
-                xaxis:{
-                    color: 'white',
-                    gridcolor: 'white',
-                    tickfont:{
-                        color: 'white'
+            layout: {
+                paper_bgcolor: 'rgba(40, 40, 40, 0.75);',
+                scene:{
+                    xaxis:{
+                        color: 'white',
+                        gridcolor: 'white',
+                        tickfont:{
+                            color: 'white'
+                        },
+                        titlefont:{
+                            color: 'white'
+                        }
                     },
-                    titlefont:{
-                        color: 'white'
+                    yaxis:{
+                        color: 'white',
+                        gridcolor: 'white',
+                        tickfont:{
+                            color: 'white'
+                        },
+                        titlefont:{
+                            color: 'white'
+                        }
+                    },
+                    zaxis:{
+                        color: 'white',
+                        gridcolor: 'white',
+                        tickfont:{
+                            color: 'white'
+                        },
+                        titlefont:{
+                            color: 'white'
+                        }
+                    },
+                    camera:{
+                        eye:{
+                            x: 2
+                        }
                     }
                 },
-                yaxis:{
-                    color: 'white',
-                    gridcolor: 'white',
-                    tickfont:{
-                        color: 'white'
-                    },
-                    titlefont:{
-                        color: 'white'
-                    }
+                title: 'f(x, y) = ', 
+                titlefont: {
+                    color: 'white'
                 },
-                zaxis:{
-                    color: 'white',
-                    gridcolor: 'white',
-                    tickfont:{
-                        color: 'white'
-                    },
-                    titlefont:{
-                        color: 'white'
-                    }
-                },
-                camera:{
-                    eye:{
-                        x: 2
-                    }
-                }
-            },
-            title: 'Chart', 
-            titlefont: {
-                color: 'white'
-            },
-            datarevision: 0, 
-            margin:{
-                b: 40,
-                l: 0,
-                r: 0,
-                t: 50
+                datarevision: 0, 
+                margin:{
+                    b: 40,
+                    l: 0,
+                    r: 0,
+                    t: 50
+                }, 
+                autosize: true,
             }, 
-            autosize: true,
-        }, 
-        config: {
-            responive: true,
-            modeBarButtonsToRemove: ['toImage', 'resetCameraDefault3d'] 
-        }, revision: 0};
+            config: {
+                responive: true,
+                modeBarButtonsToRemove: ['toImage', 'resetCameraDefault3d'] 
+            }, revision: 0
+        };
     }
     generateData(){
         const z1 = [

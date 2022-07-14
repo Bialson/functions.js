@@ -1,3 +1,5 @@
+@import 'https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css';
+
 html, body{
   height: 100%;
   width: 100%;
@@ -37,7 +39,6 @@ html, body{
 
 #root{
   display: flex;
-  /* background-image: url('https://wallpaperaccess.com/full/1308200.jpg'); */
   background-image: url('./../img/background.jpg');
   background-clip: content-box;
   background-size: cover;
@@ -293,8 +294,8 @@ html, body{
 }
 
 .settings-name{
-  font-weight: 500;
-  font-size: 1.2rem;
+  font-weight: 400;
+  font-size: 1.15rem;
 }
 
 .formats{

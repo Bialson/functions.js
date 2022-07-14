@@ -5,6 +5,7 @@ import { javascript } from '@codemirror/lang-javascript';
 import Chart from './../components/plot';
 import Plotly from "plotly.js/dist/plotly.js";
 import loadingImg  from './../img/icons/Photos-app-icon-256-colorful.png';
+import TeX from '@matejmazur/react-katex';
 
 class Colors extends Component {
     render(){
@@ -27,23 +28,38 @@ class Layout extends Component{
 }
 
 class Math extends Component{
+    constructor(props){
+        super(props);
+        this.state = {value: 'f(x, y) = '};
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(event){
+        this.setState({value : event.target.value});
+        const div = document.querySelector('.js-plotly-plot');
+        Plotly.update(div, {}, {title: event.target.value || 'f(x, y) = '});
+    }
     render(){
         return(
             <><div className='input-container'>
                 <div className='input-item'>
                     <span className='settings-name'>Formula </span>
-                    <input type='search' className='input' placeholder='f(x, y) = ...' />
+                    <input type='search' className='input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={this.handleChange}/><br></br>
+                    <TeX
+                        className="output"
+                        settings={{ macros: { '*': String.raw`\cdot` } }}>
+                        {this.state.value}
+                    </TeX>
                 </div>
                 <div className='input-item'>
-                    <span className='settings-name'><i>X</i> axis domain </span>
+                    <span className='settings-name'><i><TeX>x</TeX></i> axis domain </span>
                     <input type='number' className='input' placeholder='0' />
                 </div>
                 <div className='input-item'>
-                    <span className='settings-name'><i>Y</i> axis domain </span>
+                    <span className='settings-name'><i><TeX>y</TeX></i> axis domain </span>
                     <input type='number' className='input' placeholder='0' />
                 </div>
             </div><div className='math-analyze'>
-                <h3 style={{fontWeight: 500, marginTop: 100}}>Math analyze</h3>
+                <h3 style={{fontWeight: 400, marginTop: 100, fontSize: '1.15rem'}}>Math analyze</h3>
             </div></>
         )
     }
