@@ -367,3 +367,12 @@ html, body{
 .sketch-picker label{
   color: white !important;
 }
+
+.bi-x-lg{
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+}
+
+.bi-x-lg:hover{
+  color: red;
+}

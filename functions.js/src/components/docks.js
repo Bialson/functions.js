@@ -6,103 +6,15 @@ import Chart from './../components/plot';
 import Plotly from "plotly.js/dist/plotly.js";
 import loadingImg  from './../img/icons/Photos-app-icon-256-colorful.png';
 import TeX from '@matejmazur/react-katex';
-import { SketchPicker } from 'react-color';
-import reactCSS from 'reactcss';
-import {motion} from 'framer-motion';
+import ColorPicker from './color-picker';
 
 class Colors extends Component {
-    state = {
-        displayColorPicker: false,
-        color: {
-          r: '0',
-          g: '0',
-          b: '0',
-          a: '1',
-        },
-    };
-    handleClick = () => {
-        this.setState({ displayColorPicker: !this.state.displayColorPicker })
-    };
-    handleClose = () => {
-        this.setState({ displayColorPicker: false })
-    };
-    handleChange = (color) => {
-        this.setState({ color: color.rgb})
-    };
     render(){
-        const styles = reactCSS({
-            'default': {
-                color: {
-                    margin: '0 auto',
-                    width: '50px',
-                    height: '21px',
-                    border: 'none',
-                    borderRadius: '3px',
-                    background: `rgba(${ this.state.color.r }, ${ this.state.color.g }, ${ this.state.color.b }, ${ this.state.color.a })`,
-                    padding: '1px 0px',
-                },
-                swatch: {
-                    background: 'transparent',
-                    borderRadius: '4px',
-                    display: 'block',
-                    cursor: 'pointer',
-                    margin: '0 auto',
-                },
-                popover: {
-                    position: 'absolute',
-                    zIndex: '2',
-                    opacity: '0',
-                    marginTop: '30px'
-                },
-                cover: {
-                    position: 'fixed',
-                    top: '0px',
-                    right: '0px',
-                    bottom: '0px',
-                    left: '0px',
-                },
-                container: {
-                    marginTop: '20px',
-                    width: '100%', 
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }
-            },
-        });
-        const sketchStyle = {
-            'default':{
-                picker:{
-                    background: 'field',
-                },
-                input:{
-                    width: '100%',
-                }
-            }
-        }
-        const rgba = this.state.color;
         return(
             <div className='input-container'>
-                <div className='input-item'>
-                    <div className='settings-name'>
-                        <span>Background</span>
-                    </div>
-                    <div style={styles.container}>
-                        <div style={ styles.swatch } onClick={ this.handleClick }>
-                        <span style={{margin: '0', padding: '2px 15px', backgroundColor: 'rgba(0, 0, 0, 0.3)', borderRadius: '4px'}}>{
-                            `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`
-                        }</span>
-                    </div>
-                    <div style={ styles.color } /></div>
-                    { 
-                        this.state.displayColorPicker ? 
-                            <motion.div style={ styles.popover } animate={{opacity: 1}}>
-                                <div style={ styles.cover } onClick={ this.handleClose }/>
-                                    <SketchPicker color={ this.state.color } onChange={ this.handleChange } styles={sketchStyle}/>
-                            </motion.div> 
-                        : null 
-                    }
-                </div>
+                <ColorPicker name='Background' r='0' g='0' b='0' a='0'/>
+                <ColorPicker name='Axis' r='255' g='255' b='255' a='1'/>
+                <ColorPicker name='Surface' />
             </div>
         )
     }
