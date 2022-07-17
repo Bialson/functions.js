@@ -1,5 +1,5 @@
 import React,  {useState} from 'react';
-import { ReactComponent as Icon} from './../img/icons/logo.svg';
+import { ReactComponent as Icon} from './../img/icons/logo_svg.svg';
 import {motion} from 'framer-motion';
 
 const Navbar = () => {
@@ -20,7 +20,7 @@ const Navbar = () => {
     const themeIcon = `bi ${(style === 'dark') ? 'bi-moon-fill' : 'bi-brightness-high-fill'}`;
     return(
       <nav className={navClasses}>
-          <p className='logoNav'><Icon alt='icon' width={64} height={64}/>&nbsp;Functions.js</p>
+          <p className='logoNav'><Icon alt='icon' width={155} height={125} style={{border: 'none'}}/>&nbsp;<br></br>Functions.JS</p>
           <hr></hr>
           <ul>
             <li className='item' title='Home'>
