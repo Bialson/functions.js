@@ -48,7 +48,7 @@ export default class ColorPicker extends Component {
                     marginTop: '15px'
                 },
                 color: {
-                    width: '50px',
+                    width: '100px',
                     height: '20px',
                     borderRadius: '3px',
                     background: `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`,
