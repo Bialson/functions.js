@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-// import Plotly from "plotly.js/dist/plotly.js";
 import Plot from "react-plotly.js";
+import gdData from "./../data/gdData.json";
 
 export default class Chart extends Component {
     constructor(props){
@@ -56,7 +56,7 @@ export default class Chart extends Component {
                         }
                     }
                 },
-                title: 'f(x, y) = ', 
+                title: 'f(x, y) = ',
                 titlefont: {
                     color: 'white'
                 },
@@ -77,8 +77,8 @@ export default class Chart extends Component {
     }
     generateData(){
         const z1 = [
-            [8.83,8.89,8.81,8.87,8.9,8.87],
-            [8.89,8.94,8.85,8.94,8.96,8.92],
+            [8.82,8.89,8.81,8.87,8.9,8.87],
+                [8.89,8.94,8.85,8.94,8.96,8.92],
             [8.84,8.9,8.82,8.92,8.93,8.91],
             [8.79,8.85,8.79,8.9,8.94,8.92],
             [8.79,8.88,8.81,8.9,8.95,8.92],
@@ -95,20 +95,16 @@ export default class Chart extends Component {
         ];
         return z1;
     }
-    // changeLayout(){
-    //     // const layout = this.state;
-    //     const div = document.querySelector('.js-plotly-plot');
-    //     Plotly.update(div, {}, {title: 'jd'});
-    // }
     render(){
         return(
             <Plot
-                data={this.state.data}
-                layout={this.state.layout}
-                revision={this.state.revision}
-                config={this.state.config}
+                data={gdData.data}
+                layout={gdData.layout}
+                revision={gdData.revision}
+                config={gdData.config}
                 useResizeHandler={true}
-                style={{width: '100%', height: '100%'}}
+                onUpdate={(figure) => {this.setState(figure)}}
+                style={{width: '100%', height: '90%'}}
             />
         )
     }

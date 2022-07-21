@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import {githubDark} from '@uiw/codemirror-theme-github';
 import { javascript } from '@codemirror/lang-javascript';
-import Chart from './../components/plot';
 import Plotly from "plotly.js/dist/plotly.js";
 import loadingImg  from './../img/icons/Photos-app-icon-256-colorful.png';
 import TeX from '@matejmazur/react-katex';
 import ColorPicker from './color-picker';
+import gdData from "./../data/gdData.json";
 
 class Colors extends Component {
     render(){
@@ -21,10 +21,16 @@ class Colors extends Component {
 }
   
 class Layout extends Component{
+    updateLayout(){
+        const div = document.querySelector('.js-plotly-plot');
+        gdData.layout.title.text = "sin(a)";
+        gdData.revision += 1;
+        Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
+    }
     render(){
         return(
             <div>
-            Layout
+            <input type="submit" onClick={this.updateLayout}/>
             </div>
       )
     }
@@ -69,17 +75,23 @@ class Math extends Component{
 }
 
 class Code extends Component{
-    render(){
-        const code = `${Chart}`;
+    constructor(props){
+        super(props);
+        this.state = {
+            settings: gdData
+        }
+    }
+    componentDidMount(){
+        setInterval(() => this.setState({settings: this.state.settings}), 2000);
+    }
+    render(){   
         return(
-            <div className='input-container' style={{width: '500px'}}>
-                <div className='code-box'>
+            <div className='code-box'>
                     <CodeMirror 
-                    value={code}
+                    value={JSON.stringify(this.state.settings, null, 2)}
                     theme={githubDark}
                     extensions={[javascript({ jsx: true })]}
                     />
-                </div>
             </div>
         )
     }
