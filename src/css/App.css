@@ -10,6 +10,7 @@ html, body{
 *{
   color-scheme: dark;
   font-family: 'Segoe UI' Static Variable;
+  box-sizing: border-box;
 }
 
 .modebar-group {
@@ -52,7 +53,7 @@ html, body{
   border-right: 1px solid rgba(255, 255, 255, 0.125);
   padding: 20px 30px;
   background-color: rgba(40, 40, 40, 0.75);
-  width: 180px;
+  width: 250px;
 }
 
 .logoNav{
@@ -119,7 +120,7 @@ html, body{
   padding: 5px 0;
   flex-direction: column;
   background-color: rgba(40, 40, 40, 0.95);
-  box-shadow: 4px 4px 50px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   text-align: center;
@@ -170,18 +171,19 @@ html, body{
   background-color: rgba(0, 0, 0, 0.4);
   padding: 20px;
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .chart-container{
-  width: 50%;
+  width: 65%;
   padding: 10px 5px;
-  height: 879px;
-  margin: 0 auto;
   border-radius: 10px;
   background-color: transparent;
-  box-shadow: 4px 4px 50px 1px rgba(0, 0, 0, 0.75);
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.6);
+  height: 500px;
+  display: flex;
+  align-items: center;
 }
 
 .main-svg{
@@ -207,14 +209,16 @@ html, body{
 
 /*====Settings docks =====*/
 .plot-settings{
-  height: calc(100% - 50px);
+  height: 500px;
   backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
   border-radius: 10px;
   padding: 10px 20px;
   background-color: rgba(40, 40, 40, 0.5);
   display: flex;
-  width: auto;
+  width: 30%;
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.6);
+  justify-content: center;
 }
 
 .plot-settings hr{
@@ -234,8 +238,32 @@ html, body{
   cursor: pointer;
 }
 
+.code-container{
+  width: 100%;
+  padding-top: 25px;
+}
+
+.code-box{
+  padding: 20px;
+  background-color: rgba(40, 40, 40, 0.75);
+  border-radius: 10px;
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.6);
+}
+
+.cm-content{
+  width: 2px;
+}
+
+.cm-theme{
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 300px;
+  width: 100%;
+}
+
 .settings-dock{
   overflow-x: hidden;
+  width: 100%;
   padding-top: 20px;
 }
 
@@ -258,7 +286,7 @@ html, body{
 
 .input-container{
   display: flex;
-  width: 263px;
+  width: 100%;
   flex-direction: column;
 }
 
@@ -355,4 +383,23 @@ html, body{
 
 .bi-x-lg:hover{
   color: red;
+}
+
+.cm-editor {
+  word-break: break-word;
+}
+
+/*====Media Queries=====*/
+@media screen and (max-width: 1400px){
+  .chart-container{
+    width: 100%;
+  }
+  .code-container{
+    width: 60%;
+  }
+  .plot-settings{
+    margin-top: 25px;
+    width: 35%;
+    height: 340px;
+  }
 }
