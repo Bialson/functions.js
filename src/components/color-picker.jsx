@@ -78,7 +78,7 @@ export default class ColorPicker extends Component {
                     </div>
                     <div style={sketchStyle.container}>
                         {this.state.displayColorPicker ? 
-                            <SketchPicker color={this.props.color} onChange={ this.handleChange } styles={sketchStyle}/>
+                            <SketchPicker color={this.state.color} onChange={ this.handleChange } styles={sketchStyle}/>
                         : null}
                         <i className="bi bi-x-lg" title='Close' onClick={this.handleClose}></i>
                     </div>

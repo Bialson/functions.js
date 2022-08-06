@@ -1,7 +1,7 @@
 {
     "data": [
-      {
-        "z": [
+        {
+          "z": [
           [
             8.82,
             8.89,
@@ -128,7 +128,8 @@
           "tickfont": {
             "color": "white"
           }
-        }
+        },
+        "colorscale": "Portland"
       }
     ],
     "layout": {

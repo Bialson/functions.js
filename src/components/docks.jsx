@@ -6,7 +6,8 @@ import Plotly from "plotly.js/dist/plotly.js";
 import loadingImg  from './../img/icons/Photos-app-icon-256-colorful.png';
 import TeX from '@matejmazur/react-katex';
 import ColorPicker from './color-picker';
-import gdData from "./../data/gdData.json";
+import gdData from "../data/gdData.json";
+
 
 class Colors extends Component {
     render(){
@@ -23,6 +24,7 @@ class Colors extends Component {
 class Layout extends Component{
     updateLayout(){
         const div = document.querySelector('.js-plotly-plot');
+        gdData.data[0].colorscale = "Jet";
         gdData.layout.title.text = "sin(a)";
         gdData.revision += 1;
         Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
@@ -30,7 +32,7 @@ class Layout extends Component{
     render(){
         return(
             <div>
-            <input type="submit" onClick={this.updateLayout}/>
+                <input type="submit" onClick={this.updateLayout}/>
             </div>
       )
     }

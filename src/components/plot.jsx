@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Plot from "react-plotly.js";
-import gdData from "./../data/gdData.json";
+import gdData from "../data/gdData.json";
 
 export default class Chart extends Component {
     constructor(props){
@@ -97,15 +97,17 @@ export default class Chart extends Component {
     }
     render(){
         return(
-            <Plot
+            <div className='chart-container'>
+                <Plot
                 data={gdData.data}
                 layout={gdData.layout}
                 revision={gdData.revision}
                 config={gdData.config}
                 useResizeHandler={true}
                 onUpdate={(figure) => {this.setState(figure)}}
-                style={{width: '100%', height: '90%'}}
-            />
+                style={{width: '55%', height: '100%'}}
+                />
+            </div>
         )
     }
 }
