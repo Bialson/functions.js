@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src='https://img.icons8.com/fluency/344/formula-fx.png' width=128/><br/>
+    <img src='https://user-images.githubusercontent.com/78564805/183485230-61d336dc-e332-480d-a0fe-47aac7e9aeed.png' height=200/><br/>
     Functions.JS
 </h1>
 <p align="center">Create and visualize beautiful math functions in your browser only by writing math formula. <br/> <b>Functions.JS</b> will take care of the rest.</p>
@@ -20,7 +20,6 @@
 * [Acknowledgements](#acknowledgements)
 * [Contact](#contact)
 <!-- * [License](#license) -->
-
 
 ## General Information
 - Provide general information about your project here.
