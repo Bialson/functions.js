@@ -13,7 +13,9 @@ export default class ColorPicker extends Component {
                 b: this.props.b || '0',
                 a: this.props.a || '1',
             },
-        }
+        };
+        this.colorHex = React.createRef();
+        this.opacity = React.createRef();
     }
     handleClick = () => {
         this.setState({displayColorPicker: !this.state.displayColorPicker});
@@ -22,7 +24,19 @@ export default class ColorPicker extends Component {
         this.setState({displayColorPicker: false});
     }
     handleChange = (color) => {
-        this.setState({color: color.rgb})
+        this.setState({color: color.rgb});
+    }
+    colorToHex = (color) => {
+        let hexadecimal = color.toString(16);
+        return hexadecimal.length === 1 ? "0" + hexadecimal : hexadecimal;
+    }
+    convertToHex = (color) => {
+        return this.colorToHex(color.r)  + this.colorToHex(color.g)  + this.colorToHex(color.b);
+    }
+    componentDidUpdate(){
+        const hex = this.convertToHex(this.state.color);
+        this.colorHex.current.value = hex.toUpperCase();
+        this.opacity.current.value = this.state.color.a * 100 + "%";
     }
     render(){
         const rgba = this.state.color;
@@ -45,25 +59,38 @@ export default class ColorPicker extends Component {
                     flexWrap: 'wrap',
                     justifyContent: 'space-around',
                     alignItems: 'center',
-                    marginTop: '15px'
                 },
                 color: {
-                    width: '100px',
+                    width: '20px',
                     height: '20px',
-                    borderRadius: '3px',
+                    borderRadius: '5px',
                     background: `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`,
                     cursor: 'pointer',
                     padding: '2.5px',
                 },
                 colorCode:{
-                    background: 'rgba(0, 0, 0, 0.4)',
-                    padding: '5px 10px',
+                    background: 'rgba(255, 255, 255, 0.12)',
                     color: 'white',
                     fontSize: '12px',
                     borderRadius: '3px',
-                    width: '135px',
+                    border: 'none',
+                    width: '50px',
                     textAlign: 'center',
                 },
+                opacity:{
+                    background: 'rgba(255, 255, 255, 0.12)',
+                    color: 'white',
+                    fontSize: '12px',
+                    borderRadius: '3px',
+                    border: 'none',
+                    width: '40px',
+                    textAlign: 'center',
+                },
+                clickBox: {
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'space-around',
+                }
             }
         });
         return(
@@ -74,7 +101,6 @@ export default class ColorPicker extends Component {
                 <div style={itemStyle.clickBox}>
                     <div style={itemStyle.colorContainer}>
                         <div style={itemStyle.color} onClick={this.handleClick} title='Open color box'></div>
-                        <span style={itemStyle.colorCode}>{`rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`}</span>
                     </div>
                     <div style={sketchStyle.container}>
                         {this.state.displayColorPicker ? 
@@ -82,6 +108,8 @@ export default class ColorPicker extends Component {
                         : null}
                         <i className="bi bi-x-lg" title='Close' onClick={this.handleClose}></i>
                     </div>
+                    <input type="text" style={itemStyle.colorCode} ref={this.colorHex}/>
+                    <input type="text" style={itemStyle.opacity} ref={this.opacity}/>
                 </div>
             </div>
         )

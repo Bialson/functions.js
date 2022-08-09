@@ -1,4 +1,4 @@
-import React, { Component} from 'react';
+import React, { useRef} from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import {githubDark} from '@uiw/codemirror-theme-github';
 import { javascript } from '@codemirror/lang-javascript';
@@ -7,131 +7,110 @@ import loadingImg  from './../img/icons/Photos-app-icon-256-colorful.png';
 import TeX from '@matejmazur/react-katex';
 import ColorPicker from './color-picker';
 import gdData from "../data/gdData.json";
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-
-class Colors extends Component {
-    render(){
-        return(
-            <div className='input-container'>
-                <ColorPicker name='Background' r='0' g='0' b='0' a='0'/>
-                <ColorPicker name='Axis' r='255' g='255' b='255' a='1'/>
-                <ColorPicker name='Surface' />
-            </div>
-        )
-    }
+const Colors = () => {
+    return(
+        <>
+            <ColorPicker name='Background' r='0' g='0' b='0' a='0'/>
+            <ColorPicker name='Axis' r='255' g='255' b='255' a='1'/>
+            <ColorPicker name='Surface' />
+        </>
+    )
 }
   
-class Layout extends Component{
-    updateLayout(){
+const Layout = () => {
+    const updateLayout = () => {
         const div = document.querySelector('.js-plotly-plot');
         gdData.data[0].colorscale = "Jet";
         gdData.layout.title.text = "sin(a)";
         gdData.revision += 1;
         Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
     }
-    render(){
-        return(
-            <div>
-                <input type="submit" onClick={this.updateLayout}/>
-            </div>
-      )
-    }
+    return(
+        <div>
+            <input type="submit" onClick={updateLayout}/>
+        </div>
+    )
 }
 
-class Math extends Component{
-    constructor(props){
-        super(props);
-        this.state = {value: 'f(x, y) = '};
-        this.handleChange = this.handleChange.bind(this);
-    }
-    handleChange(event){
-        this.setState({value : event.target.value});
+const Math = () => {
+    const [plotTitle, changePlotTitle] = useState('f(x,y) = ');
+    const handleChange = (event) =>{
+        changePlotTitle(event.target.value);
         const div = document.querySelector('.js-plotly-plot');
         Plotly.update(div, {}, {title: event.target.value || 'f(x, y) = '});
     }
-    render(){
-        return(
-            <><div className='input-container'>
-                <div className='input-item'>
-                    <span className='settings-name'>Formula </span>
-                    <input type='search' className='input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={this.handleChange}/><br></br>
-                    <TeX
-                        className="output"
-                        settings={{ macros: { '*': String.raw`\cdot` } }}>
-                        {this.state.value}
-                    </TeX>
-                </div>
-                <div className='input-item'>
-                    <span className='settings-name'><i><TeX>x</TeX></i> axis domain </span>
-                    <input type='number' className='input' placeholder='0' />
-                </div>
-                <div className='input-item'>
-                    <span className='settings-name'><i><TeX>y</TeX></i> axis domain </span>
-                    <input type='number' className='input' placeholder='0' />
-                </div>
-            </div><div className='math-analyze'>
-                <h3 style={{fontWeight: 400, marginTop: 100, fontSize: '1.15rem'}}>Math analyze</h3>
-            </div></>
-        )
-    }
-}
-
-class Code extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            settings: gdData
-        }
-    }
-    componentDidMount(){
-        setInterval(() => this.setState({settings: this.state.settings}), 2000);
-    }
-    render(){   
-        return(
-            <div className='code-box'>
-                    <CodeMirror 
-                    value={JSON.stringify(this.state.settings, null, 2)}
-                    theme={githubDark}
-                    extensions={[javascript({ jsx: true })]}
-                    />
+    return(
+        <><div className='input-container'>
+            <div className='input-item'>
+                <span className='settings-name'>Formula </span>
+                <input type='search' className='input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={handleChange}/><br></br>
+                <TeX
+                    className="output"
+                    settings={{ macros: { '*': String.raw`\cdot` } }}>
+                    {plotTitle}
+                </TeX>
             </div>
-        )
-    }
+            <div className='input-item'>
+                <span className='settings-name'><i><TeX>x</TeX></i> axis domain </span>
+                <input type='number' className='input' placeholder='0' />
+            </div>
+            <div className='input-item'>
+                <span className='settings-name'><i><TeX>y</TeX></i> axis domain </span>
+                <input type='number' className='input' placeholder='0' />
+            </div>
+        </div><div className='math-analyze'>
+            <h3 style={{fontWeight: 400, marginTop: 100, fontSize: '1.15rem'}}>Math analyze</h3>
+        </div></>
+    )
 }
 
-class Export extends Component{
-    constructor(props){
-        super(props);
-        this.imgRef = React.createRef();
-        this.state = {
-            format: 'svg'
-        }
-    }
-    async getImage() {
+const Code = () => {
+    const [currentSettings, changeSettings] = useState(gdData);
+    useEffect(() => {
+        setInterval(() => changeSettings(gdData), 2000);
+    }, []);
+    return(
+        <div className='code-box'>
+                <CodeMirror 
+                value={JSON.stringify(currentSettings, null, 2)}
+                theme={githubDark}
+                extensions={[javascript({ jsx: true })]}
+                />
+        </div>
+    )
+}
+
+const Export = () => {
+    const [format, changeFormat] = useState('svg');
+    const plotDivRef = useRef(null);
+    const getImage = async () =>{
         const div = document.querySelector('.js-plotly-plot');
         const url = await Plotly.toImage(div, {format: 'svg'});
-        this.imgRef.current.src = url;
-    };
-    downloadImage(){
+        plotDivRef.current.src = url;
+    }
+    const downloadImage = () => {
         const div = document.querySelector('.js-plotly-plot');
-        Plotly.downloadImage(div, {format: this.state.format, filename: 'plot'});
+        Plotly.downloadImage(div, {format: format, filename: 'plot'});
     }
-    render(){
-        this.getImage();
-        return(
-            <div className='input-container'>
-                <img ref={this.imgRef} src={loadingImg} alt='Export previev' width={263}/>
-                <p>Format</p>
-                <div className='formats'>
-                    <input type="radio" value="svg" name="format" onClick={() => this.setState({format: 'svg'})}/> .svg
-                    <input type="radio" value="png" name="format" onClick={() => this.setState({format: 'png'})}/> .png
-                    <input type="radio" value="jpg" name="format" onClick={() => this.setState({format: 'jpg'})}/> .jpg
-                </div>
-                <br></br><br></br>
-                <input type='submit' className='downloadImgBtn' value='Download' onClick={() => this.downloadImage()} />
+    useEffect(() => {
+        getImage();
+    }, []);
+    return(
+        <div className='input-container'>
+            <img ref={plotDivRef} src={loadingImg} alt='Export previev' width={263}/>
+            <p>Format</p>
+            <div className='formats'>
+                <input type="radio" value="svg" name="format" onClick={() => changeFormat('svg')}/> .svg
+                <input type="radio" value="png" name="format" onClick={() => changeFormat('png')}/> .png
+                <input type="radio" value="jpg" name="format" onClick={() => changeFormat('jpg')}/> .jpg
             </div>
-        )
-    }
+            <br></br><br></br>
+            <input type='submit' className='downloadImgBtn' value='Download' onClick={() => downloadImage()} />
+        </div>
+    );
 }
 
 export {
