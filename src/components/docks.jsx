@@ -1,4 +1,4 @@
-import React, { useRef} from 'react';
+import React, { useRef, useState, useEffect} from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import {githubDark} from '@uiw/codemirror-theme-github';
 import { javascript } from '@codemirror/lang-javascript';
@@ -7,15 +7,39 @@ import loadingImg  from './../img/icons/Photos-app-icon-256-colorful.png';
 import TeX from '@matejmazur/react-katex';
 import ColorPicker from './color-picker';
 import gdData from "../data/gdData.json";
-import { useState } from 'react';
-import { useEffect } from 'react';
 
 const Colors = () => {
+    const [bgColor, setBgColor] = useState('rgba()');
+    const [axisColor, setAxisColor] = useState('rgba()');
+    useEffect(() => {
+        const changeBgColor = () => {
+            let div = document.querySelector('.js-plotly-plot');
+            let cont = document.querySelector('.chart-container');
+
+            cont.style.backgroundColor = `${bgColor}`;
+
+            gdData.layout.scene.xaxis.gridcolor = gdData.layout.scene.yaxis.gridcolor = gdData.layout.scene.zaxis.gridcolor = `${axisColor}`;
+
+            gdData.layout.scene.xaxis.tickfont.color = gdData.layout.scene.yaxis.tickfont.color = gdData.layout.scene.zaxis.tickfont.color = `${axisColor}`;
+
+            gdData.layout.scene.xaxis.color = gdData.layout.scene.yaxis.color = gdData.layout.scene.zaxis.color = `${axisColor}`;
+
+            gdData.layout.scene.xaxis.title.font.color = gdData.layout.scene.yaxis.title.font.color = gdData.layout.scene.zaxis.title.font.color = `${axisColor}`;
+
+
+            Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
+        }
+        changeBgColor();
+    }, [bgColor, axisColor]);
     return(
         <>
-            <ColorPicker name='Background' r='0' g='0' b='0' a='0'/>
-            <ColorPicker name='Axis' r='255' g='255' b='255' a='1'/>
-            <ColorPicker name='Surface' />
+            <ColorPicker setColor={color => setBgColor(color)} name='Background' r='0' g='0' b='0' a='0'/>
+            <ColorPicker setColor={color => setAxisColor(color)} name='Axis' r='255' g='255' b='255' a='1'/>
+            {/* <ColorPicker name='Surface' /> */}
+            {bgColor}
+            <br/>
+            {axisColor}
+            {/* <button onClick={changeBgColor}>Click</button> */}
         </>
     )
 }

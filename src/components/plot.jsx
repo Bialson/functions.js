@@ -18,7 +18,7 @@ export default class Chart extends Component {
                 }
             ], 
             layout: {
-                paper_bgcolor: 'rgba(40, 40, 40, 0.75);',
+                // paper_bgcolor: 'rgba(40, 40, 40, 0.75);',
                 scene:{
                     xaxis:{
                         color: 'white',

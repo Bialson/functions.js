@@ -22,7 +22,8 @@ const ColorPicker = (props) => {
         const hex = (color.a !== '0') ? colorToHex(color.r) + colorToHex(color.g) + colorToHex(color.b) : "Transp";
         colorHex.current.value = hex.toUpperCase();
         opacity.current.value = (color.a !== undefined) ? color.a * 100 + "%" : "0%";
-    }, [color]);
+        props.setColor(`rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`);
+    }, [color, props]);
     const sketchStyle = {
         'default': {
             picker:{

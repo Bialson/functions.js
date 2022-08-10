@@ -11,7 +11,7 @@ const Sidebar = () => {
             </div>
             <hr></hr>
             <div className='settings-element'>
-
+                <Math />
             </div>
             <hr></hr>
             <div className='settings-element'>
