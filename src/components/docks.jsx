@@ -8,38 +8,59 @@ import TeX from '@matejmazur/react-katex';
 import ColorPicker from './color-picker';
 import gdData from "../data/gdData.json";
 
-const Colors = () => {
+const Material = () => {
     const [bgColor, setBgColor] = useState('rgba()');
     const [axisColor, setAxisColor] = useState('rgba()');
+    const [colorMap, setColorMap] = useState();
     useEffect(() => {
-        const changeBgColor = () => {
+        const changeColors = () => {
             let div = document.querySelector('.js-plotly-plot');
             let cont = document.querySelector('.chart-container');
 
             cont.style.backgroundColor = `${bgColor}`;
 
-            gdData.layout.scene.xaxis.gridcolor = gdData.layout.scene.yaxis.gridcolor = gdData.layout.scene.zaxis.gridcolor = `${axisColor}`;
+            gdData.layout.scene.xaxis.gridcolor = 
+            gdData.layout.scene.yaxis.gridcolor = 
+            gdData.layout.scene.zaxis.gridcolor = 
+            `${axisColor}`;
 
-            gdData.layout.scene.xaxis.tickfont.color = gdData.layout.scene.yaxis.tickfont.color = gdData.layout.scene.zaxis.tickfont.color = `${axisColor}`;
+            gdData.layout.scene.xaxis.tickfont.color = 
+            gdData.layout.scene.yaxis.tickfont.color = 
+            gdData.layout.scene.zaxis.tickfont.color = 
+            `${axisColor}`;
 
-            gdData.layout.scene.xaxis.color = gdData.layout.scene.yaxis.color = gdData.layout.scene.zaxis.color = `${axisColor}`;
+            gdData.layout.scene.xaxis.color = 
+            gdData.layout.scene.yaxis.color = 
+            gdData.layout.scene.zaxis.color = 
+            `${axisColor}`;
 
-            gdData.layout.scene.xaxis.title.font.color = gdData.layout.scene.yaxis.title.font.color = gdData.layout.scene.zaxis.title.font.color = `${axisColor}`;
-
+            gdData.layout.scene.xaxis.title.font.color = 
+            gdData.layout.scene.yaxis.title.font.color = 
+            gdData.layout.scene.zaxis.title.font.color = 
+            `${axisColor}`;
 
             Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
         }
-        changeBgColor();
+        changeColors();
     }, [bgColor, axisColor]);
     return(
         <>
-            <ColorPicker setColor={color => setBgColor(color)} name='Background' r='0' g='0' b='0' a='0'/>
+            <ColorPicker setColor={color => setBgColor(color)} name='Background' r='26' g='38' b='59' a='1'/>
             <ColorPicker setColor={color => setAxisColor(color)} name='Axis' r='255' g='255' b='255' a='1'/>
             {/* <ColorPicker name='Surface' /> */}
-            {bgColor}
+            {/* {bgColor}
             <br/>
-            {axisColor}
+            {axisColor} */}
             {/* <button onClick={changeBgColor}>Click</button> */}
+            <div className='input-item'>
+                <span className='settings-name'>Formula</span>
+                <select className='colormaps'>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </div>
         </>
     )
 }
@@ -66,24 +87,31 @@ const Math = () => {
         const div = document.querySelector('.js-plotly-plot');
         Plotly.update(div, {}, {title: event.target.value || 'f(x, y) = '});
     }
+    const changeXDomain = (event) => {
+        console.log(event.target.value);
+    }
+    const changeYDomain = (event) => {
+        console.log(event.target.value);
+    }
     return(
         <><div className='input-container'>
             <div className='input-item'>
-                <span className='settings-name'>Formula </span>
-                <input type='search' className='input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={handleChange}/><br></br>
-                <TeX
-                    className="output"
-                    settings={{ macros: { '*': String.raw`\cdot` } }}>
-                    {plotTitle}
-                </TeX>
+                <span className='settings-name'>Formula</span>
+                <input type='search' className='input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={handleChange}/>
+            </div>
+            <TeX
+                className="output"
+                settings={{ macros: { '*': String.raw`\cdot` } }}>
+                {plotTitle}
+            </TeX><br/><br/>
+            <span className='settings-name'>Domain</span>
+            <div className='input-item'>
+                <span className='settings-name'><i><TeX>x</TeX></i></span>
+                <input type='number' className='input' placeholder='0' onChange={changeXDomain}/>
             </div>
             <div className='input-item'>
-                <span className='settings-name'><i><TeX>x</TeX></i> axis domain </span>
-                <input type='number' className='input' placeholder='0' />
-            </div>
-            <div className='input-item'>
-                <span className='settings-name'><i><TeX>y</TeX></i> axis domain </span>
-                <input type='number' className='input' placeholder='0' />
+                <span className='settings-name'><i><TeX>y</TeX></i></span>
+                <input type='number' className='input' placeholder='0' onChange={changeYDomain}/>
             </div>
         </div><div className='math-analyze'>
             <h3 style={{fontWeight: 400, marginTop: 100, fontSize: '1.15rem'}}>Math analyze</h3>
@@ -138,7 +166,7 @@ const Export = () => {
 }
 
 export {
-    Colors,
+    Material,
     Layout,
     Math,
     Code, 

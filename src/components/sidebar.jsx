@@ -1,5 +1,5 @@
 import React,  {useState} from 'react';
-import {Colors, Layout, Math, Code, Export} from './../components/docks';
+import {Material, Layout, Math, Code, Export} from './../components/docks';
 import {motion} from 'framer-motion';
 
 const Sidebar = () => {
@@ -7,21 +7,19 @@ const Sidebar = () => {
         <div className='sidebar'>
           <div className='plot-settings'>
             <div className='settings-element'>
-                <Colors />
+                <h4>Material</h4>
+                <Material />
             </div>
-            <hr></hr>
             <div className='settings-element'>
+                <h4>Math</h4>
                 <Math />
             </div>
-            <hr></hr>
             <div className='settings-element'>
 
             </div>
-            <hr></hr>
             <div className='settings-element'>
 
             </div>
-            <hr></hr>
             <div className='settings-element'>
 
             </div>

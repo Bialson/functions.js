@@ -41,7 +41,6 @@ html, body{
 #root{
   width: 100%;
   display: flex;
-  background: gainsboro;
   /* background-image: url('./../img/background.jpg'); */
   background-clip: content-box;
   background-size: cover;
@@ -187,6 +186,11 @@ html, body{
   margin: 15px;
   height: calc(100% - 30px);
   right: 0;
+  overflow-y: auto;
+}
+
+.sidebar::-webkit-scrollbar{
+  width: 0;
 }
 
 .chart-container{
@@ -195,7 +199,7 @@ html, body{
   padding: 10px 5px;
   /* border-radius: 10px; */
   background-color: transparent;
-  background-color: rgba(17, 25, 40, 0.9);
+  /* background-color: rgba(17, 25, 40, 0.9); */
   height: 100%;
   display: flex;
   align-items: center;
@@ -224,6 +228,16 @@ html, body{
 }
 
 /*====Settings docks =====*/
+.settings-element{
+  padding: 20px 7px;
+  border-top: 0.5px solid rgba(255, 255, 255, 0.08);
+}
+
+.settings-element h4{
+  margin: 5px 0 15px 0;
+  font-weight: 500;
+}
+
 .plot-settings{
   /* backdrop-filter: blur(10px) saturate(180%);
   -webkit-backdrop-filter: blur(10px) saturate(180%);
@@ -236,11 +250,6 @@ html, body{
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-
-.plot-settings hr{
-  width: 100%;
-  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .code-container{
@@ -277,22 +286,40 @@ html, body{
   margin: 2px 0;
 }
 
+.colormaps{
+  width: 60%;
+  border-radius: 4px;
+  border: none;
+  padding: 5px;
+  background-color: rgba(40, 40, 40, 0.75);
+  outline: none;
+}
+
+.colormaps:focus{
+  border: 2px solid #60CDFF;
+}
+
+.colormaps option{
+  background-color: rgba(40, 40, 40, 0.85);
+}
+
+.colormaps option:hover{
+  background-color: yellow;
+}
+
 .input{
-  margin: 10px 10px;
   display: block;
   padding: 5px;
   font-size: 15px;
   border-radius: 4px;
   box-sizing: border-box;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  border: 2px solid transparent;
   transition: all 200ms ease-in-out;
   box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
   outline: none;
   -webkit-appearance: searchfield;
-  width: 90%;
+  background-color: rgba(40, 40, 40, 0.75);
+  width: 60%;
 }
 
 .input:hover::placeholder{
@@ -301,15 +328,26 @@ html, body{
 }
 
 .input:focus{
-  border-bottom: 2px solid #60CDFF;
-  background-color: rgba(40, 40, 40, 0.75);
+  transition: all 200ms ease-in-out;
+  border: 2px solid #60CDFF;
+}
+
+.input-item{
+  width: 216px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
 }
 
 .settings-name{
   font-weight: 400;
   font-size: 0.9rem;
   width: 90px;
-  padding-left: 7px;
+}
+
+.output{
+  font-size: 14px;
 }
 
 .formats{

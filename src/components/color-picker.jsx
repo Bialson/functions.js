@@ -39,6 +39,7 @@ const ColorPicker = (props) => {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
+            width: '216px'
         }
     };
     const itemStyle = reactCSS({
@@ -97,10 +98,7 @@ const ColorPicker = (props) => {
                 </div>
             </div>
             <div style={sketchStyle.container}>
-                <br/>
                 <SketchPicker color={color} onChange={changeCurrentColor} styles={sketchStyle}/>
-                <br/>
-                <hr/>
             </div>
         </div>
     )
