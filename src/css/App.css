@@ -252,6 +252,21 @@ html, body{
   width: 100%;
 }
 
+.js-plotly-plot .plotly .modebar {
+  left: 40%;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  background-color: #121316;
+  border-radius: 5px;
+  box-shadow: 3px 3px 50px rgba(0, 0, 0, 0.6);
+}
+
+.js-plotly-plot .plotly .modebar .modebar-group{
+  opacity: 1 !important;
+  padding: 5px;
+}
+
 .code-container{
   width: 100%;
   padding-top: 25px;

@@ -104,7 +104,6 @@ export default class Chart extends Component {
                 revision={gdData.revision}
                 config={gdData.config}
                 useResizeHandler={true}
-                onUpdate={(figure) => {this.setState(figure)}}
                 style={{width: '55%', height: '100%'}}
                 />
             </div>

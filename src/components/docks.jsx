@@ -11,7 +11,7 @@ import gdData from "../data/gdData.json";
 const Material = () => {
     const [bgColor, setBgColor] = useState('rgba()');
     const [axisColor, setAxisColor] = useState('rgba()');
-    const [colorMap, setColorMap] = useState();
+    const [colorMap, setColorMap] = useState("Jet");
     useEffect(() => {
         const changeColors = () => {
             let div = document.querySelector('.js-plotly-plot');
@@ -39,26 +39,44 @@ const Material = () => {
             gdData.layout.scene.zaxis.title.font.color = 
             `${axisColor}`;
 
+            gdData.data[0].colorscale = colorMap;
+
             Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
         }
         changeColors();
-    }, [bgColor, axisColor]);
+    }, [bgColor, axisColor, colorMap]);
     return(
         <>
             <ColorPicker setColor={color => setBgColor(color)} name='Background' r='26' g='38' b='59' a='1'/>
             <ColorPicker setColor={color => setAxisColor(color)} name='Axis' r='255' g='255' b='255' a='1'/>
-            {/* <ColorPicker name='Surface' /> */}
-            {/* {bgColor}
-            <br/>
-            {axisColor} */}
-            {/* <button onClick={changeBgColor}>Click</button> */}
             <div className='input-item'>
-                <span className='settings-name'>Formula</span>
-                <select className='colormaps'>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                <span className='settings-name'>Colorscale</span>
+                <select className='colormaps' onChange={(event) => setColorMap(event.target.value)}>
+                    <option>Jet</option>
+                    <option>YlOrRd</option>
+                    <option value={[
+                        ['0.0', 'rgb(165,0,38)'],
+                        ['0.111111111111', 'rgb(215,48,39)'],
+                        ['0.222222222222', 'rgb(244,109,67)'],
+                        ['0.333333333333', 'rgb(253,174,97)'],
+                        ['0.444444444444', 'rgb(254,224,144)'],
+                        ['0.555555555556', 'rgb(224,243,248)'],
+                        ['0.666666666667', 'rgb(171,217,233)'],
+                        ['0.777777777778', 'rgb(116,173,209)'],
+                        ['0.888888888889', 'rgb(69,117,180)'],
+                        ['1.0', 'rgb(49,54,149)']
+                    ]}>Heat</option>
+                    <option>YlGnBu</option>
+                    <option>RdBu</option>
+                    <option>Portland</option>
+                    <option>Picnic</option>
+                    <option>Hot</option>
+                    <option>Greys</option>
+                    <option>Greens</option>
+                    <option>Electric</option>
+                    <option>Earth</option>
+                    <option>Bluered</option>
+                    <option>Blackbody</option>
                 </select>
             </div>
         </>
@@ -113,8 +131,9 @@ const Math = () => {
                 <span className='settings-name'><i><TeX>y</TeX></i></span>
                 <input type='number' className='input' placeholder='0' onChange={changeYDomain}/>
             </div>
-        </div><div className='math-analyze'>
-            <h3 style={{fontWeight: 400, marginTop: 100, fontSize: '1.15rem'}}>Math analyze</h3>
+        </div>
+        <div className='math-analyze'>
+            
         </div></>
     )
 }

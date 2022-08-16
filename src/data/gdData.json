@@ -131,7 +131,7 @@
           "orientation": "h",
           "y": -0.2
         },
-        "colorscale": "Portland"
+        "colorscale": "Jet"
       }
     ],
     "layout": {
@@ -190,7 +190,8 @@
         "text": "f(x, y) = ",
         "font": {
           "color": "white"
-        }
+        },
+        "y": 0.12
       },
       "datarevision": 0,
       "margin": {
