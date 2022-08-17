@@ -98,19 +98,64 @@ const Layout = () => {
     )
 }
 
-const Math = () => {
+const MathOps = () => {
     const [plotTitle, changePlotTitle] = useState('f(x,y) = ');
+    const [xRange, setXRange] = useState({min: -5, max: 5});
+    const [yRange, setYRange] = useState({min: -5, max: 5});
+    const generateRangeData = (start, end) => {
+        let arr = [];
+        for(let i = start; i <= end; i++) {
+            arr.push(i);
+        }
+        return arr;
+    }
     const handleChange = (event) =>{
         changePlotTitle(event.target.value);
         const div = document.querySelector('.js-plotly-plot');
         Plotly.update(div, {}, {title: event.target.value || 'f(x, y) = '});
     }
     const changeXDomain = (event) => {
-        console.log(event.target.value);
+        console.log(event.target.name);
+        let value = parseInt(event.target.value, 10);
+        switch(event.target.name){
+            case "min":
+                setXRange({min: value, max: xRange.max});
+                break;
+            case "max":
+                setXRange({min: xRange.min, max: value});
+                break;
+            default:
+                break;
+        }
     }
     const changeYDomain = (event) => {
-        console.log(event.target.value);
+        console.log(event.target.name);
+        let value = parseInt(event.target.value, 10);
+        switch(event.target.name){
+            case "min":
+                setYRange({min: value, max: yRange.max});
+                break;
+            case "max":
+                setYRange({min: yRange.min, max: value});
+                break;
+            default:
+                break;
+        }
     }
+    useEffect(() => {
+        let div = document.querySelector('.js-plotly-plot');
+        let X = generateRangeData(xRange.min, xRange.max);
+        let Y = generateRangeData(yRange.min, yRange.max);
+        let Z = [];
+        //To do here: add formula to generate data for Z axis
+        gdData.data[0].x = X;
+        gdData.data[0].y = Y;
+        gdData.data[0].z = Z;
+        gdData.revision += 1;
+        gdData.layout.datarevision += 1;
+        console.log(gdData.data[0].z);
+        Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
+    }, [xRange, yRange])
     return(
         <><div className='input-container'>
             <div className='input-item'>
@@ -125,11 +170,15 @@ const Math = () => {
             <span className='settings-name'>Domain</span>
             <div className='input-item'>
                 <span className='settings-name'><i><TeX>x</TeX></i></span>
-                <input type='number' className='input' placeholder='0' onChange={changeXDomain}/>
+                <input type='number' className='input' defaultValue={-5} onChange={changeXDomain} name="min"/>
+                <hr/>
+                <input type='number' className='input' defaultValue={5} onChange={changeXDomain} name="max"/>
             </div>
             <div className='input-item'>
                 <span className='settings-name'><i><TeX>y</TeX></i></span>
-                <input type='number' className='input' placeholder='0' onChange={changeYDomain}/>
+                <input type='number' className='input' defaultValue={-5} onChange={changeYDomain} name="min"/>
+                <hr/>
+                <input type='number' className='input' defaultValue={5} onChange={changeYDomain} name="max"/>
             </div>
         </div>
         <div className='math-analyze'>
@@ -187,7 +236,7 @@ const Export = () => {
 export {
     Material,
     Layout,
-    Math,
+    MathOps,
     Code, 
     Export
 }

@@ -337,6 +337,10 @@ html, body{
   width: 60%;
 }
 
+.range{
+  width: 40%;
+}
+
 .input:hover::placeholder{
   transition: 200ms ease-in-out;
   color: white;
@@ -353,6 +357,12 @@ html, body{
   align-items: center;
   justify-content: space-between;
   margin: 10px 0;
+}
+
+.input-item hr{
+  margin: 0 5px;
+  height: 25px;
+  border-color: rgba(255, 255, 255, 0.08);
 }
 
 .settings-name{

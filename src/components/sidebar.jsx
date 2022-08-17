@@ -1,5 +1,5 @@
 import React,  {useState} from 'react';
-import {Material, Layout, Math, Code, Export} from './../components/docks';
+import {Material, Layout, MathOps, Code, Export} from './../components/docks';
 import {motion} from 'framer-motion';
 
 const Sidebar = () => {
@@ -12,7 +12,7 @@ const Sidebar = () => {
             </div>
             <div className='settings-element'>
                 <h4>Math</h4>
-                <Math />
+                <MathOps />
             </div>
             <div className='settings-element'>
 
