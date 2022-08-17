@@ -96,18 +96,8 @@ html, body{
   animation: showHover 200ms ease-in-out;
 }
 
-.item a, .item:nth-child(5){
-  color: white;
-  text-decoration: none;
-  padding: 5px 10px;
-  display: flex;
-  align-items: center;
-  font-family: sans-serif;
-}
-
-.item:nth-child(5){
-  cursor: pointer;
-  margin-top: auto;
+.item{
+  margin: 5px 0;
 }
 
 .text{

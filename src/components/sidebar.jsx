@@ -1,6 +1,6 @@
-import React,  {useState} from 'react';
+import React from 'react';
 import {Material, Layout, MathOps, Code, Export} from './../components/docks';
-import {motion} from 'framer-motion';
+// import {motion} from 'framer-motion';
 
 const Sidebar = () => {
     return(

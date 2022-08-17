@@ -1,14 +1,15 @@
 import React,  {useState} from 'react';
 import icon from './../img/icons/logo256.png';
 import {motion} from 'framer-motion';
+import TeX from '@matejmazur/react-katex';
 
 const Navbar = () => {
     const [isActive, setIsActive] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
+    // const [isHovered, setIsHovered] = useState(false);
     const [style, setStyle] = useState('dark');
-    const showSettingsBox = () => {
-      setIsActive(true);
-    }
+    // const showSettingsBox = () => {
+    //   setIsActive(true);
+    // }
     const closeSettingsBox = () => {
       setIsActive(false);
     }
@@ -22,45 +23,41 @@ const Navbar = () => {
       <nav className={navClasses}>
           <p className='logoNav'><img src={icon} alt='icon' width={200} height={110} style={{border: 'none'}}/>&nbsp;<br></br>Functions.JS</p>
           <hr></hr>
-          <ul>
-            <li className='item' title='Home'>
-              <a href='index.html'>
-                <span className='icon'>
-                  <i className="bi bi-house-fill"></i>
-                </span>
-                <span className='text'>Home</span>
-              </a>
+          <ul style={{textAlign: 'center'}}>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="e^{(-x^2 - y^2)}"> 
+              </TeX>
             </li>
-            <li className='item' title='Charts'>
-              <a href='index.html'>
-                <span className='icon'>
-                  <i className="bi bi-graph-up"></i>
-                </span>
-                <span className='text'>Charts</span>
-              </a>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="\frac{1}{x^2 + y^2 + 1}"> 
+              </TeX>
             </li>
-            <li className='item' title='Docs'>
-              <a href='index.html'>
-                <span className='icon'>
-                  <i className="bi bi-journal-code"></i>
-                </span>
-                <span className='text'>Docs</span>
-              </a>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="xy^3 - x^3y"> 
+              </TeX>
             </li>
-            <li className='item' title='About'>
-              <a href='index.html'>
-                <span className='icon'>
-                  <i className="bi bi-people-fill"></i>
-                </span>
-                <span className='text'>About</span>
-              </a>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="x^4y^2 - 10x^2y^2 - y^2"> 
+              </TeX>
             </li>
-            <motion.li onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='item' onClick={showSettingsBox} title='Settings'>
+            {/* <motion.li onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='item' onClick={showSettingsBox} title='Settings'>
                 <motion.span animate={{rotateZ: isHovered ? '360deg' : '0deg'}} transition={{duration: 1}} className='icon'>
                   <i className="bi bi-gear-wide-connected"></i>
                 </motion.span>
                 <span className='text'>Settings</span>
-            </motion.li>
+            </motion.li> */}
             <div className='settings-box' style={{
               animation: isActive ? 'showSettingsBox 0.5s forwards' : 'hideSettingsBox 0.5s forwards'
             }}>

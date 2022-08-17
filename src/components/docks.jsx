@@ -146,8 +146,19 @@ const MathOps = () => {
         let div = document.querySelector('.js-plotly-plot');
         let X = generateRangeData(xRange.min, xRange.max);
         let Y = generateRangeData(yRange.min, yRange.max);
-        let Z = [];
-        //To do here: add formula to generate data for Z axis
+        //Template for f(x,y) = xy
+        // let Z = [
+        //     [ 25, 10,  0, -10, -25],
+        //     [ 10,  4,  0,  -4, -10],
+        //     [-10, -4,  0,   4,  10],
+        //     [-25, -10, 0,  10,  25]
+        // ];
+        let Z = X.map((x) => {
+            return Y.map((y) => {
+                return x * y;
+            });
+        });
+        console.log(Z);
         gdData.data[0].x = X;
         gdData.data[0].y = Y;
         gdData.data[0].z = Z;
