@@ -3,7 +3,7 @@
     Functions.JS
 </h1>
 <p align="center">Create and visualize beautiful math functions in your browser only by writing math formula. <br/> <b>Functions.JS</b> will take care of the rest.</p>
-<p align="center"><img src="https://img.shields.io/badge/version-0.1.0-blue"/>&nbsp;<img src="https://img.shields.io/badge/license-GPL-yellow"/>&nbsp;<img src="https://img.shields.io/npm/v/react?label=React&logo=react"/>&nbsp;<img src="https://img.shields.io/npm/v/react-plotly?label=react-plotly&logo=plotly"/></p><br/>
+<p align="center"><img src="https://img.shields.io/badge/version-0.1.0-blue"/>&nbsp;<img src="https://img.shields.io/badge/license-GPL-yellow"/>&nbsp;<img src="https://img.shields.io/npm/v/react?label=React&logo=react"/>&nbsp;<img src="https://img.shields.io/npm/v/react-plotly.js?label=react-plotly.js&logo=plotly"/>&nbsp;<img src="https://img.shields.io/npm/v/plotly.js?label=plotly.js&logo=plotly"/>&nbsp;<img src="https://img.shields.io/npm/v/@matejmazur/react-katex?label=react-katex"/></p><br/>
 
 ## 🏠 Homepage
 > [https://to_complete.com](https://to_complete.com)
