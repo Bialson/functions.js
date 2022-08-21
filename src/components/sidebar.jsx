@@ -15,7 +15,8 @@ const Sidebar = () => {
                 <MathOps />
             </div>
             <div className='settings-element'>
-
+                <h4>Layout</h4>
+                <Layout />
             </div>
             <div className='settings-element'>
 
