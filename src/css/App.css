@@ -257,6 +257,33 @@ html, body{
   padding: 5px;
 }
 
+.checkbox-settings{
+  appearance: none; outline: none;
+  width: 30px; height: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50px; box-shadow: inset -15px 0 0 0 rgba(40, 40, 40, 0.75);
+  transition-duration: 200ms;
+}
+
+.checkbox-settings::after{
+  content: "";
+  position: absolute;
+  top: 1px; left: 1px;
+  width: 15px; height: 15px;
+  background-color: transparent;
+  border-radius: 50%;
+}
+
+.checkbox-settings:checked{
+  box-shadow: inset 15px 0 0 0 #60CDFF;
+  background-color: #ffffff;
+}
+
+.checkbox-settings:checked::after{
+  left: 20px;
+  box-shadow: -2px 4px 3px rgba(0,0,0,0.05);
+}
+
 .code-container{
   width: 100%;
   padding-top: 25px;
@@ -363,6 +390,10 @@ html, body{
 
 .output{
   font-size: 14px;
+}
+
+.output-sidebar{
+  position: absolute;
 }
 
 .formats{
