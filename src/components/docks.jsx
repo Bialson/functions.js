@@ -11,6 +11,7 @@ import gdData from "../data/gdData.json";
 const Material = () => {
     const [bgColor, setBgColor] = useState('rgba()');
     const [axisColor, setAxisColor] = useState('rgba()');
+    const [meshColor, setMeshColor] = useState('rgba()');
     const [colorMap, setColorMap] = useState("Jet");
     useEffect(() => {
         const changeColors = () => {
@@ -39,16 +40,24 @@ const Material = () => {
             gdData.layout.scene.zaxis.title.font.color = 
             `${axisColor}`;
 
+            gdData.data[0].colorbar.tickfont.color = `${axisColor}`;
+
+            gdData.data[0].contours.x.color = 
+            gdData.data[0].contours.y.color = 
+            gdData.data[0].contours.z.color =
+            `${meshColor}`;
+
             gdData.data[0].colorscale = colorMap;
 
             Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
         }
         changeColors();
-    }, [bgColor, axisColor, colorMap]);
+    }, [bgColor, axisColor, colorMap, meshColor]);
     return(
         <>
             <ColorPicker setColor={color => setBgColor(color)} name='Background' r='26' g='38' b='59' a='1'/>
             <ColorPicker setColor={color => setAxisColor(color)} name='Axis' r='255' g='255' b='255' a='1'/>
+            <ColorPicker setColor={color => setMeshColor(color)} name='Mesh' r='255' g='255' b='255' a='1'/>
             <div className='input-item'>
                 <span className='settings-name'>Colorscale</span>
                 <select className='colormaps' onChange={(event) => setColorMap(event.target.value)}>
@@ -84,16 +93,49 @@ const Material = () => {
 }
   
 const Layout = () => {
-    const updateLayout = () => {
-        const div = document.querySelector('.js-plotly-plot');
-        gdData.data[0].colorscale = "Jet";
-        gdData.layout.title.text = "sin(a)";
-        gdData.revision += 1;
+    const [axis, showAxis] = useState(true);
+    const [mesh, showMesh] = useState(false);
+    const [surface, showSurface] = useState(true);
+    useEffect(() => {
+        let div = document.querySelector('.js-plotly-plot');
+
+        gdData.data[0].hidesurface = !surface;
+
+        gdData.data[0].contours.x.show = 
+        gdData.data[0].contours.y.show =
+        gdData.data[0].contours.z.show = mesh;
+
+        gdData.layout.scene.xaxis.showgrid = 
+        gdData.layout.scene.yaxis.showgrid =
+        gdData.layout.scene.zaxis.showgrid = 
+        axis;
+
+        gdData.layout.scene.xaxis.zeroline = 
+        gdData.layout.scene.yaxis.zeroline =
+        gdData.layout.scene.zaxis.zeroline = 
+        axis;
+
+        gdData.layout.scene.xaxis.showticklabels = 
+        gdData.layout.scene.yaxis.showticklabels =
+        gdData.layout.scene.zaxis.showticklabels = 
+        axis;
+
         Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
-    }
+    }, [axis, mesh, surface]);
     return(
-        <div>
-            <input type="submit" onClick={updateLayout}/>
+        <div className='input-container'>
+            <div className='input-item'>
+                <span className='settings-name'>Axis</span>
+                <input type='checkbox' className='checkbox-settings' defaultChecked={true} onChange={() => showAxis(current => !current)}/>
+            </div>
+            <div className='input-item'>
+                <span className='settings-name'>Mesh</span>
+                <input type='checkbox' className='checkbox-settings' onChange={() => showMesh(current => !current)}/>
+            </div>
+            <div className='input-item'>
+                <span className='settings-name'>Surface</span>
+                <input type='checkbox'    className='checkbox-settings' onChange={() => showSurface(current => !current)} defaultChecked={true}/>
+            </div>
         </div>
     )
 }
@@ -111,8 +153,6 @@ const MathOps = () => {
     }
     const handleChange = (event) =>{
         changePlotTitle(event.target.value);
-        const div = document.querySelector('.js-plotly-plot');
-        Plotly.update(div, {}, {title: event.target.value || 'f(x, y) = '});
     }
     const changeXDomain = (event) => {
         console.log(event.target.name);
@@ -173,11 +213,12 @@ const MathOps = () => {
                 <span className='settings-name'>Formula</span>
                 <input type='search' className='input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={handleChange}/>
             </div>
+            <br/>
             <TeX
-                className="output"
+                className="output-sidebar"
                 settings={{ macros: { '*': String.raw`\cdot` } }}>
                 {plotTitle}
-            </TeX><br/><br/>
+            </TeX><br/><br/><br/>
             <span className='settings-name'>Domain</span>
             <div className='input-item'>
                 <span className='settings-name'><i><TeX>x</TeX></i></span>
