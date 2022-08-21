@@ -131,9 +131,15 @@
             "color": "white"
           },
           "orientation": "h",
-          "y": -0.2
+          "y": -0.1
         },
-        "colorscale": "Jet"
+        "colorscale": "Jet",
+        "contours": {
+          "x": { "show": false, "color": "rgba(255,255,255, 1)" },
+          "y": { "show": false, "color": "rgba(255,255,255, 1)" },
+          "z": { "show": false, "color": "rgba(255,255,255, 1)" }
+        },
+        "hidesurface": false
       }
     ],
     "layout": {
@@ -149,7 +155,10 @@
             "font": {
               "color": "white"
             }
-          }
+          },
+          "zeroline": true,
+          "showgrid": true,
+          "showticklabels": true
         },
         "yaxis": {
           "color": "white",
@@ -161,7 +170,10 @@
             "font": {
               "color": "white"
             }
-          }
+          },
+          "zeroline": true,
+          "showgrid": true,
+          "showticklabels": true
         },
         "zaxis": {
           "color": "white",
@@ -174,7 +186,9 @@
               "color": "white"
             }
           },
-          "type": "linear"
+          "zeroline": true,
+          "showgrid": true,
+          "showticklabels": true
         },
         "camera": {
           "eye": {
@@ -188,19 +202,10 @@
         },
         "aspectmode": "auto"
       },
-      "title": {
-        "text": "f(x, y) = ",
-        "font": {
-          "color": "white"
-        },
-        "y": 0.12
-      },
       "datarevision": 0,
       "margin": {
-        "b": 40,
-        "l": 0,
-        "r": 0,
-        "t": 50
+        "b": 10,
+        "t": 10
       },
       "autosize": true
     },
