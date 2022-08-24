@@ -23,7 +23,7 @@ const Navbar = () => {
       <nav className={navClasses}>
           <p className='logoNav'><img src={icon} alt='icon' width={200} height={110} style={{border: 'none'}}/>&nbsp;<br></br>Functions.JS</p>
           <hr></hr>
-          <ul style={{textAlign: 'center'}}>
+          <ul>
             <li className="item">
               <TeX
                   className="output"
@@ -50,6 +50,83 @@ const Navbar = () => {
                   className="output"
                   settings={{ macros: { '*': String.raw`\cdot` } }}
                   math="x^4y^2 - 10x^2y^2 - y^2"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="e^{sin(\sqrt{|x + y|}) + \sqrt{|x - y|}} - 2"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="e^{cos(xy)} - 1"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="\frac{14cos(\frac{(x^2 + y^2)}{4})}{x^2 + y^2 + 3}"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="e^{sin(xy) - cos(x^2 + (-3y)^2)}"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="e^{sin(xy) - cos(x^2 + y^2)}"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="e^{-1 * x^2 - y^2}"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="sin(3sin(x^2 + y^2))"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="sin(\sqrt{x^2 + y^2})"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="sin(x + y^2)"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="xy"> 
+              </TeX>
+            </li>
+            <li className="item">
+              <TeX
+                  className="output"
+                  settings={{ macros: { '*': String.raw`\cdot` } }}
+                  math="x * e^{-x^2 - y^2}"> 
               </TeX>
             </li>
             {/* <motion.li onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className='item' onClick={showSettingsBox} title='Settings'>

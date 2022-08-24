@@ -13,6 +13,7 @@ const Material = () => {
     const [axisColor, setAxisColor] = useState('rgba()');
     const [meshColor, setMeshColor] = useState('rgba()');
     const [colorMap, setColorMap] = useState("Jet");
+    const [opacity, setOpacity] = useState(1);
     useEffect(() => {
         const changeColors = () => {
             let div = document.querySelector('.js-plotly-plot');
@@ -49,15 +50,17 @@ const Material = () => {
 
             gdData.data[0].colorscale = colorMap;
 
+            gdData.data[0].opacity = opacity;
+
             Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
         }
         changeColors();
-    }, [bgColor, axisColor, colorMap, meshColor]);
+    }, [bgColor, axisColor, colorMap, meshColor, opacity]);
     return(
         <>
             <ColorPicker setColor={color => setBgColor(color)} name='Background' r='26' g='38' b='59' a='1'/>
             <ColorPicker setColor={color => setAxisColor(color)} name='Axis' r='255' g='255' b='255' a='1'/>
-            <ColorPicker setColor={color => setMeshColor(color)} name='Mesh' r='255' g='255' b='255' a='1'/>
+            <ColorPicker setColor={color => setMeshColor(color)} name='Mesh' r='0' g='0' b='0' a='1'/>
             <div className='input-item'>
                 <span className='settings-name'>Colorscale</span>
                 <select className='colormaps' onChange={(event) => setColorMap(event.target.value)}>
@@ -87,6 +90,10 @@ const Material = () => {
                     <option>Bluered</option>
                     <option>Blackbody</option>
                 </select>
+            </div>
+            <div className='input-item'>
+                <span className='settings-name'>Opacity</span>
+                <input type="range" defaultValue={100} className='opacity-range' step={1} min={0} max={100} onChange={(event) => setOpacity(event.target.value / 100)}></input>
             </div>
         </>
     )
@@ -134,7 +141,7 @@ const Layout = () => {
             </div>
             <div className='input-item'>
                 <span className='settings-name'>Surface</span>
-                <input type='checkbox'    className='checkbox-settings' onChange={() => showSurface(current => !current)} defaultChecked={true}/>
+                <input type='checkbox' className='checkbox-settings' onChange={() => showSurface(current => !current)} defaultChecked={true}/>
             </div>
         </div>
     )
