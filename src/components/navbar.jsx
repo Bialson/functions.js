@@ -2,14 +2,13 @@ import React,  {useState} from 'react';
 import icon from './../img/icons/logo256.png';
 import {motion} from 'framer-motion';
 import TeX from '@matejmazur/react-katex';
+import { MathExampleFormula } from './formula';
+
 
 const Navbar = () => {
+    const {globalFormula} = React.useContext(MathExampleFormula);
     const [isActive, setIsActive] = useState(false);
-    // const [isHovered, setIsHovered] = useState(false);
     const [style, setStyle] = useState('dark');
-    // const showSettingsBox = () => {
-    //   setIsActive(true);
-    // }
     const closeSettingsBox = () => {
       setIsActive(false);
     }
@@ -21,6 +20,7 @@ const Navbar = () => {
     const themeIcon = `bi ${(style === 'dark') ? 'bi-moon-fill' : 'bi-brightness-high-fill'}`;
     return(
       <nav className={navClasses}>
+          <p>{globalFormula}</p>
           <p className='logoNav'><img src={icon} alt='icon' width={200} height={110} style={{border: 'none'}}/>&nbsp;<br></br>Functions.JS</p>
           <hr></hr>
           <ul>

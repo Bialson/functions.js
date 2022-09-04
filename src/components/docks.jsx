@@ -1,12 +1,11 @@
 import React, { useRef, useState, useEffect} from 'react';
-import CodeMirror from '@uiw/react-codemirror';
-import {githubDark} from '@uiw/codemirror-theme-github';
-import { javascript } from '@codemirror/lang-javascript';
 import Plotly from "plotly.js/dist/plotly.js";
-import loadingImg  from './../img/icons/Photos-app-icon-256-colorful.png';
+import { CodeBlock, CopyBlock, vs2015} from "react-code-blocks";
 import TeX from '@matejmazur/react-katex';
 import ColorPicker from './color-picker';
 import gdData from "../data/gdData.json";
+import { MathExampleFormula } from './formula';
+import { evaluate, compile } from "mathjs";
 
 const Material = () => {
     const [bgColor, setBgColor] = useState('rgba()');
@@ -148,6 +147,7 @@ const Layout = () => {
 }
 
 const MathOps = () => {
+    const {globalFormula, setGlobalFormula} = React.useContext(MathExampleFormula);
     const [plotTitle, changePlotTitle] = useState('f(x,y) = ');
     const [xRange, setXRange] = useState({min: -5, max: 5});
     const [yRange, setYRange] = useState({min: -5, max: 5});
@@ -159,7 +159,16 @@ const MathOps = () => {
         return arr;
     }
     const handleChange = (event) =>{
+        setGlobalFormula(event.target.value);
         changePlotTitle(event.target.value);
+        let formula = event.target.value;
+        formula = formula.replace(/\^/g, '**').replace(/\{(.+?)\}/g, "($1)").replace(/\|(.+?)\|/g, "Math.abs($1)");
+        console.log(formula);
+        let scope = {
+            x: 2
+        }
+        let val = evaluate(formula.slice(9), scope);
+        console.log(val);
     }
     const changeXDomain = (event) => {
         console.log(event.target.name);
@@ -215,7 +224,8 @@ const MathOps = () => {
         Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
     }, [xRange, yRange])
     return(
-        <><div className='input-container'>
+        <>{globalFormula}
+        <div className='input-container'>
             <div className='input-item'>
                 <span className='settings-name'>Formula</span>
                 <input type='search' className='input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={handleChange}/>
@@ -241,23 +251,29 @@ const MathOps = () => {
             </div>
         </div>
         <div className='math-analyze'>
-            
+
         </div></>
     )
 }
 
 const Code = () => {
-    const [currentSettings, changeSettings] = useState(gdData);
+    const codeToJSON = (code) => {
+        return JSON.stringify(code, null, 2);
+    }
+    const [currentSettings, changeSettings] = useState(codeToJSON(gdData));
     useEffect(() => {
-        setInterval(() => changeSettings(gdData), 2000);
+        setInterval(() => {
+            changeSettings(codeToJSON(gdData));
+        }, 4000);
     }, []);
     return(
-        <div className='code-box'>
-                <CodeMirror 
-                value={JSON.stringify(currentSettings, null, 2)}
-                theme={githubDark}
-                extensions={[javascript({ jsx: true })]}
-                />
+        <div className='input-item'>
+            <CodeBlock 
+                text={currentSettings}
+                theme={vs2015}
+                showLineNumbers={false}
+                language="json"Add-AppxPackage
+            />
         </div>
     )
 }
@@ -265,29 +281,33 @@ const Code = () => {
 const Export = () => {
     const [format, changeFormat] = useState('svg');
     const plotDivRef = useRef(null);
-    const getImage = async () =>{
-        const div = document.querySelector('.js-plotly-plot');
-        const url = await Plotly.toImage(div, {format: 'svg'});
-        plotDivRef.current.src = url;
-    }
     const downloadImage = () => {
         const div = document.querySelector('.js-plotly-plot');
         Plotly.downloadImage(div, {format: format, filename: 'plot'});
     }
+    const generateImage = async () =>{
+        let div = document.querySelector('.js-plotly-plot');
+        const url = await Plotly.toImage(div, {format: 'svg'});
+        plotDivRef.current.src = url;
+    }
     useEffect(() => {
-        getImage();
+        generateImage();
     }, []);
     return(
         <div className='input-container'>
-            <img ref={plotDivRef} src={loadingImg} alt='Export previev' width={263}/>
-            <p>Format</p>
-            <div className='formats'>
-                <input type="radio" value="svg" name="format" onClick={() => changeFormat('svg')}/> .svg
-                <input type="radio" value="png" name="format" onClick={() => changeFormat('png')}/> .png
-                <input type="radio" value="jpg" name="format" onClick={() => changeFormat('jpg')}/> .jpg
+            <div className='input-item'>
+                <span className='settings-name'>Format</span>
+                <div className='formats'>
+                    <input type="radio" value="svg" name="format" onClick={() => changeFormat('svg')} defaultChecked={true}/> .svg
+                    <input type="radio" value="png" name="format" onClick={() => changeFormat('png')}/> .png
+                    <input type="radio" value="jpg" name="format" onClick={() => changeFormat('jpg')}/> .jpg
+                </div>
             </div>
-            <br></br><br></br>
-            <input type='submit' className='downloadImgBtn' value='Download' onClick={() => downloadImage()} />
+            <img ref={plotDivRef} alt='Export previev' width={216} title='Plot preview'/>
+            <div className='input-item'>
+                <input type='submit' className='downloadImgBtn' value='Generate' onClick={() => {generateImage()}} title='Download image'/>
+                <input type='submit' className='downloadImgBtn' value='Download' onClick={() => downloadImage()} title='Download image'/>
+            </div>
         </div>
     );
 }
