@@ -19,15 +19,14 @@ const Sidebar = () => {
                 <Layout />
             </div>
             <div className='settings-element'>
-
+                <h4>Export</h4>
+                <Export />
             </div>
             <div className='settings-element'>
-
+                <h4>Code</h4>
+                <Code />
             </div>
           </div>
-        {/* <div className='code-container'>
-          <Code />
-        </div> */}
         </div>
     )
 }
