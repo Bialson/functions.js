@@ -80,23 +80,14 @@ html, body{
   padding: 0 10px;
 }
 
-.item:hover::before{
-  content: '';
-  position: absolute;
-  width: 3px;
-  height: 24px;
-  background-color: #60CDFF;
-  border-radius: 6px;
-  transition: 200ms ease-in-out;
-  left: 3.5px;
-  margin-top: 3px;
-  animation: showHover 200ms ease-in-out;
-  cursor: pointer;
+.template_functions{
+  display: flex;
+  padding: 0 7px;
+  flex-direction: column;
 }
 
-.item{
+.templt_func_item{
   margin: 5px 0;
-  cursor: pointer;
 }
 
 .text{
@@ -264,6 +255,7 @@ html, body{
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 50px; box-shadow: inset -15px 0 0 0 rgba(40, 40, 40, 0.75);
   transition-duration: 200ms;
+  cursor: pointer;
 }
 
 .checkbox-settings::after{
@@ -321,6 +313,7 @@ html, body{
   padding: 5px;
   background-color: rgba(40, 40, 40, 0.75);
   outline: none;
+  cursor: pointer;
 }
 
 .colormaps:focus{
