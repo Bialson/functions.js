@@ -4,8 +4,6 @@ import { CodeBlock, CopyBlock, vs2015} from "react-code-blocks";
 import TeX from '@matejmazur/react-katex';
 import ColorPicker from './color-picker';
 import gdData from "../data/gdData.json";
-import { MathExampleFormula } from './formula';
-import { evaluate, compile } from "mathjs";
 
 const Material = () => {
     const [bgColor, setBgColor] = useState('rgba()');
@@ -147,8 +145,8 @@ const Layout = () => {
 }
 
 const MathOps = () => {
-    const {globalFormula, setGlobalFormula} = React.useContext(MathExampleFormula);
     const [plotTitle, changePlotTitle] = useState('f(x,y) = ');
+    const [mathConvFormula, setMathConvFormula] = useState('');
     const [xRange, setXRange] = useState({min: -5, max: 5});
     const [yRange, setYRange] = useState({min: -5, max: 5});
     const generateRangeData = (start, end) => {
@@ -159,16 +157,15 @@ const MathOps = () => {
         return arr;
     }
     const handleChange = (event) =>{
-        setGlobalFormula(event.target.value);
         changePlotTitle(event.target.value);
         let formula = event.target.value;
-        formula = formula.replace(/\^/g, '**').replace(/\{(.+?)\}/g, "($1)").replace(/\|(.+?)\|/g, "Math.abs($1)");
-        console.log(formula);
-        let scope = {
-            x: 2
-        }
-        let val = evaluate(formula.slice(9), scope);
-        console.log(val);
+        formula = formula.replace(/\^/g, '**')
+                .replace(/\{(.+?)\}/g, "($1)")
+                .replace(/\|(.+?)\|/g, "Math.abs($1)")
+                .replace(/\b\w*sin\w*\((.+?)\)/g, "Math.sin($1)")
+                .replace(/\b\w*cos\w*\((.+?)\)/g, "Math.cos($1)")
+                .replace(/\b\w*tg\w*\((.+?)\)/g, "Math.tan($1)");
+        setMathConvFormula(formula);
     }
     const changeXDomain = (event) => {
         console.log(event.target.name);
@@ -202,33 +199,24 @@ const MathOps = () => {
         let div = document.querySelector('.js-plotly-plot');
         let X = generateRangeData(xRange.min, xRange.max);
         let Y = generateRangeData(yRange.min, yRange.max);
-        //Template for f(x,y) = xy
-        // let Z = [
-        //     [ 25, 10,  0, -10, -25],
-        //     [ 10,  4,  0,  -4, -10],
-        //     [-10, -4,  0,   4,  10],
-        //     [-25, -10, 0,  10,  25]
-        // ];
         let Z = X.map((x) => {
             return Y.map((y) => {
                 return x * y;
             });
         });
-        console.log(Z);
+        console.log(mathConvFormula);
         gdData.data[0].x = X;
         gdData.data[0].y = Y;
         gdData.data[0].z = Z;
         gdData.revision += 1;
         gdData.layout.datarevision += 1;
-        console.log(gdData.data[0].z);
         Plotly.react(div, gdData.data, gdData.layout, gdData.config, gdData.revision);
-    }, [xRange, yRange])
+    }, [xRange, yRange, mathConvFormula]);
     return(
-        <>{globalFormula}
-        <div className='input-container'>
+        <><div className='input-container'>
             <div className='input-item'>
                 <span className='settings-name'>Formula</span>
-                <input type='search' className='input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={handleChange}/>
+                <input type='search' className='input formula_input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={handleChange}/>
             </div>
             <br/>
             <TeX
