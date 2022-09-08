@@ -1,5 +1,4 @@
-import { render } from "@testing-library/react";
-import React, {Component} from "react";
+import React from "react";
 import Plot from "react-plotly.js";
 import gdData from "../data/gdData.json";
 

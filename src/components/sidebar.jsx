@@ -1,6 +1,5 @@
 import React from 'react';
 import {Material, Layout, MathOps, Code, Export} from './../components/docks';
-// import {motion} from 'framer-motion';
 
 const Sidebar = () => {
     return(
