@@ -160,6 +160,9 @@ const MathOps = () => {
         changePlotTitle(event.target.value);
         let formula = event.target.value;
         formula = formula.replace(/\^/g, '**')
+                .replace(/\\frac\{(.+?)\}\{(.+?)\}/g, "($1)/($2)")
+                .replace(/\\sqrt\{(.+?)\}/g, "Math.sqrt($1)")
+                .replace(/\\sqrt\[3\]\{(.+?)\}/g, "Math.cbrt($1)")
                 .replace(/\{(.+?)\}/g, "($1)")
                 .replace(/\|(.+?)\|/g, "Math.abs($1)")
                 .replace(/\b\w*sin\w*\((.+?)\)/g, "Math.sin($1)")
