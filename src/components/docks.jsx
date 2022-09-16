@@ -145,8 +145,8 @@ const Layout = () => {
 }
 
 const MathOps = () => {
-    const [plotTitle, changePlotTitle] = useState('f(x,y) = ');
-    const [mathConvFormula, setMathConvFormula] = useState('');
+    const [plotTitle, changePlotTitle] = useState('f(x,y) = x * y');
+    const [mathConvFormula, setMathConvFormula] = useState('x * y');
     const [xRange, setXRange] = useState({min: -5, max: 5});
     const [yRange, setYRange] = useState({min: -5, max: 5});
     const generateRangeData = (start, end) => {
@@ -160,6 +160,8 @@ const MathOps = () => {
         changePlotTitle(event.target.value);
         let formula = event.target.value;
         formula = formula.replace(/\^/g, '**')
+                .replace(/e/g, 'Math.E')
+                .replace("f(x, y) = ", "")
                 .replace(/\\frac\{(.+?)\}\{(.+?)\}/g, "($1)/($2)")
                 .replace(/\\sqrt\{(.+?)\}/g, "Math.sqrt($1)")
                 .replace(/\\sqrt\[3\]\{(.+?)\}/g, "Math.cbrt($1)")
@@ -167,7 +169,7 @@ const MathOps = () => {
                 .replace(/\|(.+?)\|/g, "Math.abs($1)")
                 .replace(/\b\w*sin\w*\((.+?)\)/g, "Math.sin($1)")
                 .replace(/\b\w*cos\w*\((.+?)\)/g, "Math.cos($1)")
-                .replace(/\b\w*tg\w*\((.+?)\)/g, "Math.tan($1)");
+                .replace(/\b\w*tg\w*\((.+?)\)/g, "Math.tan($1)")
         setMathConvFormula(formula);
     }
     const changeXDomain = (event) => {
@@ -202,11 +204,20 @@ const MathOps = () => {
         let div = document.querySelector('.js-plotly-plot');
         let X = generateRangeData(xRange.min, xRange.max);
         let Y = generateRangeData(yRange.min, yRange.max);
-        let Z = X.map((x) => {
-            return Y.map((y) => {
-                return x * y;
+        let Z = [];
+        if(mathConvFormula !== ''){
+            Z = X.map((x) => {
+                return Y.map((y) => {
+                    try{
+                        return eval(mathConvFormula);
+                    }
+                    catch(e){
+                        console.log(e);
+                        return 0;
+                    }
+                });
             });
-        });
+        }
         console.log(mathConvFormula);
         gdData.data[0].x = X;
         gdData.data[0].y = Y;
@@ -219,7 +230,7 @@ const MathOps = () => {
         <><div className='input-container'>
             <div className='input-item'>
                 <span className='settings-name'>Formula</span>
-                <input type='search' className='input formula_input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = ' onChange={handleChange}/>
+                <input type='search' className='input formula_input' placeholder='f(x, y) = ...' defaultValue='f(x, y) = x * y' onChange={handleChange}/>
             </div>
             <br/>
             <TeX
