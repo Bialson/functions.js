@@ -14,9 +14,9 @@
         },
         "colorscale": "Jet",
         "contours": {
-          "x": { "show": false, "color": "rgba(255,255,255, 1)", "width": 10},
-          "y": { "show": false, "color": "rgba(255,255,255, 1)", "width": 10},
-          "z": { "show": false, "color": "rgba(255,255,255, 1)", "width": 10}
+          "x": { "show": false, "color": "rgba(255,255,255, 1)", "width": 16},
+          "y": { "show": false, "color": "rgba(255,255,255, 1)", "width": 16},
+          "z": { "show": false, "color": "rgba(255,255,255, 1)", "width": 16}
         },
         "hidesurface": false,
         "opacity": 1
