@@ -149,9 +149,9 @@ const MathOps = () => {
     const [mathConvFormula, setMathConvFormula] = useState('x * y');
     const [xRange, setXRange] = useState({min: -5, max: 5});
     const [yRange, setYRange] = useState({min: -5, max: 5});
-    const generateRangeData = (start, end) => {
+    const generateRangeData = (start, end, step) => {
         let arr = [];
-        for(let i = start; i <= end; i++) {
+        for(let i = start; i <= end; i += step) {
             arr.push(i);
         }
         return arr;
@@ -202,8 +202,8 @@ const MathOps = () => {
     }
     useEffect(() => {
         let div = document.querySelector('.js-plotly-plot');
-        let X = generateRangeData(xRange.min, xRange.max);
-        let Y = generateRangeData(yRange.min, yRange.max);
+        let X = generateRangeData(xRange.min, xRange.max, 0.2);
+        let Y = generateRangeData(yRange.min, yRange.max, 0.2);
         let Z = [];
         if(mathConvFormula !== ''){
             Z = X.map((x) => {
@@ -241,15 +241,15 @@ const MathOps = () => {
             <span className='settings-name'>Domain</span>
             <div className='input-item'>
                 <span className='settings-name'><i><TeX>x</TeX></i></span>
-                <input type='number' className='input' defaultValue={-5} onChange={changeXDomain} name="min"/>
+                <input type='number' className='input' defaultValue={-2} onChange={changeXDomain} name="min"/>
                 <hr/>
-                <input type='number' className='input' defaultValue={5} onChange={changeXDomain} name="max"/>
+                <input type='number' className='input' defaultValue={2} onChange={changeXDomain} name="max"/>
             </div>
             <div className='input-item'>
                 <span className='settings-name'><i><TeX>y</TeX></i></span>
-                <input type='number' className='input' defaultValue={-5} onChange={changeYDomain} name="min"/>
+                <input type='number' className='input' defaultValue={-2} onChange={changeYDomain} name="min"/>
                 <hr/>
-                <input type='number' className='input' defaultValue={5} onChange={changeYDomain} name="max"/>
+                <input type='number' className='input' defaultValue={2} onChange={changeYDomain} name="max"/>
             </div>
         </div>
         <div className='math-analyze'>
