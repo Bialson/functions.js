@@ -241,15 +241,15 @@ const MathOps = () => {
             <span className='settings-name'>Domain</span>
             <div className='input-item'>
                 <span className='settings-name'><i><TeX>x</TeX></i></span>
-                <input type='number' className='input' defaultValue={-2} onChange={changeXDomain} name="min"/>
+                <input type='number' className='input' defaultValue={-5} onChange={changeXDomain} name="min"/>
                 <hr/>
-                <input type='number' className='input' defaultValue={2} onChange={changeXDomain} name="max"/>
+                <input type='number' className='input' defaultValue={5} onChange={changeXDomain} name="max"/>
             </div>
             <div className='input-item'>
                 <span className='settings-name'><i><TeX>y</TeX></i></span>
-                <input type='number' className='input' defaultValue={-2} onChange={changeYDomain} name="min"/>
+                <input type='number' className='input' defaultValue={-5} onChange={changeYDomain} name="min"/>
                 <hr/>
-                <input type='number' className='input' defaultValue={2} onChange={changeYDomain} name="max"/>
+                <input type='number' className='input' defaultValue={5} onChange={changeYDomain} name="max"/>
             </div>
         </div>
         <div className='math-analyze'>

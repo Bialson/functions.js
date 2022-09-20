@@ -5,12 +5,8 @@ import ExampleFormula from './exampleFormula';
 
 
 const Navbar = () => {
-    const [isActive, setIsActive] = useState(false);
-    const [style, setStyle] = useState('dark');
-    const closeSettingsBox = () => {
-      setIsActive(false);
-    }
-    const themeIcon = `bi ${(style === 'dark') ? 'bi-moon-fill' : 'bi-brightness-high-fill'}`;
+    const [showSettings, setSettingsDisplay] = useState(false);
+    const [isSettingsHover, setSettingsHover] = useState(false);
     return(
       <nav className='navbar'>
           <p className='logoNav'><img src={icon} alt='icon' width={200} height={110} style={{border: 'none'}}/>&nbsp;<br></br>Functions.JS</p>
@@ -24,13 +20,24 @@ const Navbar = () => {
             <ExampleFormula formula="\sqrt[3]{x} =" tex=" \sqrt[3]{x}"/>
             <ExampleFormula formula="\int{f(x)dx} =" tex=" \int{f(x)dx"/>
           </div> */}
-          <div className='settings-button'>
-            <i class="bi bi-gear-wide-connected"></i>
+          <motion.div className='settings-button' 
+            onClick={() => {setSettingsDisplay(current => !current)}} 
+            onMouseEnter={() => setSettingsHover(true)} 
+            onMouseLeave={() => setSettingsHover(false)}>
+            <motion.i className="bi bi-gear-wide-connected" transition={{duration: 0.8}}
+              animate={{
+                rotateZ: isSettingsHover ? '360deg' : '0deg', 
+                color: isSettingsHover ? '#60CDFF' : '#ffffff'
+            }}></motion.i>
             <span>Settings</span>
-          </div>
-          <div className='settings-box'>
-
-          </div>
+          </motion.div>
+          <motion.div className='settings-box' animate={{height: showSettings ? 'auto' : '0'}} transition={{duration: 0.5, type: "spring"}}>
+              <p>
+                Dark Mode
+                <input type='checkbox' className='checkbox-settings' defaultChecked={true}/>
+              </p>
+              <p>v.0.5.0</p>
+          </motion.div>
       </nav>
     );
 }
