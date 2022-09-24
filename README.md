@@ -6,7 +6,7 @@
 <p align="center"><img src="https://img.shields.io/badge/version-0.1.0-blue"/>&nbsp;<img src="https://img.shields.io/badge/license-GPL-yellow"/>&nbsp;<img src="https://img.shields.io/npm/v/react?label=React&logo=react"/>&nbsp;<img src="https://img.shields.io/npm/v/react-plotly?label=react-plotly&logo=plotly"/></p><br/>
 
 ## 🏠 Homepage
-> [https://to_complete.com](https://to_complete.com)
+> [https://bialson.github.io/Functions.JS/](https://bialson.github.io/Functions.JS/)
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -18,7 +18,6 @@
 * [Project Status](#project-status)
 * [Room for Improvement](#room-for-improvement)
 * [Acknowledgements](#acknowledgements)
-* [Contact](#contact)
 <!-- * [License](#license) -->
 
 ## General Information
