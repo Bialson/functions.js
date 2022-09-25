@@ -7,7 +7,12 @@ const Navbar = () => {
 	const theme = useContext(ThemeContext);
 	const darkMode = theme.state.darkMode;
 	const modebar = document.querySelector(".js-plotly-plot .plotly .modebar");
-	const modebarButton = document.querySelectorAll(".modebar .modebar-btn .icon");
+	const modebarButton = document.querySelectorAll(
+		".modebar .modebar-btn .icon"
+	);
+	const [showSettings, setSettingsDisplay] = useState(false);
+	const [isSettingsHover, setSettingsHover] = useState(false);
+	const [fullscreen, setFullscreen] = useState(false);
 	const switchTheme = () => {
 		if (darkMode) {
 			theme.dispatch({ type: "LIGHTMODE" });
@@ -24,8 +29,15 @@ const Navbar = () => {
 			theme.dispatch({ type: "DARKMODE" });
 		}
 	};
-	const [showSettings, setSettingsDisplay] = useState(false);
-	const [isSettingsHover, setSettingsHover] = useState(false);
+	const toggleFullScreen = () => {
+		if (fullscreen) {
+			document.exitFullscreen();
+			setFullscreen(false);
+		} else {
+			setFullscreen(true);
+			document.body.requestFullscreen();
+		}
+	};
 	return (
 		<nav className={`navbar ${darkMode ? "navbar-dark" : "navbar-light"}`}>
 			<p className="logoNav">
@@ -37,17 +49,49 @@ const Navbar = () => {
 					style={{ border: "none" }}
 				/>
 				&nbsp;<br></br>Functions.JS
-			</p><hr style={{borderColor: darkMode ? "rgba(255, 255, 255, 0.08)" : "#000"}}/>
-			{/* <div className='template_functions'>
-            <ExampleFormula formula="\cfrac{a}{b} =" tex=" \cfrac{a}{b}"/>
-            <ExampleFormula formula="\cfrac{a}{\cfrac{1}{b}} =" tex=" \cfrac{a}{1 + \cfrac{1}{b}}"/>
-            <ExampleFormula formula="x^n =" tex=" x^n"/>
-            <ExampleFormula formula="e^{x + y} =" tex=" e^{x + y}"/>
-            <ExampleFormula formula="\sqrt{x} =" tex=" \sqrt{x}"/>
-            <ExampleFormula formula="\sqrt[3]{x} =" tex=" \sqrt[3]{x}"/>
-            <ExampleFormula formula="\int{f(x)dx} =" tex=" \int{f(x)dx"/>
-          </div> */}
-			<motion.div className="settings-button"
+			</p>
+			<hr
+				style={{
+					borderColor: darkMode
+						? "rgba(255, 255, 255, 0.08)"
+						: "#000",
+				}}
+			/>
+			<div className="navbar-item">
+				<a
+					href="https://bialson.github.io/Functions.JS/"
+					className={`${
+						darkMode ? "navbar-item-a-dark" : "navbar-item-a-light"
+					}`}
+				>
+					<i className="bi bi-house-fill"></i>
+					<span>Home</span>
+				</a>
+			</div>
+			<div className="navbar-item">
+				<a
+					href="https://github.com/Bialson/Functions.JS#usage"
+					className={`${
+						darkMode ? "navbar-item-a-dark" : "navbar-item-a-light"
+					}`}
+				>
+					<i className="bi bi-files"></i>
+					<span>Docs</span>
+				</a>
+			</div>
+			<div className="navbar-item">
+				<a
+					href="https://github.com/Bialson/Functions.JS#general-information"
+					className={`${
+						darkMode ? "navbar-item-a-dark" : "navbar-item-a-light"
+					}`}
+				>
+					<i className="bi bi-info-circle-fill"></i>
+					<span>About</span>
+				</a>
+			</div>
+			<motion.div
+				className="settings-button"
 				onClick={() => {
 					setSettingsDisplay((current) => !current);
 				}}
@@ -59,7 +103,11 @@ const Navbar = () => {
 					transition={{ duration: 0.8 }}
 					animate={{
 						rotateZ: isSettingsHover ? "360deg" : "0deg",
-						color: isSettingsHover ? "#60CDFF" : (darkMode ? "#fff" : "#000"),
+						color: isSettingsHover
+							? "#60CDFF"
+							: darkMode
+							? "#fff"
+							: "#000",
 					}}
 				></motion.i>
 				<span>Settings</span>
@@ -80,6 +128,19 @@ const Navbar = () => {
 						}`}
 						defaultChecked={true}
 						onChange={switchTheme}
+					/>
+				</p>
+				<p>
+					Fullscreen
+					<input
+						type="checkbox"
+						className={`checkbox-settings ${
+							darkMode
+								? "checkbox-settings-dark"
+								: "checkbox-settings-light"
+						}`}
+						checked={fullscreen ? true : false}
+						onChange={toggleFullScreen}
 					/>
 				</p>
 				<p>
