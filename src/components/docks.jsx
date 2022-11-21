@@ -1,64 +1,71 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
-import Plotly from "plotly.js/dist/plotly.js";
-import TeX from "@matejmazur/react-katex";
-import ColorPicker from "./color-picker";
-import gdData from "../data/gdData.json";
-import { ThemeContext } from "../context/themeSwitcher";
+import React, {
+	useRef,
+	useState,
+	useEffect,
+	useContext,
+	useCallback,
+	useReducer,
+} from 'react';
+import Plotly from 'plotly.js/dist/plotly.js';
+import TeX from '@matejmazur/react-katex';
+import ColorPicker from './color-picker';
+import gdData from '../data/gdData.json';
+import { ThemeContext } from '../context/themeSwitcher';
 
 const Material = () => {
-	const [bgColor, setBgColor] = useState("rgba()");
-	const [axisColor, setAxisColor] = useState("rgba()");
-	const [meshColor, setMeshColor] = useState("rgba()");
-	const [colorMap, setColorMap] = useState("Jet");
+	const [bgColor, setBgColor] = useState('rgba()');
+	const [axisColor, setAxisColor] = useState('rgba()');
+	const [meshColor, setMeshColor] = useState('rgba()');
+	const [colorMap, setColorMap] = useState('Jet');
 	const [opacity, setOpacity] = useState(1);
-	useEffect(() => {
-		const changeColors = () => {
-			let div = document.querySelector(".js-plotly-plot");
-			let cont = document.querySelector(".chart-container");
+	const changeColors = useCallback(() => {
+		let div = document.querySelector('.js-plotly-plot');
+		let cont = document.querySelector('.chart-container');
 
-			cont.style.backgroundColor = `${bgColor}`;
+		cont.style.backgroundColor = `${bgColor}`;
 
-			gdData.layout.scene.xaxis.gridcolor =
-				gdData.layout.scene.yaxis.gridcolor =
-				gdData.layout.scene.zaxis.gridcolor =
-					`${axisColor}`;
+		gdData.layout.scene.xaxis.gridcolor =
+			gdData.layout.scene.yaxis.gridcolor =
+			gdData.layout.scene.zaxis.gridcolor =
+				`${axisColor}`;
 
-			gdData.layout.scene.xaxis.tickfont.color =
-				gdData.layout.scene.yaxis.tickfont.color =
-				gdData.layout.scene.zaxis.tickfont.color =
-					`${axisColor}`;
+		gdData.layout.scene.xaxis.tickfont.color =
+			gdData.layout.scene.yaxis.tickfont.color =
+			gdData.layout.scene.zaxis.tickfont.color =
+				`${axisColor}`;
 
-			gdData.layout.scene.xaxis.color =
-				gdData.layout.scene.yaxis.color =
-				gdData.layout.scene.zaxis.color =
-					`${axisColor}`;
+		gdData.layout.scene.xaxis.color =
+			gdData.layout.scene.yaxis.color =
+			gdData.layout.scene.zaxis.color =
+				`${axisColor}`;
 
-			gdData.layout.scene.xaxis.title.font.color =
-				gdData.layout.scene.yaxis.title.font.color =
-				gdData.layout.scene.zaxis.title.font.color =
-					`${axisColor}`;
+		gdData.layout.scene.xaxis.title.font.color =
+			gdData.layout.scene.yaxis.title.font.color =
+			gdData.layout.scene.zaxis.title.font.color =
+				`${axisColor}`;
 
-			gdData.data[0].colorbar.tickfont.color = `${axisColor}`;
+		gdData.data[0].colorbar.tickfont.color = `${axisColor}`;
 
-			gdData.data[0].contours.x.color =
-				gdData.data[0].contours.y.color =
-				gdData.data[0].contours.z.color =
-					`${meshColor}`;
+		gdData.data[0].contours.x.color =
+			gdData.data[0].contours.y.color =
+			gdData.data[0].contours.z.color =
+				`${meshColor}`;
 
-			gdData.data[0].colorscale = colorMap;
+		gdData.data[0].colorscale = colorMap;
 
-			gdData.data[0].opacity = opacity;
+		gdData.data[0].opacity = opacity;
 
-			Plotly.react(
-				div,
-				gdData.data,
-				gdData.layout,
-				gdData.config,
-				gdData.revision
-			);
-		};
-		changeColors();
+		Plotly.react(
+			div,
+			gdData.data,
+			gdData.layout,
+			gdData.config,
+			gdData.revision
+		);
 	}, [bgColor, axisColor, colorMap, meshColor, opacity]);
+	useEffect(() => {
+		changeColors();
+	}, [bgColor, axisColor, colorMap, meshColor, opacity, changeColors]);
 	return (
 		<>
 			<ColorPicker
@@ -95,16 +102,16 @@ const Material = () => {
 					<option>YlOrRd</option>
 					<option
 						value={[
-							["0.0", "rgb(165,0,38)"],
-							["0.111111111111", "rgb(215,48,39)"],
-							["0.222222222222", "rgb(244,109,67)"],
-							["0.333333333333", "rgb(253,174,97)"],
-							["0.444444444444", "rgb(254,224,144)"],
-							["0.555555555556", "rgb(224,243,248)"],
-							["0.666666666667", "rgb(171,217,233)"],
-							["0.777777777778", "rgb(116,173,209)"],
-							["0.888888888889", "rgb(69,117,180)"],
-							["1.0", "rgb(49,54,149)"],
+							['0.0', 'rgb(165,0,38)'],
+							['0.111111111111', 'rgb(215,48,39)'],
+							['0.222222222222', 'rgb(244,109,67)'],
+							['0.333333333333', 'rgb(253,174,97)'],
+							['0.444444444444', 'rgb(254,224,144)'],
+							['0.555555555556', 'rgb(224,243,248)'],
+							['0.666666666667', 'rgb(171,217,233)'],
+							['0.777777777778', 'rgb(116,173,209)'],
+							['0.888888888889', 'rgb(69,117,180)'],
+							['1.0', 'rgb(49,54,149)'],
 						]}
 					>
 						Heat
@@ -144,8 +151,8 @@ const Layout = () => {
 	const [axis, showAxis] = useState(true);
 	const [mesh, showMesh] = useState(false);
 	const [surface, showSurface] = useState(true);
-	useEffect(() => {
-		let div = document.querySelector(".js-plotly-plot");
+	const updateLayout = useCallback(() => {
+		let div = document.querySelector('.js-plotly-plot');
 
 		gdData.data[0].hidesurface = !surface;
 
@@ -177,6 +184,9 @@ const Layout = () => {
 			gdData.revision
 		);
 	}, [axis, mesh, surface]);
+	useEffect(() => {
+		updateLayout();
+	}, [axis, mesh, surface, updateLayout]);
 	return (
 		<div className="input-container">
 			<div className="input-item">
@@ -185,8 +195,8 @@ const Layout = () => {
 					type="checkbox"
 					className={`checkbox-settings ${
 						darkMode
-							? "checkbox-settings-dark"
-							: "checkbox-settings-light"
+							? 'checkbox-settings-dark'
+							: 'checkbox-settings-light'
 					}`}
 					defaultChecked
 					onChange={() => showAxis((current) => !current)}
@@ -198,8 +208,8 @@ const Layout = () => {
 					type="checkbox"
 					className={`checkbox-settings ${
 						darkMode
-							? "checkbox-settings-dark"
-							: "checkbox-settings-light"
+							? 'checkbox-settings-dark'
+							: 'checkbox-settings-light'
 					}`}
 					onChange={() => showMesh((current) => !current)}
 				/>
@@ -210,8 +220,8 @@ const Layout = () => {
 					type="checkbox"
 					className={`checkbox-settings ${
 						darkMode
-							? "checkbox-settings-dark"
-							: "checkbox-settings-light"
+							? 'checkbox-settings-dark'
+							: 'checkbox-settings-light'
 					}`}
 					onChange={() => showSurface((current) => !current)}
 					defaultChecked
@@ -222,8 +232,8 @@ const Layout = () => {
 };
 
 const MathOps = () => {
-	const [plotTitle, changePlotTitle] = useState("f(x,y) = x * y");
-	const [mathConvFormula, setMathConvFormula] = useState("x * y");
+	const [plotTitle, changePlotTitle] = useState('f(x,y) = x * y');
+	const [mathConvFormula, setMathConvFormula] = useState('x * y');
 	const [xRange, setXRange] = useState({ min: -5, max: 5 });
 	const [yRange, setYRange] = useState({ min: -5, max: 5 });
 	const generateRangeData = (start, end, step) => {
@@ -233,31 +243,50 @@ const MathOps = () => {
 		}
 		return arr;
 	};
+	const arraysReducer = (state, action) => {
+		switch (action.type) {
+			case 'change_x':
+				return generateRangeData(xRange.min, xRange.max, 0.2);
+			case 'change_y':
+				return generateRangeData(yRange.min, yRange.max, 0.2);
+			default:
+				return [];
+		}
+	};
+	const [dataArrays, setDataArrays] = useReducer(arraysReducer, {
+		x: [-1, 0, 1],
+		y: [-1, 0, 1],
+		z: [
+			[0, 0, 0],
+			[0, 0, 0],
+			[0, 0, 0],
+		],
+	});
 	const handleChange = (event) => {
 		changePlotTitle(event.target.value);
 		let formula = event.target.value;
 		formula = formula
-			.replace(/\^/g, "**")
-			.replace(/e/g, "Math.E")
-			.replace("f(x, y) = ", "")
-			.replace(/\\frac\{(.+?)\}\{(.+?)\}/g, "($1)/($2)")
-			.replace(/\\sqrt\{(.+?)\}/g, "Math.sqrt($1)")
-			.replace(/\\sqrt\[3\]\{(.+?)\}/g, "Math.cbrt($1)")
-			.replace(/\{(.+?)\}/g, "($1)")
-			.replace(/\|(.+?)\|/g, "Math.abs($1)")
-			.replace(/\b\w*sin\w*\((.+?)\)/g, "Math.sin($1)")
-			.replace(/\b\w*cos\w*\((.+?)\)/g, "Math.cos($1)")
-			.replace(/\b\w*tg\w*\((.+?)\)/g, "Math.tan($1)");
+			.replace(/\^/g, '**')
+			.replace(/e/g, 'Math.E')
+			.replace('f(x, y) = ', '')
+			.replace(/\\frac\{(.+?)\}\{(.+?)\}/g, '($1)/($2)')
+			.replace(/\\sqrt\{(.+?)\}/g, 'Math.sqrt($1)')
+			.replace(/\\sqrt\[3\]\{(.+?)\}/g, 'Math.cbrt($1)')
+			.replace(/\{(.+?)\}/g, '($1)')
+			.replace(/\|(.+?)\|/g, 'Math.abs($1)')
+			.replace(/\b\w*sin\w*\((.+?)\)/g, 'Math.sin($1)')
+			.replace(/\b\w*cos\w*\((.+?)\)/g, 'Math.cos($1)')
+			.replace(/\b\w*tg\w*\((.+?)\)/g, 'Math.tan($1)');
 		setMathConvFormula(formula);
 	};
 	const changeXDomain = (event) => {
 		console.log(event.target.name);
 		let value = parseInt(event.target.value, 10);
 		switch (event.target.name) {
-			case "min":
+			case 'min':
 				setXRange({ min: value, max: xRange.max });
 				break;
-			case "max":
+			case 'max':
 				setXRange({ min: xRange.min, max: value });
 				break;
 			default:
@@ -268,10 +297,10 @@ const MathOps = () => {
 		console.log(event.target.name);
 		let value = parseInt(event.target.value, 10);
 		switch (event.target.name) {
-			case "min":
+			case 'min':
 				setYRange({ min: value, max: yRange.max });
 				break;
-			case "max":
+			case 'max':
 				setYRange({ min: yRange.min, max: value });
 				break;
 			default:
@@ -279,26 +308,22 @@ const MathOps = () => {
 		}
 	};
 	useEffect(() => {
-		let div = document.querySelector(".js-plotly-plot");
-		let X = generateRangeData(xRange.min, xRange.max, 0.2);
-		let Y = generateRangeData(yRange.min, yRange.max, 0.2);
-		let Z = [];
-		if (mathConvFormula !== "") {
-			Z = X.map((x) => {
-				return Y.map((y) => {
-					try {
-						return eval(mathConvFormula);
-					} catch (e) {
-						console.log(e);
-						return 0;
-					}
-				});
-			});
-		}
+		let div = document.querySelector('.js-plotly-plot');
+		// if (mathConvFormula !== "") {
+		// 	Z = X.map((x) => {
+		// 		return Y.map((y) => {
+		// 			try {
+		// 				return eval(mathConvFormula);
+		// 			} catch (e) {
+		// 				return 0;
+		// 			}
+		// 		});
+		// 	});
+		// }
 		console.log(mathConvFormula);
-		gdData.data[0].x = X;
-		gdData.data[0].y = Y;
-		gdData.data[0].z = Z;
+		gdData.data[0].x = dataArrays.x;
+		gdData.data[0].y = dataArrays.y;
+		gdData.data[0].z = dataArrays.z;
 		gdData.revision += 1;
 		gdData.layout.datarevision += 1;
 		Plotly.react(
@@ -308,7 +333,7 @@ const MathOps = () => {
 			gdData.config,
 			gdData.revision
 		);
-	}, [xRange, yRange, mathConvFormula]);
+	}, [xRange, yRange, mathConvFormula, dataArrays]);
 	return (
 		<>
 			<div className="input-container">
@@ -325,7 +350,7 @@ const MathOps = () => {
 				<br />
 				<TeX
 					className="output-sidebar"
-					settings={{ macros: { "*": String.raw`\cdot` } }}
+					settings={{ macros: { '*': String.raw`\cdot` } }}
 				>
 					{plotTitle}
 				</TeX>
@@ -408,15 +433,15 @@ const MathOps = () => {
 // };
 
 const Export = () => {
-	const [format, changeFormat] = useState("svg");
+	const [format, changeFormat] = useState('svg');
 	const plotDivRef = useRef(null);
 	const downloadImage = () => {
-		const div = document.querySelector(".js-plotly-plot");
-		Plotly.downloadImage(div, { format: format, filename: "plot" });
+		const div = document.querySelector('.js-plotly-plot');
+		Plotly.downloadImage(div, { format: format, filename: 'plot' });
 	};
 	const generateImage = async () => {
-		let div = document.querySelector(".js-plotly-plot");
-		const url = await Plotly.toImage(div, { format: "svg" });
+		let div = document.querySelector('.js-plotly-plot');
+		const url = await Plotly.toImage(div, { format: 'svg' });
 		plotDivRef.current.src = url;
 	};
 	useEffect(() => {
@@ -431,23 +456,23 @@ const Export = () => {
 						type="radio"
 						value="svg"
 						name="format"
-						onClick={() => changeFormat("svg")}
+						onClick={() => changeFormat('svg')}
 						defaultChecked
-					/>{" "}
+					/>{' '}
 					.svg
 					<input
 						type="radio"
 						value="png"
 						name="format"
-						onClick={() => changeFormat("png")}
-					/>{" "}
+						onClick={() => changeFormat('png')}
+					/>{' '}
 					.png
 					<input
 						type="radio"
 						value="jpg"
 						name="format"
-						onClick={() => changeFormat("jpg")}
-					/>{" "}
+						onClick={() => changeFormat('jpg')}
+					/>{' '}
 					.jpg
 				</div>
 			</div>

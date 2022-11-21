@@ -10,7 +10,7 @@
             "color": "white"
           },
           "orientation": "h",
-          "y": -0.1
+          "y": -0.2
         },
         "colorscale": "Jet",
         "contours": {

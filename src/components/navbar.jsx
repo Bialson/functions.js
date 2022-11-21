@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect, memo } from "react";
 import icon from "./../img/icons/logo256.png";
 import { motion } from "framer-motion";
 import { ThemeContext } from "../context/themeSwitcher";
@@ -38,6 +38,7 @@ const Navbar = () => {
 			document.body.requestFullscreen();
 		}
 	};
+	useEffect(() => console.log("Renderowanie komponentu navbar"));
 	return (
 		<nav className={`navbar ${darkMode ? "navbar-dark" : "navbar-light"}`}>
 			<p className="logoNav">
@@ -155,4 +156,4 @@ const Navbar = () => {
 	);
 };
 
-export default Navbar;
+export default memo(Navbar);

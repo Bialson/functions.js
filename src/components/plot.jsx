@@ -1,26 +1,32 @@
-import React from "react";
+import React, { useContext, forwardRef, useEffect } from "react";
 import Plot from "react-plotly.js";
-import gdData from "../data/gdData.json";
+import Sidebar from "./sidebar";
 import {IsLoading} from "../context/loading";
-import { useEffect } from "react";
+import {PlotState} from "../context/plotState";
 
-const Chart = () => {
-    const {setLoading} = React.useContext(IsLoading);
+const Chart = forwardRef((props, ref) => {
+    const {setLoading} = useContext(IsLoading);
+    const plotState = useContext(PlotState);
     useEffect(() => {
         setLoading(false);
     });
+    useEffect(() => console.log("Renderowanie komponentu plot"));
     return(
-        <div className='chart-container'>
-            <Plot
-            data={gdData.data}
-            layout={gdData.layout}
-            revision={gdData.revision}
-            config={gdData.config}
-            useResizeHandler={true}
-            style={{width: '80%', height: '100%'}}
-            />
-        </div>
+        <>
+            <div className='chart-container'>
+                <Plot
+                    ref={ref}
+                    data={plotState.plot.data}
+                    layout={plotState.plot.layout}
+                    revision={plotState.plot.revision}
+                    config={plotState.plot.config}
+                    useResizeHandler={true}
+                    style={{width: '80%', height: '100%'}}
+                />
+            </div>
+            <Sidebar plotRef={ref}/>
+        </>
     )
-}
+});
 
 export default Chart;
