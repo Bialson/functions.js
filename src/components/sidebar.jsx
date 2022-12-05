@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Material, Layout, MathOps, Export } from "./../components/docks";
 import { ThemeContext } from "../context/themeSwitcher";
 
-const Sidebar = ({plotRef}) => {
+const Sidebar = () => {
 	useEffect(() => console.log("Renderowanie komponentu sidebar"));
 	const theme = useContext(ThemeContext);
 	const darkMode = theme.state.darkMode;
@@ -13,7 +13,7 @@ const Sidebar = ({plotRef}) => {
 			<div className="plot-settings">
 				<div className="settings-element">
 					<h4>Material</h4>
-					<Material plotRef={plotRef}/>
+					<Material />
 				</div>
 				<div className="settings-element">
 					<h4>Math</h4>

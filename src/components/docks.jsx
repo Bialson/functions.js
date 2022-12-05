@@ -4,13 +4,13 @@ import React, {
 	useEffect,
 	useContext,
 	useCallback,
-	useReducer,
 } from 'react';
 import Plotly from 'plotly.js/dist/plotly.js';
 import TeX from '@matejmazur/react-katex';
 import ColorPicker from './color-picker';
-import gdData from '../data/gdData.json';
 import { ThemeContext } from '../context/themeSwitcher';
+import { PlotState } from '../context/plotState';
+import { color } from 'd3-color';
 
 const Material = () => {
 	const [bgColor, setBgColor] = useState('rgba()');
@@ -18,54 +18,88 @@ const Material = () => {
 	const [meshColor, setMeshColor] = useState('rgba()');
 	const [colorMap, setColorMap] = useState('Jet');
 	const [opacity, setOpacity] = useState(1);
-	const changeColors = useCallback(() => {
-		let div = document.querySelector('.js-plotly-plot');
-		let cont = document.querySelector('.chart-container');
+	const { plot, setPlot } = useContext(PlotState);
+	// const changeColors = useCallback(() => {
+	// 	let div = document.querySelector('.js-plotly-plot');
+	// 	let cont = document.querySelector('.chart-container');
 
-		cont.style.backgroundColor = `${bgColor}`;
+	// 	cont.style.backgroundColor = `${bgColor}`;
+	// 	setPlot({revision: 1})
+	// 	// plot.layout.scene.xaxis.gridcolor =
+	// 	// 	plot.layout.scene.yaxis.gridcolor =
+	// 	// 	plot.layout.scene.zaxis.gridcolor =
+	// 	// 		`${axisColor}`;
 
-		gdData.layout.scene.xaxis.gridcolor =
-			gdData.layout.scene.yaxis.gridcolor =
-			gdData.layout.scene.zaxis.gridcolor =
-				`${axisColor}`;
+	// 	// plot.layout.scene.xaxis.tickfont.color =
+	// 	// 	plot.layout.scene.yaxis.tickfont.color =
+	// 	// 	plot.layout.scene.zaxis.tickfont.color =
+	// 	// 		`${axisColor}`;
 
-		gdData.layout.scene.xaxis.tickfont.color =
-			gdData.layout.scene.yaxis.tickfont.color =
-			gdData.layout.scene.zaxis.tickfont.color =
-				`${axisColor}`;
+	// 	// plot.layout.scene.xaxis.color =
+	// 	// 	plot.layout.scene.yaxis.color =
+	// 	// 	plot.layout.scene.zaxis.color =
+	// 	// 		`${axisColor}`;
 
-		gdData.layout.scene.xaxis.color =
-			gdData.layout.scene.yaxis.color =
-			gdData.layout.scene.zaxis.color =
-				`${axisColor}`;
+	// 	// plot.layout.scene.xaxis.title.font.color =
+	// 	// 	plot.layout.scene.yaxis.title.font.color =
+	// 	// 	plot.layout.scene.zaxis.title.font.color =
+	// 	// 		`${axisColor}`;
 
-		gdData.layout.scene.xaxis.title.font.color =
-			gdData.layout.scene.yaxis.title.font.color =
-			gdData.layout.scene.zaxis.title.font.color =
-				`${axisColor}`;
+	// 	// plot.data[0].colorbar.tickfont.color = `${axisColor}`;
 
-		gdData.data[0].colorbar.tickfont.color = `${axisColor}`;
+	// 	// plot.data[0].contours.x.color =
+	// 	// 	plot.data[0].contours.y.color =
+	// 	// 	plot.data[0].contours.z.color =
+	// 	// 		`${meshColor}`;
 
-		gdData.data[0].contours.x.color =
-			gdData.data[0].contours.y.color =
-			gdData.data[0].contours.z.color =
-				`${meshColor}`;
+	// 	// plot.data[0].colorscale = colorMap;
 
-		gdData.data[0].colorscale = colorMap;
+	// 	// plot.data[0].opacity = opacity;
 
-		gdData.data[0].opacity = opacity;
-
-		Plotly.react(
-			div,
-			gdData.data,
-			gdData.layout,
-			gdData.config,
-			gdData.revision
-		);
-	}, [bgColor, axisColor, colorMap, meshColor, opacity]);
+	// 	// Plotly.react(
+	// 	// 	div,
+	// 	// 	plot.data,
+	// 	// 	plot.layout,
+	// 	// 	plot.config,
+	// 	// 	plot.revision
+	// 	// );
+	// }, [bgColor, axisColor, colorMap, meshColor, opacity, plot, setPlot]);
 	useEffect(() => {
-		changeColors();
-	}, [bgColor, axisColor, colorMap, meshColor, opacity, changeColors]);
+		let cont = document.querySelector('.chart-container');
+		cont.style.backgroundColor = `${bgColor}`;
+		setPlot((prev) => ({
+			...prev,
+			data: [
+				{
+					...prev.data[0],
+					colorscale: colorMap,
+					opacity: opacity,
+					colorbar: {
+						...prev.data[0].colorbar,
+						tickfont: {
+							...prev.data[0].colorbar.tickfont,
+							color: axisColor,
+						},
+					},
+					contours: {
+						...prev.data[0].contours,
+						x: {
+							...prev.data[0].contours.x,
+							color: meshColor,
+						},
+						y: {
+							...prev.data[0].contours.y,
+							color: meshColor,
+						},
+						z: {
+							...prev.data[0].contours.z,
+							color: meshColor,
+						},
+					}
+				},
+			],
+		}));
+	}, [bgColor, axisColor, colorMap, meshColor, opacity, setPlot]);
 	return (
 		<>
 			<ColorPicker
@@ -151,38 +185,34 @@ const Layout = () => {
 	const [axis, showAxis] = useState(true);
 	const [mesh, showMesh] = useState(false);
 	const [surface, showSurface] = useState(true);
+	const { plot, setPlot } = useContext(PlotState);
+
 	const updateLayout = useCallback(() => {
 		let div = document.querySelector('.js-plotly-plot');
 
-		gdData.data[0].hidesurface = !surface;
+		plot.data[0].hidesurface = !surface;
 
-		gdData.data[0].contours.x.show =
-			gdData.data[0].contours.y.show =
-			gdData.data[0].contours.z.show =
+		plot.data[0].contours.x.show =
+			plot.data[0].contours.y.show =
+			plot.data[0].contours.z.show =
 				mesh;
 
-		gdData.layout.scene.xaxis.showgrid =
-			gdData.layout.scene.yaxis.showgrid =
-			gdData.layout.scene.zaxis.showgrid =
+		plot.layout.scene.xaxis.showgrid =
+			plot.layout.scene.yaxis.showgrid =
+			plot.layout.scene.zaxis.showgrid =
 				axis;
 
-		gdData.layout.scene.xaxis.zeroline =
-			gdData.layout.scene.yaxis.zeroline =
-			gdData.layout.scene.zaxis.zeroline =
+		plot.layout.scene.xaxis.zeroline =
+			plot.layout.scene.yaxis.zeroline =
+			plot.layout.scene.zaxis.zeroline =
 				axis;
 
-		gdData.layout.scene.xaxis.showticklabels =
-			gdData.layout.scene.yaxis.showticklabels =
-			gdData.layout.scene.zaxis.showticklabels =
+		plot.layout.scene.xaxis.showticklabels =
+			plot.layout.scene.yaxis.showticklabels =
+			plot.layout.scene.zaxis.showticklabels =
 				axis;
 
-		Plotly.react(
-			div,
-			gdData.data,
-			gdData.layout,
-			gdData.config,
-			gdData.revision
-		);
+		Plotly.react(div, plot.data, plot.layout, plot.config, plot.revision);
 	}, [axis, mesh, surface]);
 	useEffect(() => {
 		updateLayout();
@@ -236,6 +266,7 @@ const MathOps = () => {
 	const [mathConvFormula, setMathConvFormula] = useState('x * y');
 	const [xRange, setXRange] = useState({ min: -5, max: 5 });
 	const [yRange, setYRange] = useState({ min: -5, max: 5 });
+	const { plot, setPlot } = useContext(PlotState);
 	const generateRangeData = (start, end, step) => {
 		let arr = [];
 		for (let i = start; i <= end; i += step) {
@@ -253,15 +284,15 @@ const MathOps = () => {
 				return [];
 		}
 	};
-	const [dataArrays, setDataArrays] = useReducer(arraysReducer, {
-		x: [-1, 0, 1],
-		y: [-1, 0, 1],
-		z: [
-			[0, 0, 0],
-			[0, 0, 0],
-			[0, 0, 0],
-		],
-	});
+	// const [dataArrays, setDataArrays] = useReducer(arraysReducer, {
+	// 	x: [-1, 0, 1],
+	// 	y: [-1, 0, 1],
+	// 	z: [
+	// 		[0, 0, 0],
+	// 		[0, 0, 0],
+	// 		[0, 0, 0],
+	// 	],
+	// });
 	const handleChange = (event) => {
 		changePlotTitle(event.target.value);
 		let formula = event.target.value;
@@ -321,19 +352,7 @@ const MathOps = () => {
 		// 	});
 		// }
 		console.log(mathConvFormula);
-		gdData.data[0].x = dataArrays.x;
-		gdData.data[0].y = dataArrays.y;
-		gdData.data[0].z = dataArrays.z;
-		gdData.revision += 1;
-		gdData.layout.datarevision += 1;
-		Plotly.react(
-			div,
-			gdData.data,
-			gdData.layout,
-			gdData.config,
-			gdData.revision
-		);
-	}, [xRange, yRange, mathConvFormula, dataArrays]);
+	}, [xRange, yRange, mathConvFormula]);
 	return (
 		<>
 			<div className="input-container">
@@ -413,10 +432,10 @@ const MathOps = () => {
 // 	const codeToJSON = (code) => {
 // 		return JSON.stringify(code, null, 2);
 // 	};
-// 	const [currentSettings, changeSettings] = useState(codeToJSON(gdData));
+// 	const [currentSettings, changeSettings] = useState(codeToJSON(plot));
 // 	useEffect(() => {
 // 		setInterval(() => {
-// 			changeSettings(codeToJSON(gdData));
+// 			changeSettings(codeToJSON(plot));
 // 		}, 4000);
 // 	}, []);
 // 	return (

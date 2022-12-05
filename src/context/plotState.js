@@ -3,15 +3,20 @@ import { createContext } from "react";
 export const PlotState = createContext({
     plot: {
         data: [{
-            x: [0],
-            y: [0],
-            z: [0],
+            x: [-1, 0, 1],
+            y: [-1, 0, 1],
+            z: [
+                [0, 0, 0],
+                [0, 0, 0],
+                [0, 0, 0],
+            ],
             type: "surface",
             colorbar: {
                 tickfont: {
                     color: "white"
                 },
-                orientation: "v",
+                y: -0.2,
+                orientation: "h",
             },
             colorscale: "Jet",
             contours: {
@@ -101,5 +106,5 @@ export const PlotState = createContext({
         },
         revision: 0
     },
-    setPlot: () => { }
+    setPlot: () => {}
 });
