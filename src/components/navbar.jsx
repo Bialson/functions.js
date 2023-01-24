@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect, memo } from "react";
-import icon from "./../img/icons/logo256.png";
+import { useState, useContext, useEffect, memo } from "react";
 import { motion } from "framer-motion";
 import { ThemeContext } from "../context/themeSwitcher";
+import icon from "./../img/icons/logo256.png";
 
 const Navbar = () => {
 	const theme = useContext(ThemeContext);

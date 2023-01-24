@@ -1,28 +1,23 @@
-import './../css/App.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import React, { useEffect, useContext } from 'react';
-import Navbar from '../components/navbar';
-import Chart from './../components/plot';
+import { useContext, useMemo, useState } from 'react';
+import Navbar from '../components/Navbar';
+import Chart from '../components/Plot';
 import { IsLoading } from '../context/loading';
-import Loader from '../components/loader';
+import Loader from '../components/Loader';
 import { PlotState } from '../context/plotState';
+import Sidebar from '../components/Sidebar';
 
 const Calculator = () => {
-	const [loading, setLoading] = React.useState(true);
-	const loadingState = React.useMemo(
+	const Plot = useContext(PlotState);
+	const [loading, setLoading] = useState(true);
+	const [plot, setPlot] = useState(Plot.plot);
+	const loadingState = useMemo(
 		() => ({ loading, setLoading }),
 		[loading]
 	);
-	const Plot = useContext(PlotState);
-	const [plot, setPlot] = React.useState(Plot.plot);
-	const plotSettings = React.useMemo(
+	const plotSettings = useMemo(
 		() => ({ plot, setPlot }),
 		[plot]
 	);
-	useEffect(() => {
-		console.log('Renderowanie komponentu kalkulator');
-		console.log(plotSettings);
-	});
 	return (
 		<>
 			{loading ? <Loader /> : null}
@@ -30,6 +25,7 @@ const Calculator = () => {
 			<IsLoading.Provider value={loadingState}>
 				<PlotState.Provider value={plotSettings}>
 					<Chart />
+					<Sidebar />
 				</PlotState.Provider>
 			</IsLoading.Provider>
 		</>

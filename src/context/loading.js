@@ -1,6 +1,6 @@
-import React from "react";
+import { createContext } from "react";
 
-export const IsLoading = React.createContext({
+export const IsLoading = createContext({
     loading: true,
     setLoading: () => {}
 });

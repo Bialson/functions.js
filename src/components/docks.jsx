@@ -3,67 +3,20 @@ import React, {
 	useState,
 	useEffect,
 	useContext,
-	useCallback,
 } from 'react';
 import Plotly from 'plotly.js/dist/plotly.js';
 import TeX from '@matejmazur/react-katex';
-import ColorPicker from './color-picker';
+import ColorPicker from './ColorPicker';
 import { ThemeContext } from '../context/themeSwitcher';
 import { PlotState } from '../context/plotState';
-import { color } from 'd3-color';
 
 const Material = () => {
+	const { setPlot } = useContext(PlotState);
 	const [bgColor, setBgColor] = useState('rgba()');
 	const [axisColor, setAxisColor] = useState('rgba()');
 	const [meshColor, setMeshColor] = useState('rgba()');
 	const [colorMap, setColorMap] = useState('Jet');
 	const [opacity, setOpacity] = useState(1);
-	const { plot, setPlot } = useContext(PlotState);
-	// const changeColors = useCallback(() => {
-	// 	let div = document.querySelector('.js-plotly-plot');
-	// 	let cont = document.querySelector('.chart-container');
-
-	// 	cont.style.backgroundColor = `${bgColor}`;
-	// 	setPlot({revision: 1})
-	// 	// plot.layout.scene.xaxis.gridcolor =
-	// 	// 	plot.layout.scene.yaxis.gridcolor =
-	// 	// 	plot.layout.scene.zaxis.gridcolor =
-	// 	// 		`${axisColor}`;
-
-	// 	// plot.layout.scene.xaxis.tickfont.color =
-	// 	// 	plot.layout.scene.yaxis.tickfont.color =
-	// 	// 	plot.layout.scene.zaxis.tickfont.color =
-	// 	// 		`${axisColor}`;
-
-	// 	// plot.layout.scene.xaxis.color =
-	// 	// 	plot.layout.scene.yaxis.color =
-	// 	// 	plot.layout.scene.zaxis.color =
-	// 	// 		`${axisColor}`;
-
-	// 	// plot.layout.scene.xaxis.title.font.color =
-	// 	// 	plot.layout.scene.yaxis.title.font.color =
-	// 	// 	plot.layout.scene.zaxis.title.font.color =
-	// 	// 		`${axisColor}`;
-
-	// 	// plot.data[0].colorbar.tickfont.color = `${axisColor}`;
-
-	// 	// plot.data[0].contours.x.color =
-	// 	// 	plot.data[0].contours.y.color =
-	// 	// 	plot.data[0].contours.z.color =
-	// 	// 		`${meshColor}`;
-
-	// 	// plot.data[0].colorscale = colorMap;
-
-	// 	// plot.data[0].opacity = opacity;
-
-	// 	// Plotly.react(
-	// 	// 	div,
-	// 	// 	plot.data,
-	// 	// 	plot.layout,
-	// 	// 	plot.config,
-	// 	// 	plot.revision
-	// 	// );
-	// }, [bgColor, axisColor, colorMap, meshColor, opacity, plot, setPlot]);
 	useEffect(() => {
 		let cont = document.querySelector('.chart-container');
 		cont.style.backgroundColor = `${bgColor}`;
@@ -95,9 +48,55 @@ const Material = () => {
 							...prev.data[0].contours.z,
 							color: meshColor,
 						},
-					}
+					},
 				},
 			],
+			layout: {
+				...prev.layout,
+				scene: {
+					...prev.layout.scene,
+					xaxis: {
+						...prev.layout.scene.xaxis,
+						color: axisColor,
+						gridcolor: axisColor,
+						tickfont: {
+							color: axisColor,
+						},
+						title: {
+							font: {
+								color: axisColor,
+							},
+						},
+					},
+					yaxis: {
+						...prev.layout.scene.yaxis,
+						color: axisColor,
+						gridcolor: axisColor,
+						tickfont: {
+							color: axisColor,
+						},
+						title: {
+							font: {
+								color: axisColor,
+							},
+						},
+					},
+					zaxis: {
+						...prev.layout.scene.zaxis,
+						color: axisColor,
+						gridcolor: axisColor,
+						tickfont: {
+							color: axisColor,
+						},
+						title: {
+							font: {
+								color: axisColor,
+							},
+						},
+					},
+				},
+			},
+			revision: prev.revision + 1,
 		}));
 	}, [bgColor, axisColor, colorMap, meshColor, opacity, setPlot]);
 	return (
@@ -185,38 +184,57 @@ const Layout = () => {
 	const [axis, showAxis] = useState(true);
 	const [mesh, showMesh] = useState(false);
 	const [surface, showSurface] = useState(true);
-	const { plot, setPlot } = useContext(PlotState);
-
-	const updateLayout = useCallback(() => {
-		let div = document.querySelector('.js-plotly-plot');
-
-		plot.data[0].hidesurface = !surface;
-
-		plot.data[0].contours.x.show =
-			plot.data[0].contours.y.show =
-			plot.data[0].contours.z.show =
-				mesh;
-
-		plot.layout.scene.xaxis.showgrid =
-			plot.layout.scene.yaxis.showgrid =
-			plot.layout.scene.zaxis.showgrid =
-				axis;
-
-		plot.layout.scene.xaxis.zeroline =
-			plot.layout.scene.yaxis.zeroline =
-			plot.layout.scene.zaxis.zeroline =
-				axis;
-
-		plot.layout.scene.xaxis.showticklabels =
-			plot.layout.scene.yaxis.showticklabels =
-			plot.layout.scene.zaxis.showticklabels =
-				axis;
-
-		Plotly.react(div, plot.data, plot.layout, plot.config, plot.revision);
-	}, [axis, mesh, surface]);
+	const { setPlot } = useContext(PlotState);
 	useEffect(() => {
-		updateLayout();
-	}, [axis, mesh, surface, updateLayout]);
+		setPlot((prev) => ({
+			...prev,
+			data: [
+				{
+					...prev.data[0],
+					hidesurface: !surface,
+					contours: {
+						x: {
+							...prev.data[0].contours.x,
+							show: mesh,
+						},
+						y: {
+							...prev.data[0].contours.x,
+							show: mesh,
+						},
+						z: {
+							...prev.data[0].contours.x,
+							show: mesh,
+						},
+					},
+				},
+			],
+			layout: {
+				...prev.layout,
+				scene: {
+					...prev.layout.scene,
+					xaxis: {
+						...prev.layout.scene.xaxis,
+						showgrid: axis,
+						showticklabels: axis,
+						zeroline: axis,
+					},
+					yaxis: {
+						...prev.layout.scene.yaxis,
+						showgrid: axis,
+						showticklabels: axis,
+						zeroline: axis,
+					},
+					zaxis: {
+						...prev.layout.scene.zaxis,
+						showgrid: axis,
+						showticklabels: axis,
+						zeroline: axis,
+					},
+				},
+			},
+			revision: prev.revision + 1,
+		}));
+	}, [axis, mesh, surface, setPlot]);
 	return (
 		<div className="input-container">
 			<div className="input-item">
@@ -262,53 +280,17 @@ const Layout = () => {
 };
 
 const MathOps = () => {
-	const [plotTitle, changePlotTitle] = useState('f(x,y) = x * y');
-	const [mathConvFormula, setMathConvFormula] = useState('x * y');
-	const [xRange, setXRange] = useState({ min: -5, max: 5 });
-	const [yRange, setYRange] = useState({ min: -5, max: 5 });
-	const { plot, setPlot } = useContext(PlotState);
+	const { setPlot } = useContext(PlotState);
+	const [plotTitle, changePlotTitle] = useState('f(x,y) =  0');
+	const [mathConvFormula, setMathConvFormula] = useState('0');
+	const [xRange, setXRange] = useState({ min: -1, max: 1 });
+	const [yRange, setYRange] = useState({ min: -1, max: 1 });
 	const generateRangeData = (start, end, step) => {
 		let arr = [];
 		for (let i = start; i <= end; i += step) {
 			arr.push(i);
 		}
 		return arr;
-	};
-	const arraysReducer = (state, action) => {
-		switch (action.type) {
-			case 'change_x':
-				return generateRangeData(xRange.min, xRange.max, 0.2);
-			case 'change_y':
-				return generateRangeData(yRange.min, yRange.max, 0.2);
-			default:
-				return [];
-		}
-	};
-	// const [dataArrays, setDataArrays] = useReducer(arraysReducer, {
-	// 	x: [-1, 0, 1],
-	// 	y: [-1, 0, 1],
-	// 	z: [
-	// 		[0, 0, 0],
-	// 		[0, 0, 0],
-	// 		[0, 0, 0],
-	// 	],
-	// });
-	const handleChange = (event) => {
-		changePlotTitle(event.target.value);
-		let formula = event.target.value;
-		formula = formula
-			.replace(/\^/g, '**')
-			.replace(/e/g, 'Math.E')
-			.replace('f(x, y) = ', '')
-			.replace(/\\frac\{(.+?)\}\{(.+?)\}/g, '($1)/($2)')
-			.replace(/\\sqrt\{(.+?)\}/g, 'Math.sqrt($1)')
-			.replace(/\\sqrt\[3\]\{(.+?)\}/g, 'Math.cbrt($1)')
-			.replace(/\{(.+?)\}/g, '($1)')
-			.replace(/\|(.+?)\|/g, 'Math.abs($1)')
-			.replace(/\b\w*sin\w*\((.+?)\)/g, 'Math.sin($1)')
-			.replace(/\b\w*cos\w*\((.+?)\)/g, 'Math.cos($1)')
-			.replace(/\b\w*tg\w*\((.+?)\)/g, 'Math.tan($1)');
-		setMathConvFormula(formula);
 	};
 	const changeXDomain = (event) => {
 		console.log(event.target.name);
@@ -338,21 +320,56 @@ const MathOps = () => {
 				break;
 		}
 	};
+	const handleChange = (event) => {
+		changePlotTitle(event.target.value);
+		let formula = event.target.value;
+		formula = formula
+			.replace(/\^/g, '**')
+			.replace(/e/g, 'Math.E')
+			.replace('f(x, y) = ', '')
+			.replace(/\\frac\{(.+?)\}\{(.+?)\}/g, '($1)/($2)')
+			.replace(/\\sqrt\{(.+?)\}/g, 'Math.sqrt($1)')
+			.replace(/\\sqrt\[3\]\{(.+?)\}/g, 'Math.cbrt($1)')
+			.replace(/\{(.+?)\}/g, '($1)')
+			.replace(/\|(.+?)\|/g, 'Math.abs($1)')
+			.replace(/\b\w*sin\w*\((.+?)\)/g, 'Math.sin($1)')
+			.replace(/\b\w*cos\w*\((.+?)\)/g, 'Math.cos($1)')
+			.replace(/\b\w*tg\w*\((.+?)\)/g, 'Math.tan($1)');
+		setMathConvFormula(formula);
+	};
 	useEffect(() => {
-		let div = document.querySelector('.js-plotly-plot');
-		// if (mathConvFormula !== "") {
-		// 	Z = X.map((x) => {
-		// 		return Y.map((y) => {
-		// 			try {
-		// 				return eval(mathConvFormula);
-		// 			} catch (e) {
-		// 				return 0;
-		// 			}
-		// 		});
-		// 	});
-		// }
-		console.log(mathConvFormula);
-	}, [xRange, yRange, mathConvFormula]);
+		let X = generateRangeData(xRange.min, xRange.max, 0.2);
+		let Y = generateRangeData(yRange.min, yRange.max, 0.2);
+		let Z = [];
+		if (mathConvFormula !== '') {
+			Z = X.map((x) => {
+				return Y.map((y) => {
+					try {
+						return eval(mathConvFormula);
+					} catch (e) {
+						return 0;
+					}
+				});
+			});
+			setPlot((prev) => ({
+				...prev,
+				data: [
+					{
+						...prev.data[0],
+						x: X,
+						y: Y,
+						z: Z,
+					},
+				],
+				layout: {
+					...prev.layout,
+					datarevision: prev.datarevision + 1,
+				},
+				revision: prev.revision + 1,
+			}));
+			console.log(mathConvFormula);
+		}
+	}, [xRange, yRange, mathConvFormula, setPlot]);
 	return (
 		<>
 			<div className="input-container">
@@ -362,7 +379,7 @@ const MathOps = () => {
 						type="search"
 						className="input formula_input"
 						placeholder="f(x, y) = ..."
-						defaultValue="f(x, y) = x * y"
+						defaultValue="f(x, y) = 0"
 						onChange={handleChange}
 					/>
 				</div>
@@ -386,7 +403,7 @@ const MathOps = () => {
 					<input
 						type="number"
 						className="input"
-						defaultValue={-5}
+						defaultValue={-1}
 						onChange={changeXDomain}
 						name="min"
 					/>
@@ -394,7 +411,7 @@ const MathOps = () => {
 					<input
 						type="number"
 						className="input"
-						defaultValue={5}
+						defaultValue={1}
 						onChange={changeXDomain}
 						name="max"
 					/>
@@ -408,7 +425,7 @@ const MathOps = () => {
 					<input
 						type="number"
 						className="input"
-						defaultValue={-5}
+						defaultValue={-1}
 						onChange={changeYDomain}
 						name="min"
 					/>
@@ -416,7 +433,7 @@ const MathOps = () => {
 					<input
 						type="number"
 						className="input"
-						defaultValue={5}
+						defaultValue={1}
 						onChange={changeYDomain}
 						name="max"
 					/>
@@ -427,33 +444,9 @@ const MathOps = () => {
 	);
 };
 
-/*==== To further usage ====*/
-// const Code = () => {
-// 	const codeToJSON = (code) => {
-// 		return JSON.stringify(code, null, 2);
-// 	};
-// 	const [currentSettings, changeSettings] = useState(codeToJSON(plot));
-// 	useEffect(() => {
-// 		setInterval(() => {
-// 			changeSettings(codeToJSON(plot));
-// 		}, 4000);
-// 	}, []);
-// 	return (
-// 		<div className="input-item">
-// 			<CodeBlock
-// 				text={currentSettings}
-// 				theme={vs2015}
-// 				showLineNumbers={false}
-// 				language="json"
-// 				Add-AppxPackage
-// 			/>
-// 		</div>
-// 	);
-// };
-
 const Export = () => {
 	const [format, changeFormat] = useState('svg');
-	const plotDivRef = useRef(null);
+	const plotImgRef = useRef(null);
 	const downloadImage = () => {
 		const div = document.querySelector('.js-plotly-plot');
 		Plotly.downloadImage(div, { format: format, filename: 'plot' });
@@ -461,7 +454,7 @@ const Export = () => {
 	const generateImage = async () => {
 		let div = document.querySelector('.js-plotly-plot');
 		const url = await Plotly.toImage(div, { format: 'svg' });
-		plotDivRef.current.src = url;
+		plotImgRef.current.src = url;
 	};
 	useEffect(() => {
 		generateImage();
@@ -496,7 +489,7 @@ const Export = () => {
 				</div>
 			</div>
 			<img
-				ref={plotDivRef}
+				ref={plotImgRef}
 				alt="Export previev"
 				width={216}
 				title="Plot preview"

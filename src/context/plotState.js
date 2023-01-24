@@ -15,8 +15,8 @@ export const PlotState = createContext({
                 tickfont: {
                     color: "white"
                 },
-                y: -0.2,
                 orientation: "h",
+                y: -0.1
             },
             colorscale: "Jet",
             contours: {
@@ -44,7 +44,7 @@ export const PlotState = createContext({
                     zeroline: true,
                     showgrid: true,
                     showticklabels: true,
-                    gridwidth: 3
+                    gridwidth: 2
                 },
                 yaxis: {
                     color: "white",
@@ -60,7 +60,7 @@ export const PlotState = createContext({
                     zeroline: true,
                     showgrid: true,
                     showticklabels: true,
-                    gridwidth: 3
+                    gridwidth: 2
                 },
                 zaxis: {
                     color: "white",
@@ -76,7 +76,7 @@ export const PlotState = createContext({
                     zeroline: true,
                     showgrid: true,
                     showticklabels: true,
-                    gridwidth: 3
+                    gridwidth: 2
                 },
                 camera: {
                     eye: {
@@ -93,9 +93,9 @@ export const PlotState = createContext({
             datarevision: 0,
             margin: {
                 b: 10,
-                t: 10
+                t: 10,
             },
-            autosize: true
+            autosize: true,
         },
         config: {
             responive: true,
@@ -106,5 +106,5 @@ export const PlotState = createContext({
         },
         revision: 0
     },
-    setPlot: () => {}
+    setPlot: () => { }
 });

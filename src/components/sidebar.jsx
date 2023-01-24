@@ -1,14 +1,13 @@
-import React, { useContext, useEffect } from "react";
-import { Material, Layout, MathOps, Export } from "./../components/docks";
-import { ThemeContext } from "../context/themeSwitcher";
+import { useContext } from 'react';
+import { Material, Layout, MathOps, Export } from './Docks';
+import { ThemeContext } from '../context/themeSwitcher';
 
 const Sidebar = () => {
-	useEffect(() => console.log("Renderowanie komponentu sidebar"));
 	const theme = useContext(ThemeContext);
 	const darkMode = theme.state.darkMode;
 	return (
 		<div
-			className={`sidebar ${darkMode ? "sidebar-dark" : "sidebar-light"}`}
+			className={`sidebar ${darkMode ? 'sidebar-dark' : 'sidebar-light'}`}
 		>
 			<div className="plot-settings">
 				<div className="settings-element">
