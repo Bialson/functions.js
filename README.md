@@ -1,81 +1,36 @@
-<h1 align="center">
-    <img src='https://user-images.githubusercontent.com/78564805/183485230-61d336dc-e332-480d-a0fe-47aac7e9aeed.png' height=200/><br/>
-    Functions.JS
-</h1>
-<p align="center">Create and visualize beautiful math functions in your browser only by writing math formula. <br/> <b>Functions.JS</b> will take care of the rest.</p>
-<p align="center"><img src="https://img.shields.io/badge/version-1.0_stable-blue"/>&nbsp;<img src="https://img.shields.io/badge/license-GPL-yellow"/>&nbsp;<img src="https://img.shields.io/npm/v/react?label=React&logo=react"/>&nbsp;<img src="https://img.shields.io/npm/v/react-plotly.js?label=react-plotly.js&logo=plotly"/>&nbsp;<img src="https://img.shields.io/npm/v/plotly.js?label=plotly.js&logo=plotly"/>&nbsp;<img src="https://img.shields.io/npm/v/@matejmazur/react-katex?label=react-katex"/></p><br/>
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## 🏠 Homepage
-> [https://bialson.github.io/Functions.JS/](https://bialson.github.io/Functions.JS/)
+## Getting Started
 
-## 📝 Table of Contents
-* [General Info](#general-information)
-* [Components list](#technologies-used)
-* [Features](#features)
-* [Screenshots](#screenshots)
-* [Setup](#setup)
-* [Usage](#usage)
-* [Project Status](#project-status)
-* [Room for Improvement](#room-for-improvement)
-* [License](#license)
-<!-- * [License](#license) -->
+First, run the development server:
 
-## ℹ️ General Information
-- Project was inspired by my math & physics teacher
-- The main solution of it is to present difficult math equations with user-friendly way by interactive UI
-- It is dedicated for high-school / college students
-- First of all I really like math & physics so it was the main reason. I also undertaken it to practice more in my main technology - React
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## ⚙️ Technologies Used
-- React - v18.2.0
-- react-plotly.js - v2.6.0
-- Plotly.js - v2.14.0
-- KaTeX - v0.16.2
-- Framer Motion - v.7.3.6
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## 💡 Features
-- Dynamic plotting from math formula
-- Changeable color palette & opacity 
-- Plot x & y axis range
-- Export chart as image
-- Dark theme support
+## Learn More
 
+To learn more about Next.js, take a look at the following resources:
 
-## 📷 Screenshots
-![image](https://user-images.githubusercontent.com/78564805/192359876-d238967f-fc2b-4eed-a338-78ce9ba221c0.png)
-![image](https://user-images.githubusercontent.com/78564805/192360912-825fb25d-c963-45bb-bbba-4b5b8f0f07cb.png)
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-<!-- If you have screenshots you'd like to share, include them here. -->
+## Deploy on Vercel
 
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-## 🛠️ Setup
-You don't need to install any packages. The only requirement is to use Chrome browser. All tests were carried on Chrome 105.
-
-
-## 📕 Usage
-To take interaction with chart, change formula in dedicated input field. Formula must be in following pattern:
-```f(x, y) = ...```
-Otherwise formula input change will not affect to chart.
-
-
-## 🦺 Project Status
-Project is: ✅Complete
-
-
-## 🚀 Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
-
-Room for improvement:
-- Performance for higher mesh density
-- Mobile version for phones and tablets
-
-To do:
-- Calculus analyze module
-- More personalization options
-
-## 📃 License
-Functions.JS is licensed under GPL-2.0 license. Copyright @2022 Bialson
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
