@@ -6,6 +6,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
+import { AxisRangeInput } from '../input/AxisRangeInput';
+import { FormulaInput } from '../input/FormulaInput';
 
 export const Sidebar: React.FC = () => {
 	const t = useTranslations('Home');
@@ -25,40 +27,24 @@ export const Sidebar: React.FC = () => {
 					<TabsTrigger value="surface">Parametric</TabsTrigger>
 				</TabsList>
 				<TabsContent value="function">
-					<Label htmlFor="formula_equation">Formula</Label>
-					<Input
-						type="number"
-						placeholder="f(x, y) = 0"
-						id="formula_equation"
-						className="mt-2"
-					/>
+					<div className="mt-4">
+						<FormulaInput />
+					</div>
 				</TabsContent>
 				<TabsContent value="surface">
-					<Label htmlFor="param_equation_x">X equation</Label>
-					<Input
-						type="number"
-						placeholder="f(u, v) = 0"
-						id="param_equation_x"
-						className="mt-2"
-					/>
-					<Label htmlFor="param_equation_y">Y equation</Label>
-					<Input
-						type="number"
-						placeholder="f(u, v) = 0"
-						id="param_equation_y"
-						className="mt-2"
-					/>
-					<Label htmlFor="param_equation_z">Z equation</Label>
-					<Input
-						type="number"
-						placeholder="f(u, v) = 0"
-						id="param_equation_z"
-						className="mt-2"
-					/>
+					<div className="flex flex-col gap-4 mt-4">
+						<FormulaInput isParametric axis="x" />
+						<FormulaInput isParametric axis="y" />
+						<FormulaInput isParametric axis="z" />
+					</div>
 				</TabsContent>
 			</Tabs>
-			<div>
-				<Slider defaultValue={[-5, 5]} step={0.5} />
+			<div className="flex flex-col gap-4 mt-8">
+				<AxisRangeInput axis="x" />
+				<Separator className="my-2" />
+				<AxisRangeInput axis="y" />
+				<Separator className="my-2" />
+				<AxisRangeInput axis="z" />
 			</div>
 			<div className="mt-auto">
 				<Separator className="my-4" />
