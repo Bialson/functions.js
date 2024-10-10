@@ -2,5 +2,18 @@
 	"Home": {
 		"Title": "Home",
 		"Description": "This is the home page."
+	},
+	"math": {
+		"formula": {
+			"equation": "Formula",
+			"equationX": "FormulaX",
+			"equationY": "FormulaY",
+			"equationZ": "FormulaZ"
+		},
+		"axisRanges": {
+			"x": "X Range",
+			"y": "Y Range",
+			"z": "Z Range"
+		}
 	}
 }

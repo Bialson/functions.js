@@ -4,6 +4,7 @@ import { Axis } from '@/lib/math/types';
 import { useFormulaStore } from '@/store/formula';
 import { useShallow } from 'zustand/react/shallow';
 import { useMemo } from 'react';
+import { useTranslations } from 'next-intl';
 
 type FormulaInputProps = {
 	isParametric?: boolean;
@@ -14,6 +15,8 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 	isParametric,
 	axis,
 }) => {
+	const t = useTranslations('math.formula');
+
 	const INPUT_PLACEHOLDER = isParametric ? 'f(u, v) = 0' : 'f(x, y) = 0';
 
 	const inputId = isParametric
@@ -31,8 +34,6 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 		return getEquation();
 	}, [axis, getEquation]);
 
-	console.log(defaultValue);
-
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
 		setEquation(value, axis);
@@ -41,7 +42,7 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 	return (
 		<div className="flex flex-col gap-1">
 			<Label htmlFor={inputId}>
-				{axis ? `${axis.toUpperCase()} Equation` : 'Formula'}
+				{axis ? t(`equation${axis.toUpperCase()}`) : t('equation')}
 			</Label>
 			<Input
 				type="text"

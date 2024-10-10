@@ -11,12 +11,15 @@ import { useShallow } from 'zustand/react/shallow';
 import { Label } from '@/components/ui/label';
 import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
+import { useTranslations } from 'next-intl';
 
 type AxisRangeInputProps = {
 	axis: Axis;
 };
 
 export const AxisRangeInput: React.FC<AxisRangeInputProps> = ({ axis }) => {
+	const t = useTranslations('math.axisRanges');
+
 	const [xRange, yRange, zRange] = useDataStore(
 		useShallow((state) => [state.xRange, state.yRange, state.zRange]),
 	);
@@ -51,7 +54,7 @@ export const AxisRangeInput: React.FC<AxisRangeInputProps> = ({ axis }) => {
 	return (
 		<div className="flex flex-col gap-4 items-center">
 			<Label htmlFor={inputId} className="w-full">
-				{axis.toUpperCase()} Range
+				{t(axis)}
 			</Label>
 			<Slider
 				aria-label={`Set the range of ${axis}`}

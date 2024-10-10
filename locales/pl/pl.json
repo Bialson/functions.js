@@ -2,5 +2,18 @@
 	"Home": {
 		"Title": "Strona główna",
 		"Description": "To jest strona główna."
+	},
+	"math": {
+		"formula": {
+			"equation": "Równanie",
+			"equationX": "Równanie X",
+			"equationY": "Równanie Y",
+			"equationZ": "Równanie Z"
+		},
+		"axisRanges": {
+			"x": "Zakres osi X",
+			"y": "Zakres osi Y",
+			"z": "Zakres osi Z"
+		}
 	}
 }
