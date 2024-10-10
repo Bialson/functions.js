@@ -10,6 +10,8 @@
 
 @layer base {
 	:root {
+		--editor-background: 26 29 29;
+		--layout-background: 16 18 19;
 		--background: 0 0% 100%;
 		--foreground: 240 10% 3.9%;
 		--card: 0 0% 100%;

@@ -10,6 +10,8 @@ const config: Config = {
 	theme: {
 		extend: {
 			colors: {
+				editorBackground: 'rgb(var(--editor-background))',
+				layoutBackground: 'rgb(var(--layout-background))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				card: {
