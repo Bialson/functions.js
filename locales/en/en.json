@@ -15,5 +15,14 @@
 			"y": "Y Range",
 			"z": "Z Range"
 		}
+	},
+	"lang": {
+		"en": "English",
+		"pl": "Polish"
+	},
+	"theme": {
+		"light": "Light",
+		"dark": "Dark",
+		"system": "System"
 	}
 }

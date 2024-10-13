@@ -15,5 +15,14 @@
 			"y": "Zakres osi Y",
 			"z": "Zakres osi Z"
 		}
+	},
+	"lang": {
+		"en": "Angielski",
+		"pl": "Polski"
+	},
+	"theme": {
+		"light": "Jasny",
+		"dark": "Ciemny",
+		"system": "Systemowy"
 	}
 }
