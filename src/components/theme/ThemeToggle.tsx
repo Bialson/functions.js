@@ -11,15 +11,17 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useTranslations } from 'next-intl';
 
 export const ThemeToggle = () => {
 	const { setTheme } = useTheme();
+	const t = useTranslations('theme');
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger
 				asChild
-				className="focus:outline-none absolute right-4 bottom-4"
+				className="focus:outline-none focus-visible:ring-transparent absolute right-4 bottom-4"
 			>
 				<Button variant="outline" size="icon">
 					<Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
@@ -29,13 +31,13 @@ export const ThemeToggle = () => {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
 				<DropdownMenuItem onClick={() => setTheme('light')}>
-					Light
+					{t('light')}
 				</DropdownMenuItem>
 				<DropdownMenuItem onClick={() => setTheme('dark')}>
-					Dark
+					{t('dark')}
 				</DropdownMenuItem>
 				<DropdownMenuItem onClick={() => setTheme('system')}>
-					System
+					{t('system')}
 				</DropdownMenuItem>
 			</DropdownMenuContent>
 		</DropdownMenu>
