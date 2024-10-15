@@ -1,7 +1,7 @@
 {
-	"Home": {
-		"Title": "Home",
-		"Description": "This is the home page."
+	"sidebar": {
+		"export": "Export",
+		"library": "Library"
 	},
 	"math": {
 		"formula": {
@@ -14,6 +14,30 @@
 			"x": "X Range",
 			"y": "Y Range",
 			"z": "Z Range"
+		}
+	},
+	"toolbox": {
+		"texture": {
+			"title": "Texture",
+			"subtitle": "Choose texture",
+			"color-picker": {
+				"solid": "Color",
+				"gradient": "Gradient",
+				"image": "Image"
+			}
+		},
+		"transform": {
+			"title": "Transform",
+			"subtitle": "Choose transformation mode",
+			"move": "Move",
+			"rotate": "Rotate",
+			"scale": "Scale"
+		},
+		"display": {
+			"title": "Display mode",
+			"subtitle": "Choose display mode",
+			"wireframe": "Wireframe",
+			"solid": "Solid"
 		}
 	},
 	"lang": {
