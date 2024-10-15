@@ -5,6 +5,7 @@ import { useFormulaStore } from '@/store/formula';
 import { useShallow } from 'zustand/react/shallow';
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import Latex from 'react-latex-next';
 
 type FormulaInputProps = {
 	isParametric?: boolean;
@@ -40,7 +41,7 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 	};
 
 	return (
-		<div className="flex flex-col gap-1">
+		<div className="flex flex-col gap-4">
 			<Label htmlFor={inputId}>
 				{axis ? t(`equation${axis.toUpperCase()}`) : t('equation')}
 			</Label>
@@ -49,9 +50,9 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 				defaultValue={defaultValue}
 				placeholder={INPUT_PLACEHOLDER}
 				id={inputId}
-				className="mt-2"
 				onChange={handleChange}
 			/>
+			{defaultValue.length > 0 && <Latex>{`$${defaultValue}$`}</Latex>}
 		</div>
 	);
 };

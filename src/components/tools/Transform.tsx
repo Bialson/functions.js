@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup, ButtonGroupItem } from '@/components/ui/button-group';
 import { TransformControls, usePlotStore } from '@/store/plot';
 import { useShallow } from 'zustand/react/shallow';
+import { useTranslations } from 'next-intl';
 
 export const Transform: React.FC = () => {
 	const [transformMode, setTransformMode] = usePlotStore(
@@ -16,6 +17,8 @@ export const Transform: React.FC = () => {
 			state.setTransformControlsMode,
 		]),
 	);
+
+	const t = useTranslations('toolbox.transform');
 
 	return (
 		<Popover>
@@ -30,10 +33,8 @@ export const Transform: React.FC = () => {
 				sideOffset={24}
 				className="bg-white dark:bg-layoutBackground"
 			>
-				<h3 className="font-semibold">Transform mode</h3>
-				<p className="mb-4 text-gray-500">
-					Select preffered transform mode
-				</p>
+				<h3 className="font-semibold">{t('title')}</h3>
+				<p className="mb-4 text-gray-500">{t('subtitle')}</p>
 				<ButtonGroup
 					defaultValue={transformMode}
 					onValueChange={(value) => {
@@ -41,17 +42,17 @@ export const Transform: React.FC = () => {
 					}}
 				>
 					<ButtonGroupItem
-						label="Move"
+						label={t('move')}
 						icon={<Move className="w-6 h-6" />}
 						value="move"
 					/>
 					<ButtonGroupItem
-						label="Rotate"
+						label={t('rotate')}
 						icon={<Rotate3D className="w-6 h-6" />}
 						value="rotate"
 					/>
 					<ButtonGroupItem
-						label="Scale"
+						label={t('scale')}
 						icon={<Scale3D className="w-6 h-6" />}
 						value="scale"
 					/>

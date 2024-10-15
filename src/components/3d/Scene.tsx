@@ -1,11 +1,20 @@
 import { Canvas } from '@react-three/fiber';
 import { Ground } from './Ground';
-import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import {
+	Box,
+	GradientTexture,
+	MeshDistortMaterial,
+	OrbitControls,
+	PerspectiveCamera,
+} from '@react-three/drei';
 import { AxesHelper, GizmoHelper } from './helpers';
+import { Plot } from './Plot';
+import { Lights } from './Lights';
 
 export const Scene: React.FC = () => {
 	return (
 		<Canvas className="z-0 absolute">
+			<Lights />
 			<PerspectiveCamera
 				makeDefault
 				position={[5, 5, 10]}
@@ -18,6 +27,7 @@ export const Scene: React.FC = () => {
 			<OrbitControls />
 			<GizmoHelper />
 			<AxesHelper visible />
+			<Plot />
 		</Canvas>
 	);
 };

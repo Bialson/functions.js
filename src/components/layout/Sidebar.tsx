@@ -4,10 +4,13 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AxisRangeInput } from '../input/AxisRangeInput';
 import { FormulaInput } from '../input/FormulaInput';
+import { useTranslations } from 'next-intl';
 
 export const Sidebar: React.FC = () => {
+	const t = useTranslations('sidebar');
+
 	return (
-		<div className="absolute top-0 left-0 w-[20%] p-8 h-full bg-white dark:bg-layoutBackground flex flex-col">
+		<div className="absolute top-0 left-0 w-[18svw] p-8 h-full bg-white dark:bg-layoutBackground flex flex-col">
 			<div className="flex flex-row justify-between items-center">
 				<h1 className="text-2xl font-bold">Functions 3D</h1>
 				<Button variant="outline" size="icon">
@@ -44,11 +47,11 @@ export const Sidebar: React.FC = () => {
 				<Separator className="my-4" />
 				<Button variant="ghost" className="w-full justify-start">
 					<BookOpenText className="mr-2 w-4 h-4" />
-					Library
+					{t('library')}
 				</Button>
 				<Button variant="ghost" className="w-full justify-start">
 					<Download className="mr-2 w-4 h-4" />
-					Export
+					{t('export')}
 				</Button>
 			</div>
 		</div>

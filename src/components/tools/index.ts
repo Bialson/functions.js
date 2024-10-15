@@ -1,4 +1,4 @@
 import { Transform } from './Transform';
-import { Material } from './Material';
+import { Texture } from './Texture';
 
-export { Transform, Material };
+export { Transform, Texture };

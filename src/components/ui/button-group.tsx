@@ -12,7 +12,7 @@ const ButtonGroup = forwardRef<
 >(({ className, ...props }, ref) => {
 	return (
 		<RadioGroupPrimitive.Root
-			className={cn('flex gap-5', className)}
+			className={cn('flex justify-evenly gap-5', className)}
 			{...props}
 			ref={ref}
 		/>
@@ -31,7 +31,7 @@ const ButtonGroupItem = forwardRef<
 		<RadioGroupPrimitive.Item
 			ref={ref}
 			className={cn(
-				'border data-[state=checked]:bg-background text-center h-[70px] w-[70px] rounded-md focus:outline-none 2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+				'border data-[state=checked]:bg-background text-center box-border flex-1 p-2 rounded-md focus:outline-none 2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
 				className,
 			)}
 			{...props}

@@ -6,10 +6,11 @@ export type TransformControls = 'move' | 'rotate' | 'scale';
 
 type FillType = 'solid' | 'colormap';
 
+export type DisplayMode = 'surface' | 'wireframe';
+
 interface PlotStore {
 	transformControlsMode: TransformControls;
-	surface: boolean;
-	wireframe: boolean;
+	displayMode: DisplayMode;
 	surfaceColor: Color;
 	materialURL: string | undefined;
 	wireframeColor: Color;
@@ -20,8 +21,7 @@ interface PlotStore {
 	axisHelper: boolean;
 	opacity: number;
 	setTransformControlsMode: (mode: TransformControls) => void;
-	setSurfaceVisible: (surface: boolean) => void;
-	setWireframeVisible: (wireframe: boolean) => void;
+	setDisplayMode: (mode: DisplayMode) => void;
 	setSurfaceColor: (color: string) => void;
 	setMaterialURL: (url: string | undefined) => void;
 	setWireframeColor: (color: string) => void;
@@ -35,9 +35,8 @@ interface PlotStore {
 
 export const usePlotStore = create<PlotStore>()((set) => ({
 	transformControlsMode: 'move',
-	surface: true,
-	wireframe: false,
-	surfaceColor: new Color('#ff0000'),
+	displayMode: 'surface',
+	surfaceColor: new Color('#0fa0ff'),
 	materialURL: undefined,
 	wireframeColor: new Color('#000000'),
 	wireframeLinewidth: 1,
@@ -48,8 +47,7 @@ export const usePlotStore = create<PlotStore>()((set) => ({
 	opacity: 1,
 	setTransformControlsMode: (mode) =>
 		set(() => ({ transformControlsMode: mode })),
-	setSurfaceVisible: (surface) => set(() => ({ surface })),
-	setWireframeVisible: (wireframe) => set(() => ({ wireframe })),
+	setDisplayMode: (mode) => set(() => ({ displayMode: mode })),
 	setSurfaceColor: (color) => set(() => ({ surfaceColor: new Color(color) })),
 	setMaterialURL: (url) => set(() => ({ materialURL: url })),
 	setWireframeColor: (color) =>
