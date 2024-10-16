@@ -24,6 +24,9 @@
 				"solid": "Kolor",
 				"gradient": "Gradient",
 				"image": "Obraz"
+			},
+			"opacity": {
+				"title": "Przezroczystość"
 			}
 		},
 		"transform": {

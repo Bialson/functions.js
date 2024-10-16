@@ -2,7 +2,7 @@ import { ColorMap } from '@/assets/colors/colorMaps';
 import { Color } from 'three';
 import { create } from 'zustand';
 
-export type TransformControls = 'move' | 'rotate' | 'scale';
+export type TransformControls = 'translate' | 'rotate' | 'scale';
 
 type FillType = 'solid' | 'colormap';
 
@@ -34,7 +34,7 @@ interface PlotStore {
 }
 
 export const usePlotStore = create<PlotStore>()((set) => ({
-	transformControlsMode: 'move',
+	transformControlsMode: 'translate',
 	displayMode: 'surface',
 	surfaceColor: new Color('#0fa0ff'),
 	materialURL: undefined,

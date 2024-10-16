@@ -44,7 +44,7 @@ export const Transform: React.FC = () => {
 					<ButtonGroupItem
 						label={t('move')}
 						icon={<Move className="w-6 h-6" />}
-						value="move"
+						value="translate"
 					/>
 					<ButtonGroupItem
 						label={t('rotate')}

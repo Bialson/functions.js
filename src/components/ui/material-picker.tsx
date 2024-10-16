@@ -6,6 +6,22 @@ import { usePlotStore } from '@/store/plot';
 import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
+import { HexColorPicker } from 'react-colorful';
+import { Popover, PopoverContent, PopoverTrigger } from './popover';
+import { Button } from './button';
+import { Palette } from 'lucide-react';
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from '@/components/ui/accordion';
+import {
+	Collapsible,
+	CollapsibleContent,
+	CollapsibleTrigger,
+} from '@/components/ui/collapsible';
+import { Separator } from './separator';
 
 type Solid = {
 	color: string;
@@ -187,7 +203,7 @@ export function MaterialPicker({
 
 				<TabsContent
 					value="solid"
-					className="flex flex-wrap gap-1 mt-0"
+					className="flex flex-wrap gap-1 mt-0 w-full"
 				>
 					{solids.map((s) => (
 						<div
@@ -197,6 +213,13 @@ export function MaterialPicker({
 							onClick={() => setBackground({ color: s })}
 						/>
 					))}
+					<Separator className="my-4" />
+					<HexColorPicker
+						className="hex-color-picker"
+						color={background?.color}
+						onChange={(color) => setBackground({ color })}
+						style={{ width: '100%' }}
+					/>
 				</TabsContent>
 
 				<TabsContent value="gradient" className="mt-0">

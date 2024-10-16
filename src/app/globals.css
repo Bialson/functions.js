@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+.hex-color-picker .react-colorful__saturation-pointer {
+	width: 20px;
+	height: 20px;
+}
+
+.hex-color-picker .react-colorful__hue-pointer {
+	width: 20px;
+	height: 20px;
+}
+
 @layer utilities {
 	.text-balance {
 		text-wrap: balance;

@@ -24,6 +24,9 @@
 				"solid": "Color",
 				"gradient": "Gradient",
 				"image": "Image"
+			},
+			"opacity": {
+				"title": "Opacity"
 			}
 		},
 		"transform": {
