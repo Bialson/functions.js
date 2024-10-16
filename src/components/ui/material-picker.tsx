@@ -22,6 +22,9 @@ import {
 	CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { Separator } from './separator';
+import { Label } from './label';
+import Image from 'next/image';
+import ImagePlaceholder from '@/assets/images/image_placeholder.png';
 
 type Solid = {
 	color: string;
@@ -34,6 +37,7 @@ type Gradient = {
 
 type Image = {
 	url: string;
+	name: string;
 };
 
 export type MaterialPickerValue = Solid | Gradient | Image;
@@ -49,9 +53,12 @@ export const useMaterialPicker = () => {
 
 	const handleMaterialChange = useCallback(
 		(value: MaterialPickerValue) => {
-			if (value.color) {
+			if (value?.color) {
 				setSurfaceColor(value.color);
 				setPickerValue({ color: value.color });
+			}
+			if (value?.url) {
+				setPickerValue({ url: value.url, name: value?.name });
 			}
 		},
 		[setSurfaceColor],
@@ -93,13 +100,10 @@ export function MaterialPicker({
 		'#70e2ff',
 		'#cd93ff',
 		'#09203f',
+		'#537895',
 	];
 
 	const gradients: Gradient[] = [
-		{
-			gradient: 'linear-gradient(to top left, #d5d4d0, #d5d4d0, #eeeeec)',
-			colors: ['#d5d4d0', '#d5d4d0', '#eeeeec'],
-		},
 		{
 			gradient: 'linear-gradient(to top left, #d5d4d0, #d5d4d0, #eeeeec)',
 			colors: ['#d5d4d0', '#d5d4d0', '#eeeeec'],
@@ -186,6 +190,8 @@ export function MaterialPicker({
 		return 'solid';
 	}, [background]);
 
+	console.log(background);
+
 	return (
 		<div className={className}>
 			<Tabs defaultValue={defaultTab} className="w-full">
@@ -235,8 +241,26 @@ export function MaterialPicker({
 					</div>
 				</TabsContent>
 
-				<TabsContent value="image" className="mt-0"></TabsContent>
-
+				<TabsContent value="image" className="mt-0">
+					<Image
+						alt="texture_preview"
+						src={(background as Image)?.url ?? ImagePlaceholder}
+						width={200}
+						height={200}
+						className="rounded-md aspect-video w-full object-cover"
+					/>
+					<Input
+						type="file"
+						onChange={(e) => {
+							const image = e.target.files && e.target.files[0];
+							if (image) {
+								const url = URL.createObjectURL(image);
+								setBackground({ url: url, name: image.name });
+							}
+						}}
+						className="mt-4"
+					/>
+				</TabsContent>
 				<TabsContent value="password">
 					Change your password here.
 				</TabsContent>
@@ -245,7 +269,7 @@ export function MaterialPicker({
 			<Input
 				id="custom"
 				value={
-					background.color ?? background?.gradient ?? background?.url
+					background.color ?? background?.gradient ?? background?.name
 				}
 				className="col-span-2 h-8 mt-4"
 				onChange={(e) =>
