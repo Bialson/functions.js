@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 interface FormulaState {
-	formula: string;
+	equation: string;
 	equationX: string;
 	equationY: string;
 	equationZ: string;
@@ -10,18 +10,22 @@ interface FormulaState {
 }
 
 export const useFormulaStore = create<FormulaState>()((set, get) => ({
-	formula: '$f(x, y) = x^2 + y^2$',
-	equationX: '',
-	equationY: '',
-	equationZ: '',
+	equation: '$f(x, y) = x^2 + y^2$',
+	equationX: '$f(u, v) = cos(u) * (a + b*cos(v))$',
+	equationY: '$f(u, v) = sin(u) * (a + b*cos(v))$',
+	equationZ: '$f(u, v) = b * sin(v)$',
 	setEquation: (equation, axis) => {
-		const latexEquation = `$${equation}$`;
-		set({ [`equation${axis}`]: latexEquation });
+		if (axis) {
+			set({ [`equation${axis.toUpperCase()}`]: `$${equation}$` });
+		} else {
+			set({ equation: `$${equation}$` });
+		}
 	},
 	getEquation: (axis) => {
 		if (axis) {
-			return get()[`equation${axis.toUpperCase()}`].replace(/\$/g, '');
+			const key = `equation${axis.toUpperCase()}` as keyof FormulaState;
+			return (get()[key] as string).replace(/\$/g, '');
 		}
-		return get().formula.replace(/\$/g, '');
+		return get().equation.replace(/\$/g, '');
 	},
 }));

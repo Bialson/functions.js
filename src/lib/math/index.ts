@@ -5,15 +5,19 @@ import { evaluate } from 'mathjs';
 export const extractMathFormula = (formula: string) => {
 	const indexOfEqualSign = formula.indexOf('=');
 	if (indexOfEqualSign !== -1) {
-		return formula.substring(indexOfEqualSign + 1);
+		return formula
+			.substring(indexOfEqualSign + 1)
+			.replace('$', '')
+			.trim();
 	}
-	return formula;
+	return formula.replace('$', '').trim();
 };
 
 type MeshFunctionArgs = {
+	a: number;
+	b: number;
 	xRange: AxisRange;
 	yRange: AxisRange;
-	zRange: AxisRange;
 	formula: SurfaceFormula;
 };
 
@@ -23,20 +27,19 @@ export const meshFunction = (
 	target: Vector3,
 	args: MeshFunctionArgs,
 ) => {
-	const { xRange, yRange, zRange, formula } = args;
+	const { xRange, yRange, formula, a, b } = args;
 
-	u = u * xRange.max + xRange.min;
-	v = v * yRange.min + yRange.min;
-
-	let z: number = 0;
+	let x: number = u * (xRange.max - xRange.min) + xRange.min,
+		y: number = v * (yRange.max - yRange.min) + yRange.min,
+		z: number = 0;
 
 	try {
 		if (typeof formula === 'string') {
-			z = evaluate(formula, { x: u, y: v });
+			z = evaluate(formula, { x: x, y: y, a: a, b: b });
 		} else {
-			u = evaluate(formula.parametric.x, { x: u, y: v });
-			v = evaluate(formula.parametric.y, { x: u, y: v });
-			z = evaluate(formula.parametric.z, { x: u, y: v });
+			x = evaluate(formula.parametric.x, { u: x, v: y, a: a, b: b });
+			y = evaluate(formula.parametric.y, { u: x, v: y, a: a, b: b });
+			z = evaluate(formula.parametric.z, { u: x, v: y, a: a, b: b });
 		}
 	} catch {
 		z = 0;
@@ -46,5 +49,5 @@ export const meshFunction = (
 		z = 0;
 	}
 
-	target.set(u, z, v);
+	target.set(x, z, y);
 };

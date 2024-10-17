@@ -8,9 +8,20 @@ import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
 import { useMaterialPicker } from '../ui/material-picker';
 import { Opacity } from './Opacity';
+import { useMemo } from 'react';
 
 export const Texture: React.FC = () => {
 	const { pickerValue, PickerComponent } = useMaterialPicker();
+
+	const previewBgColor = useMemo(() => {
+		if ('color' in pickerValue) {
+			return pickerValue.color;
+		}
+		if ('gradient' in pickerValue) {
+			return pickerValue.gradient;
+		}
+		return pickerValue.url;
+	}, [pickerValue]);
 
 	const t = useTranslations('toolbox.texture');
 
@@ -34,8 +45,7 @@ export const Texture: React.FC = () => {
 						<div
 							className={`w-24 h-24 rounded-full shadow-[inset_-20px_-20px_40px_rgba(255,255,255,0.5),inset_20px_20px_40px_rgba(0,0,0,0.2),10px_10px_30px_rgba(0,0,0,0.5)]`}
 							style={{
-								background:
-									pickerValue?.color ?? pickerValue?.gradient,
+								background: previewBgColor,
 							}}
 						/>
 					</div>

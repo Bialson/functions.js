@@ -5,9 +5,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AxisRangeInput } from '../input/AxisRangeInput';
 import { FormulaInput } from '../input/FormulaInput';
 import { useTranslations } from 'next-intl';
+import { PlotType, usePlotStore } from '@/store/plot';
+import { useShallow } from 'zustand/react/shallow';
 
 export const Sidebar: React.FC = () => {
 	const t = useTranslations('sidebar');
+
+	const [setPlotType] = usePlotStore(
+		useShallow((state) => [state.setPlotType]),
+	);
+
+	const handleTabChange = (value: string) => setPlotType(value as PlotType);
 
 	return (
 		<div className="absolute top-0 left-0 w-[18svw] p-8 h-full bg-white dark:bg-layoutBackground flex flex-col">
@@ -18,17 +26,17 @@ export const Sidebar: React.FC = () => {
 				</Button>
 			</div>
 			<Separator className="my-4" />
-			<Tabs defaultValue="function">
+			<Tabs defaultValue="surface" onValueChange={handleTabChange}>
 				<TabsList className="grid w-full grid-cols-2">
-					<TabsTrigger value="function">Equation</TabsTrigger>
-					<TabsTrigger value="surface">Parametric</TabsTrigger>
+					<TabsTrigger value="surface">Equation</TabsTrigger>
+					<TabsTrigger value="parametric">Parametric</TabsTrigger>
 				</TabsList>
-				<TabsContent value="function">
+				<TabsContent value="surface">
 					<div className="mt-4">
 						<FormulaInput />
 					</div>
 				</TabsContent>
-				<TabsContent value="surface">
+				<TabsContent value="parametric">
 					<div className="flex flex-col gap-4 mt-4">
 						<FormulaInput isParametric axis="x" />
 						<FormulaInput isParametric axis="y" />

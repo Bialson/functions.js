@@ -6,6 +6,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 import Latex from 'react-latex-next';
+import { useDebouncedCallback } from 'use-debounce';
 
 type FormulaInputProps = {
 	isParametric?: boolean;
@@ -24,8 +25,22 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 		? `param_equation_${axis}`
 		: 'formula_equation';
 
-	const [setEquation, getEquation] = useFormulaStore(
-		useShallow((state) => [state.setEquation, state.getEquation]),
+	const [
+		setEquation,
+		getEquation,
+		equation,
+		equationX,
+		equationY,
+		equationZ,
+	] = useFormulaStore(
+		useShallow((state) => [
+			state.setEquation,
+			state.getEquation,
+			state.equation,
+			state.equationX,
+			state.equationY,
+			state.equationZ,
+		]),
 	);
 
 	const defaultValue = useMemo(() => {
@@ -35,10 +50,26 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 		return getEquation();
 	}, [axis, getEquation]);
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const { value } = event.target;
-		setEquation(value, axis);
-	};
+	const latexFormula = useMemo(() => {
+		switch (axis) {
+			case 'x':
+				return equationX;
+			case 'y':
+				return equationY;
+			case 'z':
+				return equationZ;
+			default:
+				return equation;
+		}
+	}, [equation, equationX, equationY, equationZ, axis]);
+
+	const handleChange = useDebouncedCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			const { value } = event.target;
+			setEquation(value, axis);
+		},
+		150,
+	);
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -52,7 +83,7 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 				id={inputId}
 				onChange={handleChange}
 			/>
-			{defaultValue.length > 0 && <Latex>{`$${defaultValue}$`}</Latex>}
+			{defaultValue.length > 0 && <Latex>{`$${latexFormula}$`}</Latex>}
 		</div>
 	);
 };

@@ -7,22 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useCallback, useMemo, useState } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { HexColorPicker } from 'react-colorful';
-import { Popover, PopoverContent, PopoverTrigger } from './popover';
-import { Button } from './button';
-import { Palette } from 'lucide-react';
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from '@/components/ui/accordion';
-import {
-	Collapsible,
-	CollapsibleContent,
-	CollapsibleTrigger,
-} from '@/components/ui/collapsible';
 import { Separator } from './separator';
-import { Label } from './label';
 import Image from 'next/image';
 import ImagePlaceholder from '@/assets/images/image_placeholder.png';
 
@@ -53,12 +38,12 @@ export const useMaterialPicker = () => {
 
 	const handleMaterialChange = useCallback(
 		(value: MaterialPickerValue) => {
-			if (value?.color) {
-				setSurfaceColor(value.color);
-				setPickerValue({ color: value.color });
+			if ('color' in value) {
+				setSurfaceColor(value?.color);
+				setPickerValue({ color: value?.color });
 			}
-			if (value?.url) {
-				setPickerValue({ url: value.url, name: value?.name });
+			if ('url' in value) {
+				setPickerValue({ url: value?.url, name: value?.name });
 			}
 		},
 		[setSurfaceColor],
@@ -222,7 +207,7 @@ export function MaterialPicker({
 					<Separator className="my-4" />
 					<HexColorPicker
 						className="hex-color-picker"
-						color={background?.color}
+						color={(background as Solid)?.color}
 						onChange={(color) => setBackground({ color })}
 						style={{ width: '100%' }}
 					/>
@@ -269,7 +254,9 @@ export function MaterialPicker({
 			<Input
 				id="custom"
 				value={
-					background.color ?? background?.gradient ?? background?.name
+					(background as Image)?.name ??
+					(background as Solid)?.color ??
+					(background as Gradient)?.gradient
 				}
 				className="col-span-2 h-8 mt-4"
 				onChange={(e) =>
@@ -279,22 +266,3 @@ export function MaterialPicker({
 		</div>
 	);
 }
-
-const GradientButton = ({
-	background,
-	children,
-}: {
-	background: string;
-	children: React.ReactNode;
-}) => {
-	return (
-		<div
-			className="p-0.5 rounded-md relative !bg-cover !bg-center transition-all"
-			style={{ background }}
-		>
-			<div className="bg-popover/80 rounded-md p-1 text-xs text-center">
-				{children}
-			</div>
-		</div>
-	);
-};

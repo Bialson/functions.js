@@ -12,6 +12,7 @@ import { Label } from '@/components/ui/label';
 import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
 import { useTranslations } from 'next-intl';
+import { useDebouncedCallback } from 'use-debounce';
 
 type AxisRangeInputProps = {
 	axis: Axis;
@@ -40,7 +41,7 @@ export const AxisRangeInput: React.FC<AxisRangeInputProps> = ({ axis }) => {
 		}
 	}, [axis, xRange, yRange, zRange]);
 
-	const handleChange = (value: number[]) => {
+	const handleChange = useDebouncedCallback((value: number[]) => {
 		const [min, max] = value;
 		if (min !== defaultValue[0]) {
 			setAxisMin(axis, min);
@@ -49,7 +50,7 @@ export const AxisRangeInput: React.FC<AxisRangeInputProps> = ({ axis }) => {
 		if (max !== defaultValue[1]) {
 			setAxisMax(axis, max);
 		}
-	};
+	}, 150);
 
 	return (
 		<div className="flex flex-col gap-4 items-center">

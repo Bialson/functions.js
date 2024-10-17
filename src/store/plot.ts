@@ -6,9 +6,12 @@ export type TransformControls = 'translate' | 'rotate' | 'scale';
 
 type FillType = 'solid' | 'colormap';
 
+export type PlotType = 'surface' | 'parametric';
+
 export type DisplayMode = 'surface' | 'wireframe';
 
 interface PlotStore {
+	plotType: PlotType;
 	transformControlsMode: TransformControls;
 	displayMode: DisplayMode;
 	surfaceColor: Color;
@@ -20,6 +23,7 @@ interface PlotStore {
 	gridHelper: boolean;
 	axisHelper: boolean;
 	opacity: number;
+	setPlotType: (type: PlotType) => void;
 	setTransformControlsMode: (mode: TransformControls) => void;
 	setDisplayMode: (mode: DisplayMode) => void;
 	setSurfaceColor: (color: string) => void;
@@ -34,6 +38,7 @@ interface PlotStore {
 }
 
 export const usePlotStore = create<PlotStore>()((set) => ({
+	plotType: 'surface',
 	transformControlsMode: 'translate',
 	displayMode: 'surface',
 	surfaceColor: new Color('#0fa0ff'),
@@ -45,6 +50,7 @@ export const usePlotStore = create<PlotStore>()((set) => ({
 	gridHelper: true,
 	axisHelper: true,
 	opacity: 1,
+	setPlotType: (type) => set(() => ({ plotType: type })),
 	setTransformControlsMode: (mode) =>
 		set(() => ({ transformControlsMode: mode })),
 	setDisplayMode: (mode) => set(() => ({ displayMode: mode })),
