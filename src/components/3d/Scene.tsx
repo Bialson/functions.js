@@ -16,6 +16,7 @@ import { Lights } from './Lights';
 import { usePlotStore } from '@/store/plot';
 import { useShallow } from 'zustand/react/shallow';
 import { BarLoader } from 'react-spinners';
+import * as THREE from 'three';
 
 export const Scene: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +33,8 @@ export const Scene: React.FC = () => {
 
 	const [transformControls, setTransformControls] =
 		useState<TransformControlsType | null>(null);
+
+	const [plotRef, setPlotRef] = useState<THREE.Mesh | null>(null);
 
 	useEffect(() => {
 		if (transformControls) {
@@ -53,7 +56,13 @@ export const Scene: React.FC = () => {
 	});
 
 	useEffect(() => {
-		setIsLoading(false);
+		console.log(transformControls);
+	}, [transformControls]);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 1000);
 	}, []);
 
 	return isLoading ? (
@@ -92,7 +101,7 @@ export const Scene: React.FC = () => {
 				translationSnap={0.1}
 				scaleSnap={0.1}
 			>
-				<Plot />
+				<Plot meshRef={plotRef} setMeshRef={setPlotRef} />
 			</TransformControls>
 		</Canvas>
 	);

@@ -3,8 +3,25 @@ import { usePlotStore } from '@/store/plot';
 import { useShallow } from 'zustand/react/shallow';
 import * as THREE from 'three';
 import { useZClippingPlanes } from '@/hooks/uesZClippingPlanes';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 
-export const Plot: React.FC = () => {
+type PlotProps = {
+	meshRef: THREE.Mesh<
+		THREE.BufferGeometry<THREE.NormalBufferAttributes>,
+		THREE.Material | THREE.Material[],
+		THREE.Object3DEventMap
+	> | null;
+	setMeshRef: Dispatch<
+		SetStateAction<THREE.Mesh<
+			THREE.BufferGeometry<THREE.NormalBufferAttributes>,
+			THREE.Material | THREE.Material[],
+			THREE.Object3DEventMap
+		> | null>
+	>;
+};
+
+export const Plot: React.FC<PlotProps> = ({ meshRef, setMeshRef }) => {
 	const geometry = useParametricGeometry();
 
 	const zClippingPlanes = useZClippingPlanes();
@@ -12,10 +29,16 @@ export const Plot: React.FC = () => {
 	const [surfaceColor, opacity] = usePlotStore(
 		useShallow((state) => [state.surfaceColor, state.opacity]),
 	);
+
+	useFrame(() => {
+		const pos = new THREE.Vector3();
+		console.log(meshRef?.getWorldPosition(pos));
+	});
+
 	return (
 		<mesh
+			ref={setMeshRef}
 			geometry={geometry}
-			position={[0, 0, 0]}
 			onAfterRender={(rendered) => (rendered.localClippingEnabled = true)}
 		>
 			<meshStandardMaterial
