@@ -4,13 +4,18 @@ import { Vector3 } from 'three';
 export const Lights = (): JSX.Element => {
 	return (
 		<Fragment>
-			<pointLight position={new Vector3(0, 15, 0)} intensity={250} />
-			<pointLight position={new Vector3(0, -15, 0)} intensity={250} />
-			<pointLight position={new Vector3(15, 0, 0)} intensity={200} />
-			<pointLight position={new Vector3(-15, 0, 0)} intensity={200} />
-			<pointLight position={new Vector3(0, 0, 15)} intensity={200} />
-			<pointLight position={new Vector3(0, 0, -15)} intensity={200} />
-			<ambientLight intensity={0.2} />
+			<directionalLight
+				position={new Vector3(10, 20, 10)}
+				intensity={1.5}
+				castShadow
+			/>
+
+			<pointLight position={new Vector3(-10, 10, -10)} intensity={0.8} />
+			<pointLight position={new Vector3(10, -10, 10)} intensity={0.6} />
+
+			<pointLight position={new Vector3(0, 0, -15)} intensity={0.5} />
+
+			<ambientLight intensity={1} />
 		</Fragment>
 	);
 };

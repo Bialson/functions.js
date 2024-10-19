@@ -83,7 +83,11 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 				id={inputId}
 				onChange={handleChange}
 			/>
-			{defaultValue.length > 0 && <Latex>{`$${latexFormula}$`}</Latex>}
+			{defaultValue.length > 0 && (
+				<div className="flex flex-wrap items-center justify-center">
+					<Latex>{`$${latexFormula}$`}</Latex>
+				</div>
+			)}
 		</div>
 	);
 };

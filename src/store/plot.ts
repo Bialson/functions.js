@@ -8,7 +8,7 @@ type FillType = 'solid' | 'colormap';
 
 export type PlotType = 'surface' | 'parametric';
 
-export type DisplayMode = 'surface' | 'wireframe';
+export type DisplayMode = 'surface' | 'wireframe' | 'surface+wireframe';
 
 interface PlotStore {
 	plotType: PlotType;

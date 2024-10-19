@@ -29,24 +29,32 @@ export const meshFunction = (
 ) => {
 	const { xRange, yRange, formula, a, b } = args;
 
-	let x: number = u * (xRange.max - xRange.min) + xRange.min,
-		y: number = v * (yRange.max - yRange.min) + yRange.min,
+	const xDiff = xRange.max - xRange.min;
+	const yDiff = yRange.max - yRange.min;
+
+	let x: number = 0,
+		y: number = 0,
 		z: number = 0;
+
+	u = u * xDiff + xRange.min;
+	v = v * yDiff + yRange.min;
 
 	try {
 		if (typeof formula === 'string') {
-			z = evaluate(formula, { x: x, y: y, a: a, b: b });
+			x = u;
+			y = v;
+			z = evaluate(formula, { x: u, y: v, a: a, b: b });
 		} else {
-			x = evaluate(formula.parametric.x, { u: x, v: y, a: a, b: b });
-			y = evaluate(formula.parametric.y, { u: x, v: y, a: a, b: b });
-			z = evaluate(formula.parametric.z, { u: x, v: y, a: a, b: b });
+			x = evaluate(formula.parametric.x, { u: u, v: v, a: 4, b: b });
+			y = evaluate(formula.parametric.y, { u: u, v: v, a: 4, b: b });
+			z = evaluate(formula.parametric.z, { u: u, v: v, a: 4, b: b });
 		}
 	} catch {
 		z = 0;
 	}
 
-	if (isNaN(z)) {
-		z = 0;
+	if (isNaN(z) || isNaN(x) || isNaN(y)) {
+		return target.set(0, 0, 0);
 	}
 
 	target.set(x, z, y);

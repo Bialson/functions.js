@@ -17,6 +17,7 @@ import { usePlotStore } from '@/store/plot';
 import { useShallow } from 'zustand/react/shallow';
 import { BarLoader } from 'react-spinners';
 import * as THREE from 'three';
+import { Camera } from './Camera';
 
 export const Scene: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -80,14 +81,7 @@ export const Scene: React.FC = () => {
 	) : (
 		<Canvas className="z-0 absolute">
 			<Lights />
-			<PerspectiveCamera
-				makeDefault
-				position={[5, 10, 15]}
-				fov={75}
-				near={0.1}
-				far={1000}
-				zoom={1.5}
-			/>
+			<Camera />
 			<Ground visible />
 			<OrbitControls ref={setOrbitControls} />
 			<GizmoHelper />

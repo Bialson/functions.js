@@ -1,10 +1,9 @@
 import { useParametricGeometry } from '@/hooks/useParametricGeometry';
-import { usePlotStore } from '@/store/plot';
-import { useShallow } from 'zustand/react/shallow';
 import * as THREE from 'three';
 import { useZClippingPlanes } from '@/hooks/uesZClippingPlanes';
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { usePlotMaterial } from '@/hooks/usePlotMaterial';
 
 type PlotProps = {
 	meshRef: THREE.Mesh<
@@ -24,31 +23,41 @@ type PlotProps = {
 export const Plot: React.FC<PlotProps> = ({ meshRef, setMeshRef }) => {
 	const geometry = useParametricGeometry();
 
-	const zClippingPlanes = useZClippingPlanes();
+	const [meshPositionY, setMeshPositionY] = useState<number>(0);
 
-	const [surfaceColor, opacity] = usePlotStore(
-		useShallow((state) => [state.surfaceColor, state.opacity]),
-	);
+	const zClippingPlanes = useZClippingPlanes(meshPositionY);
+
+	const [surfaceMaterial, wireframeMaterial] =
+		usePlotMaterial(zClippingPlanes);
 
 	useFrame(() => {
 		const pos = new THREE.Vector3();
-		console.log(meshRef?.getWorldPosition(pos));
+		meshRef?.getWorldPosition(pos);
+
+		if (pos.y !== meshPositionY) {
+			setMeshPositionY(pos.y);
+		}
 	});
 
 	return (
-		<mesh
-			ref={setMeshRef}
-			geometry={geometry}
-			onAfterRender={(rendered) => (rendered.localClippingEnabled = true)}
-		>
-			<meshStandardMaterial
-				side={THREE.DoubleSide}
-				color={surfaceColor}
-				opacity={opacity}
-				transparent={true}
-				clippingPlanes={zClippingPlanes}
-				clipShadows
-			/>
-		</mesh>
+		<group>
+			<mesh
+				ref={setMeshRef}
+				geometry={geometry}
+				onAfterRender={(rendered) =>
+					(rendered.localClippingEnabled = true)
+				}
+			>
+				{surfaceMaterial}
+			</mesh>
+			<mesh
+				geometry={geometry}
+				onAfterRender={(rendered) =>
+					(rendered.localClippingEnabled = true)
+				}
+			>
+				{wireframeMaterial}
+			</mesh>
+		</group>
 	);
 };

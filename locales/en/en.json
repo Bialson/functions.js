@@ -40,7 +40,14 @@
 			"title": "Display mode",
 			"subtitle": "Choose display mode",
 			"wireframe": "Wireframe",
-			"solid": "Solid"
+			"solid": "Solid",
+			"solidWireframe": "Solid + Wireframe"
+		},
+		"wireframe": {
+			"title": "Wireframe",
+			"subtitle": "Change wireframe settings",
+			"color": "Color",
+			"thickness": "Thickness"
 		}
 	},
 	"lang": {

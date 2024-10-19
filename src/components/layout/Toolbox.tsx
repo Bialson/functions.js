@@ -1,14 +1,15 @@
 import { Separator } from '@/components/ui/separator';
-import { Texture, Transform } from '@/components/tools';
+import { Texture, Transform, Wireframe } from '@/components/tools';
 import { Display } from '@/components/tools/Display';
 
 export const Toolbox: React.FC = () => {
 	return (
-		<div className="absolute top-4 left-[18.5%] bg-white p-2 dark:bg-layoutBackground flex flex-col rounded-md">
+		<div className="absolute top-4 left-[18.5%] bg-white p-2 dark:bg-layoutBackground flex flex-col rounded-md gap-2">
 			<Texture />
-			<Separator className="my-2" />
+			<Wireframe />
+			<Separator />
 			<Display />
-			<Separator className="my-2" />
+			<Separator />
 			<Transform />
 		</div>
 	);

@@ -28,8 +28,12 @@ type Image = {
 export type MaterialPickerValue = Solid | Gradient | Image;
 
 export const useMaterialPicker = () => {
-	const [surfaceColor, setSurfaceColor] = usePlotStore(
-		useShallow((state) => [state.surfaceColor, state.setSurfaceColor]),
+	const [surfaceColor, setSurfaceColor, setMaterialURL] = usePlotStore(
+		useShallow((state) => [
+			state.surfaceColor,
+			state.setSurfaceColor,
+			state.setMaterialURL,
+		]),
 	);
 
 	const [pickerValue, setPickerValue] = useState<MaterialPickerValue>({
@@ -41,12 +45,14 @@ export const useMaterialPicker = () => {
 			if ('color' in value) {
 				setSurfaceColor(value?.color);
 				setPickerValue({ color: value?.color });
+				setMaterialURL(undefined);
 			}
 			if ('url' in value) {
 				setPickerValue({ url: value?.url, name: value?.name });
+				setMaterialURL(value.url);
 			}
 		},
-		[setSurfaceColor],
+		[setSurfaceColor, setMaterialURL],
 	);
 
 	const PickerComponent = useMemo(

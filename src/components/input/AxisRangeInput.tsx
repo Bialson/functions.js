@@ -6,13 +6,16 @@ import {
 	RANGE_STEP,
 } from '@/lib/math/types';
 import { useDataStore } from '@/store/data';
-import { useMemo } from 'react';
+import { ChangeEvent, useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { Label } from '@/components/ui/label';
 import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
 import { useTranslations } from 'next-intl';
 import { useDebouncedCallback } from 'use-debounce';
+import { Input } from '../ui/input';
+
+type RangeBoundary = 'min' | 'max';
 
 type AxisRangeInputProps = {
 	axis: Axis;
@@ -41,23 +44,27 @@ export const AxisRangeInput: React.FC<AxisRangeInputProps> = ({ axis }) => {
 		}
 	}, [axis, xRange, yRange, zRange]);
 
-	const handleChange = useDebouncedCallback((value: number[]) => {
-		const [min, max] = value;
-		if (min !== defaultValue[0]) {
-			setAxisMin(axis, min);
-		}
+	const handleChange = useDebouncedCallback(
+		(event: ChangeEvent<HTMLInputElement>) => {
+			const value = parseFloat(event.target.value);
 
-		if (max !== defaultValue[1]) {
-			setAxisMax(axis, max);
-		}
-	}, 150);
+			const boundary = event.target.dataset.boundary as RangeBoundary;
+
+			if (boundary === 'min') {
+				setAxisMin(axis, value);
+			} else {
+				setAxisMax(axis, value);
+			}
+		},
+		150,
+	);
 
 	return (
 		<div className="flex flex-col gap-4 items-center">
 			<Label htmlFor={inputId} className="w-full">
 				{t(axis)}
 			</Label>
-			<Slider
+			{/* <Slider
 				aria-label={`Set the range of ${axis}`}
 				id={inputId}
 				defaultValue={defaultValue}
@@ -65,8 +72,30 @@ export const AxisRangeInput: React.FC<AxisRangeInputProps> = ({ axis }) => {
 				max={MAX_AXIS_RANGE}
 				step={RANGE_STEP}
 				onValueChange={handleChange}
-			/>
-			<Latex>{`$${defaultValue[0]} <= ${axis} <= ${defaultValue[1]}$`}</Latex>
+			/> */}
+			<div className="w-full flex flex-row justify-between">
+				<Input
+					data-boundary="min"
+					type="number"
+					defaultValue={defaultValue[0]}
+					onChange={handleChange}
+					min={MIN_AXIS_RANGE}
+					max={0}
+					className="w-1/2"
+				/>
+				<div className="w-full flex items-center justify-center">
+					<Latex>{`$<= ${axis} <=$`}</Latex>
+				</div>
+				<Input
+					data-boundary="max"
+					type="number"
+					defaultValue={defaultValue[1]}
+					min={0}
+					max={MAX_AXIS_RANGE}
+					className="w-1/2"
+					onChange={handleChange}
+				/>
+			</div>
 		</div>
 	);
 };

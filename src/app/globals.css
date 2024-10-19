@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.katex {
+	font-size: inherit;
+}
+
+.katex-display > .katex > .katex-html {
+	display: flex !important;
+	flex-wrap: wrap;
+}
+
 .hex-color-picker .react-colorful__saturation-pointer {
 	width: 20px;
 	height: 20px;

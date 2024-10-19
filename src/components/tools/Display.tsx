@@ -8,6 +8,7 @@ import { ButtonGroup, ButtonGroupItem } from '@/components/ui/button-group';
 import { useTranslations } from 'next-intl';
 import { DisplayMode, usePlotStore } from '@/store/plot';
 import { PiCubeFill, PiCube, PiCubeFocus } from 'react-icons/pi';
+import { IoMdCube } from 'react-icons/io';
 import { useShallow } from 'zustand/react/shallow';
 
 export const Display: React.FC = () => {
@@ -28,7 +29,7 @@ export const Display: React.FC = () => {
 				side="right"
 				align="start"
 				sideOffset={24}
-				className="bg-white dark:bg-layoutBackground"
+				className="bg-white dark:bg-layoutBackground w-full"
 			>
 				<h3 className="font-semibold">{t('title')}</h3>
 				<p className="mb-4 text-gray-500">{t('subtitle')}</p>
@@ -41,13 +42,18 @@ export const Display: React.FC = () => {
 				>
 					<ButtonGroupItem
 						label={t('solid')}
-						icon={<PiCubeFill className="w-6 h-6" />}
+						icon={<IoMdCube className="w-6 h-6" />}
 						value="surface"
 					/>
 					<ButtonGroupItem
 						label={t('wireframe')}
 						icon={<PiCube className="w-6 h-6" />}
 						value="wireframe"
+					/>
+					<ButtonGroupItem
+						label={t('solidWireframe')}
+						icon={<PiCubeFill className="w-6 h-6" />}
+						value="surface+wireframe"
 					/>
 				</ButtonGroup>
 			</PopoverContent>

@@ -40,7 +40,14 @@
 			"title": "Tryb wyświetlania",
 			"subtitle": "Wybierz tryb wyświetlania",
 			"wireframe": "Siatka",
-			"solid": "Wypełnienie"
+			"solid": "Wypełnienie",
+			"solidWireframe": "Wypełnienie + siatka"
+		},
+		"wireframe": {
+			"title": "Siatka",
+			"subtitle": "Zmień ustawienia siatki",
+			"color": "Kolor",
+			"thickness": "Grubość"
 		}
 	},
 	"lang": {
