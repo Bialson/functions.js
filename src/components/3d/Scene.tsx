@@ -79,7 +79,7 @@ export const Scene: React.FC = () => {
 			/>
 		</div>
 	) : (
-		<Canvas className="z-0 absolute">
+		<Canvas className="z-0 lg:absolute">
 			<Lights />
 			<Camera />
 			<Ground visible />

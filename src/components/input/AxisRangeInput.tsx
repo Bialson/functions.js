@@ -64,15 +64,6 @@ export const AxisRangeInput: React.FC<AxisRangeInputProps> = ({ axis }) => {
 			<Label htmlFor={inputId} className="w-full">
 				{t(axis)}
 			</Label>
-			{/* <Slider
-				aria-label={`Set the range of ${axis}`}
-				id={inputId}
-				defaultValue={defaultValue}
-				min={MIN_AXIS_RANGE}
-				max={MAX_AXIS_RANGE}
-				step={RANGE_STEP}
-				onValueChange={handleChange}
-			/> */}
 			<div className="w-full flex flex-row justify-between">
 				<Input
 					data-boundary="min"

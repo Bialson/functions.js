@@ -7,6 +7,7 @@ import { FormulaInput } from '../input/FormulaInput';
 import { useTranslations } from 'next-intl';
 import { PlotType, usePlotStore } from '@/store/plot';
 import { useShallow } from 'zustand/react/shallow';
+import { ScrollArea } from '../ui/scroll-area';
 
 export const Sidebar: React.FC = () => {
 	const t = useTranslations('sidebar');
@@ -18,50 +19,62 @@ export const Sidebar: React.FC = () => {
 	const handleTabChange = (value: string) => setPlotType(value as PlotType);
 
 	return (
-		<div className="absolute top-0 left-0 w-[18svw] p-8 h-full bg-white dark:bg-layoutBackground flex flex-col">
-			<div className="flex flex-row justify-between items-center">
+		<div className="lg:absolute lg:top-0 bottom-0 left-0 w-full lg:w-[18svw] p-8 h-2/3 lg:h-dvh overflow-hidden bg-white dark:bg-layoutBackground flex flex-col">
+			<div className="flex-row justify-between items-center hidden lg:flex">
 				<h1 className="text-2xl font-bold">Functions 3D</h1>
-				<Button variant="outline" size="icon">
-					<Menu className="w-6 h-6" />
-				</Button>
 			</div>
-			<Separator className="my-4" />
-			<Tabs defaultValue="surface" onValueChange={handleTabChange}>
-				<TabsList className="grid w-full grid-cols-2">
-					<TabsTrigger value="surface">Equation</TabsTrigger>
-					<TabsTrigger value="parametric">Parametric</TabsTrigger>
-				</TabsList>
-				<TabsContent value="surface">
-					<div className="mt-4">
-						<FormulaInput />
+			<Separator className="my-4 hidden lg:flex" />
+			<ScrollArea className="h-full">
+				<div className="h-full flex flex-col">
+					<Tabs
+						defaultValue="surface"
+						onValueChange={handleTabChange}
+					>
+						<TabsList className="grid w-full grid-cols-2">
+							<TabsTrigger value="surface">Equation</TabsTrigger>
+							<TabsTrigger value="parametric">
+								Parametric
+							</TabsTrigger>
+						</TabsList>
+						<TabsContent value="surface">
+							<div className="mt-4">
+								<FormulaInput />
+							</div>
+						</TabsContent>
+						<TabsContent value="parametric">
+							<div className="flex flex-col gap-4 mt-4">
+								<FormulaInput isParametric axis="x" />
+								<FormulaInput isParametric axis="y" />
+								<FormulaInput isParametric axis="z" />
+							</div>
+						</TabsContent>
+					</Tabs>
+					<div>
+						<AxisRangeInput axis="x" />
+						<Separator className="my-2" />
+						<AxisRangeInput axis="y" />
+						<Separator className="my-2" />
+						<AxisRangeInput axis="z" />
 					</div>
-				</TabsContent>
-				<TabsContent value="parametric">
-					<div className="flex flex-col gap-4 mt-4">
-						<FormulaInput isParametric axis="x" />
-						<FormulaInput isParametric axis="y" />
-						<FormulaInput isParametric axis="z" />
+					<div className="mt-auto">
+						<Separator className="my-4" />
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+						>
+							<BookOpenText className="mr-2 w-4 h-4" />
+							{t('library')}
+						</Button>
+						<Button
+							variant="ghost"
+							className="w-full justify-start"
+						>
+							<Download className="mr-2 w-4 h-4" />
+							{t('export')}
+						</Button>
 					</div>
-				</TabsContent>
-			</Tabs>
-			<div className="flex flex-col gap-4 mt-8">
-				<AxisRangeInput axis="x" />
-				<Separator className="my-2" />
-				<AxisRangeInput axis="y" />
-				<Separator className="my-2" />
-				<AxisRangeInput axis="z" />
-			</div>
-			<div className="mt-auto">
-				<Separator className="my-4" />
-				<Button variant="ghost" className="w-full justify-start">
-					<BookOpenText className="mr-2 w-4 h-4" />
-					{t('library')}
-				</Button>
-				<Button variant="ghost" className="w-full justify-start">
-					<Download className="mr-2 w-4 h-4" />
-					{t('export')}
-				</Button>
-			</div>
+				</div>
+			</ScrollArea>
 		</div>
 	);
 };
