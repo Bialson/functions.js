@@ -9,6 +9,7 @@ import { PlotType, usePlotStore } from '@/store/plot';
 import { useShallow } from 'zustand/react/shallow';
 import { ScrollArea } from '../ui/scroll-area';
 import { AssetsLibrary } from './Library';
+import { Export } from './Export';
 
 export const Sidebar: React.FC = () => {
 	const t = useTranslations('sidebar');
@@ -32,9 +33,11 @@ export const Sidebar: React.FC = () => {
 						onValueChange={handleTabChange}
 					>
 						<TabsList className="grid w-full grid-cols-2">
-							<TabsTrigger value="surface">Equation</TabsTrigger>
+							<TabsTrigger value="surface">
+								{t('equation')}
+							</TabsTrigger>
 							<TabsTrigger value="parametric">
-								Parametric
+								{t('parametric')}
 							</TabsTrigger>
 						</TabsList>
 						<TabsContent value="surface">
@@ -60,13 +63,7 @@ export const Sidebar: React.FC = () => {
 					<div className="mt-auto p-1">
 						<Separator className="my-4" />
 						<AssetsLibrary />
-						<Button
-							variant="ghost"
-							className="w-full justify-start"
-						>
-							<Download className="mr-2 w-4 h-4" />
-							{t('export')}
-						</Button>
+						<Export />
 					</div>
 				</div>
 			</ScrollArea>

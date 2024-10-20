@@ -1,7 +1,8 @@
 {
 	"sidebar": {
 		"export": "Export",
-		"library": "Library"
+		"equation": "Equation",
+		"parametric": "Parametric"
 	},
 	"math": {
 		"formula": {
@@ -51,7 +52,20 @@
 		}
 	},
 	"library": {
-		"library": "Library"
+		"library": "Library",
+		"title": "Resource library",
+		"subtitle": "Choose resource to load",
+		"button": "Load resource"
+	},
+	"export": {
+		"export": "Export",
+		"title": "Export to file",
+		"subtitle": "Choose export format",
+		"format": {
+			"obj": "OBJ",
+			"stl": "STL"
+		},
+		"button": "Export file"
 	},
 	"lang": {
 		"en": "English",

@@ -1,5 +1,5 @@
 import { ColorMap } from '@/assets/colors/colorMaps';
-import { Color } from 'three';
+import { Color, Group } from 'three';
 import { create } from 'zustand';
 
 export type TransformControls = 'translate' | 'rotate' | 'scale';
@@ -11,6 +11,7 @@ export type PlotType = 'surface' | 'parametric';
 export type DisplayMode = 'surface' | 'wireframe' | 'surface+wireframe';
 
 interface PlotStore {
+	groupRef: React.RefObject<Group> | null | undefined;
 	plotType: PlotType;
 	transformControlsMode: TransformControls;
 	displayMode: DisplayMode;
@@ -35,9 +36,11 @@ interface PlotStore {
 	setGridHelperVisible: (gridHelper: boolean) => void;
 	setAxisHelperVisible: (axisHelper: boolean) => void;
 	setOpacity: (opacity: number) => void;
+	setGroupRef: (ref: React.RefObject<Group>) => void;
 }
 
 export const usePlotStore = create<PlotStore>()((set) => ({
+	groupRef: null,
 	plotType: 'surface',
 	transformControlsMode: 'translate',
 	displayMode: 'surface+wireframe',
@@ -65,4 +68,5 @@ export const usePlotStore = create<PlotStore>()((set) => ({
 	setGridHelperVisible: (gridHelper) => set(() => ({ gridHelper })),
 	setAxisHelperVisible: (axisHelper) => set(() => ({ axisHelper })),
 	setOpacity: (opacity) => set(() => ({ opacity })),
+	setGroupRef: (ref) => set(() => ({ groupRef: ref })),
 }));

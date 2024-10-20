@@ -26,7 +26,7 @@ export const AssetsLibrary: React.FC = () => {
 	const t = useTranslations('library');
 
 	const [selectedAsset, setSelectedAsset] = useState<LibraryAsset | null>(
-		null,
+		LIBRARY_ASSETS[0],
 	);
 
 	const [setAxisMin, setAxisMax] = useDataStore(
@@ -37,23 +37,29 @@ export const AssetsLibrary: React.FC = () => {
 		useShallow((state) => [state.setEquation]),
 	);
 
-	// const handleSelectAsset = (asset: LibraryAsset) => {
-	// 	console.log('Selected asset:', asset);
+	const closeDialog = () =>
+		(
+			document.querySelector('[data-state="open"]') as HTMLDivElement
+		).click();
 
-	// 	setAxisMin('x', asset.xRange.min);
-	// 	setAxisMax('x', asset.xRange.max);
+	const handleLoadAsset = () => {
+		if (selectedAsset) {
+			setAxisMin('x', selectedAsset.xRange.min);
+			setAxisMax('x', selectedAsset.xRange.max);
 
-	// 	setAxisMin('y', asset.yRange.min);
-	// 	setAxisMax('y', asset.yRange.max);
+			setAxisMin('y', selectedAsset.yRange.min);
+			setAxisMax('y', selectedAsset.yRange.max);
 
-	// 	if (asset.parametric) {
-	// 		setEquation(asset.parametric.x, 'x');
-	// 		setEquation(asset.parametric.y, 'y');
-	// 		setEquation(asset.parametric.z, 'z');
-	// 	} else {
-	// 		setEquation(asset.equation);
-	// 	}
-	// };
+			if (selectedAsset.parametric) {
+				setEquation(selectedAsset.parametric.x, 'x');
+				setEquation(selectedAsset.parametric.y, 'y');
+				setEquation(selectedAsset.parametric.z, 'z');
+			} else {
+				setEquation(selectedAsset.equation);
+			}
+		}
+		closeDialog();
+	};
 
 	const handleSelectAsset = (asset: LibraryAsset) => setSelectedAsset(asset);
 
@@ -70,9 +76,8 @@ export const AssetsLibrary: React.FC = () => {
 					<ScrollArea className="h-96">
 						<div className="p-4">
 							{LIBRARY_ASSETS.map((asset) => (
-								<Fragment>
+								<Fragment key={asset.equation}>
 									<div
-										key={asset.equation}
 										className="text-sm"
 										onClick={() => handleSelectAsset(asset)}
 									>
@@ -121,7 +126,9 @@ export const AssetsLibrary: React.FC = () => {
 							</div>
 						</div>
 						<DialogFooter>
-							<Button type="submit">Save changes</Button>
+							<Button type="submit" onClick={handleLoadAsset}>
+								{t('button')}
+							</Button>
 						</DialogFooter>
 					</div>
 				</div>

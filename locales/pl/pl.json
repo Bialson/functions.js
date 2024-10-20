@@ -1,6 +1,8 @@
 {
 	"sidebar": {
-		"export": "Eksportuj"
+		"export": "Eksportuj",
+		"equation": "Równanie",
+		"parametric": "Parametry"
 	},
 	"math": {
 		"formula": {
@@ -52,7 +54,18 @@
 	"library": {
 		"library": "Biblioteka",
 		"title": "Biblioteka zasobów",
-		"subtitle": "Wybierz zasób do załadowania"
+		"subtitle": "Wybierz zasób do załadowania",
+		"button": "Załaduj zasób"
+	},
+	"export": {
+		"export": "Eksportuj",
+		"title": "Eksportuj do pliku",
+		"subtitle": "Wybierz format eksportu",
+		"format": {
+			"obj": "OBJ",
+			"stl": "STL"
+		},
+		"button": "Eksportuj plik"
 	},
 	"lang": {
 		"en": "Angielski",
