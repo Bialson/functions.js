@@ -40,7 +40,7 @@ interface PlotStore {
 export const usePlotStore = create<PlotStore>()((set) => ({
 	plotType: 'surface',
 	transformControlsMode: 'translate',
-	displayMode: 'surface',
+	displayMode: 'surface+wireframe',
 	surfaceColor: new Color('#0fa0ff'),
 	materialURL: undefined,
 	wireframeColor: new Color('#000000'),

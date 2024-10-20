@@ -50,6 +50,9 @@
 			"thickness": "Thickness"
 		}
 	},
+	"library": {
+		"library": "Library"
+	},
 	"lang": {
 		"en": "English",
 		"pl": "Polish"

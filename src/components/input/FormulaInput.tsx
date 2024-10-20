@@ -50,7 +50,7 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 		return getEquation();
 	}, [axis, getEquation]);
 
-	const latexFormula = useMemo(() => {
+	const formulaValue = useMemo(() => {
 		switch (axis) {
 			case 'x':
 				return equationX;
@@ -70,6 +70,13 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 		},
 		150,
 	);
+
+	const latexFormula = useMemo(() => {
+		return (
+			`${axis ? 'f(u, v)' : 'f(x, y)'} = ` +
+			formulaValue.replaceAll('$', '')
+		);
+	}, [axis, formulaValue]);
 
 	return (
 		<div className="flex flex-col gap-4">

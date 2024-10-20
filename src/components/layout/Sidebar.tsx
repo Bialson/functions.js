@@ -1,4 +1,4 @@
-import { BookOpenText, Download, Menu } from 'lucide-react';
+import { BookOpenText, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { PlotType, usePlotStore } from '@/store/plot';
 import { useShallow } from 'zustand/react/shallow';
 import { ScrollArea } from '../ui/scroll-area';
+import { AssetsLibrary } from './Library';
 
 export const Sidebar: React.FC = () => {
 	const t = useTranslations('sidebar');
@@ -37,34 +38,28 @@ export const Sidebar: React.FC = () => {
 							</TabsTrigger>
 						</TabsList>
 						<TabsContent value="surface">
-							<div className="mt-4">
+							<div className="mt-4 p-1">
 								<FormulaInput />
 							</div>
 						</TabsContent>
 						<TabsContent value="parametric">
-							<div className="flex flex-col gap-4 mt-4">
+							<div className="flex flex-col gap-4 mt-4 p-1">
 								<FormulaInput isParametric axis="x" />
 								<FormulaInput isParametric axis="y" />
 								<FormulaInput isParametric axis="z" />
 							</div>
 						</TabsContent>
 					</Tabs>
-					<div>
+					<div className="p-1">
 						<AxisRangeInput axis="x" />
 						<Separator className="my-2" />
 						<AxisRangeInput axis="y" />
 						<Separator className="my-2" />
 						<AxisRangeInput axis="z" />
 					</div>
-					<div className="mt-auto">
+					<div className="mt-auto p-1">
 						<Separator className="my-4" />
-						<Button
-							variant="ghost"
-							className="w-full justify-start"
-						>
-							<BookOpenText className="mr-2 w-4 h-4" />
-							{t('library')}
-						</Button>
+						<AssetsLibrary />
 						<Button
 							variant="ghost"
 							className="w-full justify-start"

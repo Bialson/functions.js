@@ -1,7 +1,6 @@
 {
 	"sidebar": {
-		"export": "Eksportuj",
-		"library": "Biblioteka"
+		"export": "Eksportuj"
 	},
 	"math": {
 		"formula": {
@@ -49,6 +48,11 @@
 			"color": "Kolor",
 			"thickness": "Grubość"
 		}
+	},
+	"library": {
+		"library": "Biblioteka",
+		"title": "Biblioteka zasobów",
+		"subtitle": "Wybierz zasób do załadowania"
 	},
 	"lang": {
 		"en": "Angielski",

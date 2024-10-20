@@ -1,15 +1,11 @@
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { Ground } from './Ground';
-import {
-	OrbitControls,
-	PerspectiveCamera,
-	TransformControls,
-} from '@react-three/drei';
+import { OrbitControls, TransformControls } from '@react-three/drei';
 import {
 	OrbitControls as OrbitControlsType,
 	TransformControls as TransformControlsType,
 } from 'three-stdlib';
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AxesHelper, GizmoHelper } from './helpers';
 import { Plot } from './Plot';
 import { Lights } from './Lights';
@@ -25,9 +21,6 @@ export const Scene: React.FC = () => {
 	const [transformControlsMode] = usePlotStore(
 		useShallow((state) => [state.transformControlsMode]),
 	);
-
-	// const orbitControlsRef = useRef<OrbitControlsType>(null);
-	// const transformControlsRef = useRef<TransformControlsType>(null);
 
 	const [orbitControls, setOrbitControls] =
 		useState<OrbitControlsType | null>(null);

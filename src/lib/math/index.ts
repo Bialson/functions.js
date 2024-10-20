@@ -8,9 +8,16 @@ export const extractMathFormula = (formula: string) => {
 		return formula
 			.substring(indexOfEqualSign + 1)
 			.replace('$', '')
+			.replace('{', '(')
+			.replace('}', ')')
 			.trim();
 	}
-	return formula.replace('$', '').trim();
+
+	return formula
+		.replaceAll('$', '')
+		.replaceAll('{', '(')
+		.replaceAll('}', ')')
+		.trim();
 };
 
 type MeshFunctionArgs = {
