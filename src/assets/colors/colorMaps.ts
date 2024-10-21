@@ -97,6 +97,8 @@ export const COLOR_MAPS: ColorMapValue = {
 			'#7FCDBB',
 			'#41B6C4',
 			'#1D91C0',
+			'#225EA8',
+			'#0C2C84',
 		]),
 		css: 'linear-gradient(to right, #FFFFD9, #EDF8B1, #C7E9B4, #7FCDBB, #41B6C4, #1D91C0)',
 	},
@@ -155,7 +157,12 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[9];
         varying vec2 vUv;
         uniform float opacity;
+
+		#include <clipping_planes_pars_fragment>
+
         void main() {
+			#include <clipping_planes_fragment>
+
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 0.125, 0.0, 1.0));

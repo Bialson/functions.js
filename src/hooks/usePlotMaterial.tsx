@@ -31,14 +31,19 @@ export const usePlotMaterial = (
 		]),
 	);
 
+	const materialVisible = displayMode !== 'wireframe';
+	const wireframeVisible = displayMode !== 'surface';
+
 	const shaderMaterial = useShaderMaterial({
 		colorMap,
 		geometry,
-		shaderMaterialProps: { clippingPlanes, opacity },
+		shaderMaterialProps: {
+			clipping: true,
+			clippingPlanes,
+			opacity,
+			visible: materialVisible,
+		},
 	});
-
-	const materialVisible = displayMode !== 'wireframe';
-	const wireframeVisible = displayMode !== 'surface';
 
 	const meshMaterial = useMemo(() => {
 		if (fillType === 'colormap' && colorMap) {

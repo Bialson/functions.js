@@ -63,7 +63,8 @@
 		"subtitle": "Wybierz format eksportu",
 		"format": {
 			"obj": "OBJ",
-			"stl": "STL"
+			"stl": "STL",
+			"csv": "CSV"
 		},
 		"button": "Eksportuj plik"
 	},

@@ -1,5 +1,3 @@
-import { BookOpenText, Download } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AxisRangeInput } from '../input/AxisRangeInput';
@@ -53,7 +51,7 @@ export const Sidebar: React.FC = () => {
 							</div>
 						</TabsContent>
 					</Tabs>
-					<div className="p-1">
+					<div className="p-1 mt-2">
 						<AxisRangeInput axis="x" />
 						<Separator className="my-2" />
 						<AxisRangeInput axis="y" />

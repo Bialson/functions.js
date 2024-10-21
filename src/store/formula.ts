@@ -10,10 +10,10 @@ interface FormulaState {
 }
 
 export const useFormulaStore = create<FormulaState>()((set, get) => ({
-	equation: '$f(x, y) = x^2 + y^2$',
-	equationX: '$f(u, v) = cos(u) * (a + b*cos(v))$',
-	equationY: '$f(u, v) = sin(u) * (a + b*cos(v))$',
-	equationZ: '$f(u, v) = b * sin(v)$',
+	equation: '$sin(sqrt(x^2 + y^2))$',
+	equationX: '$cos(u) * (a + b*cos(v))$',
+	equationY: '$sin(u) * (a + b*cos(v))$',
+	equationZ: '$b * sin(v)$',
 	setEquation: (equation, axis) => {
 		if (axis) {
 			set({ [`equation${axis.toUpperCase()}`]: `$${equation}$` });
