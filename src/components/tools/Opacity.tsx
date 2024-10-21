@@ -35,7 +35,7 @@ export const Opacity: React.FC = () => {
 						type="text"
 						value={opacity * 100}
 						maxLength={3}
-						size={2}
+						size={4}
 						className="h-8 text-center rounded-md bg-background outline-none"
 						onChange={handleInputChange}
 					/>

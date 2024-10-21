@@ -39,8 +39,10 @@ export const Plot: React.FC<PlotProps> = ({ meshRef, setMeshRef }) => {
 
 	const zClippingPlanes = useZClippingPlanes(meshPositionY);
 
-	const [surfaceMaterial, wireframeMaterial] =
-		usePlotMaterial(zClippingPlanes);
+	const [surfaceMaterial, wireframeMaterial] = usePlotMaterial(
+		zClippingPlanes,
+		geometry,
+	);
 
 	const [setGroupRef] = usePlotStore(
 		useShallow((state) => [state.setGroupRef]),

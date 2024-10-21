@@ -28,7 +28,7 @@ export const useParametricGeometry = () => {
 		]),
 	);
 
-	const parametricGeometry = useMemo(() => {
+	return useMemo(() => {
 		const formula: SurfaceFormula =
 			plotType === 'parametric'
 				? {
@@ -53,9 +53,6 @@ export const useParametricGeometry = () => {
 			45,
 		);
 
-		//3(1 - x)^2 * e^(-x^2 - (y+1)^2) - 10((x/5) - x^3 - y^5) * e^(-x^2 - y^2) - (1/3) * e^{-(x+1)^2 - y^2}
-		// 3(1-x)^2 * e^(-x^2 - (y+1)^2)
-
 		geometry.computeBoundingBox();
 		geometry.computeVertexNormals();
 
@@ -71,6 +68,4 @@ export const useParametricGeometry = () => {
 		xRange,
 		yRange,
 	]);
-
-	return parametricGeometry;
 };

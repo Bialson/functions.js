@@ -10,6 +10,8 @@ import { HexColorPicker } from 'react-colorful';
 import { Separator } from './separator';
 import Image from 'next/image';
 import ImagePlaceholder from '@/assets/images/image_placeholder.png';
+import { COLOR_MAPS } from '@/assets/colors/colorMaps';
+import { Color } from 'three';
 
 type Solid = {
 	color: string;
@@ -17,7 +19,8 @@ type Solid = {
 
 type Gradient = {
 	gradient: string;
-	colors: string[];
+	colors: Color[];
+	name: string;
 };
 
 type Image = {
@@ -28,11 +31,19 @@ type Image = {
 export type MaterialPickerValue = Solid | Gradient | Image;
 
 export const useMaterialPicker = () => {
-	const [surfaceColor, setSurfaceColor, setMaterialURL] = usePlotStore(
+	const [
+		surfaceColor,
+		setSurfaceColor,
+		setMaterialURL,
+		setColorMap,
+		setFillType,
+	] = usePlotStore(
 		useShallow((state) => [
 			state.surfaceColor,
 			state.setSurfaceColor,
 			state.setMaterialURL,
+			state.setColorMap,
+			state.setFillType,
 		]),
 	);
 
@@ -46,13 +57,25 @@ export const useMaterialPicker = () => {
 				setSurfaceColor(value?.color);
 				setPickerValue({ color: value?.color });
 				setMaterialURL(undefined);
+				setFillType('solid');
+			}
+			if ('colors' in value && 'gradient' in value) {
+				setPickerValue({
+					gradient: value?.gradient,
+					colors: value?.colors,
+					name: value?.name,
+				});
+				setColorMap(value.name);
+				setMaterialURL(undefined);
+				setFillType('colormap');
 			}
 			if ('url' in value) {
 				setPickerValue({ url: value?.url, name: value?.name });
 				setMaterialURL(value.url);
+				setFillType('solid');
 			}
 		},
-		[setSurfaceColor, setMaterialURL],
+		[setColorMap, setSurfaceColor, setMaterialURL, setFillType],
 	);
 
 	const PickerComponent = useMemo(
@@ -94,7 +117,7 @@ export function MaterialPicker({
 		'#537895',
 	];
 
-	const gradients: Gradient[] = [
+	const gradients = [
 		{
 			gradient: 'linear-gradient(to top left, #d5d4d0, #d5d4d0, #eeeeec)',
 			colors: ['#d5d4d0', '#d5d4d0', '#eeeeec'],
@@ -181,8 +204,6 @@ export function MaterialPicker({
 		return 'solid';
 	}, [background]);
 
-	console.log(background);
-
 	return (
 		<div className={className}>
 			<Tabs defaultValue={defaultTab} className="w-full">
@@ -221,12 +242,25 @@ export function MaterialPicker({
 
 				<TabsContent value="gradient" className="mt-0">
 					<div className="flex flex-wrap gap-1 mb-2">
-						{gradients.map((s) => (
+						{Object.values(COLOR_MAPS).map((value) => (
 							<div
-								key={s.gradient}
-								style={{ background: s.gradient }}
+								key={value.css}
+								style={{ background: value.css }}
 								className="rounded-md h-6 w-6 cursor-pointer active:scale-105"
-								onClick={() => setBackground(s)}
+								onClick={() => {
+									const name = Object.keys(COLOR_MAPS).find(
+										(key) =>
+											COLOR_MAPS[
+												key as keyof typeof COLOR_MAPS
+											] === value,
+									);
+
+									setBackground({
+										gradient: value.css,
+										colors: value.map,
+										name: name,
+									});
+								}}
 							/>
 						))}
 					</div>
