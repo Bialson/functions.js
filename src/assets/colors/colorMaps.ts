@@ -181,7 +181,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[7];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 0.125, 0.0, 1.0));
@@ -198,7 +200,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[2];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 1.0, 0.0, 1.0));
@@ -210,7 +214,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[2];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 1.0, 0.0, 1.0));
@@ -222,7 +228,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[2];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 1.0, 0.0, 1.0));
@@ -234,7 +242,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[2];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 1.0, 0.0, 1.0));
@@ -246,7 +256,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[2];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 1.0, 0.0, 1.0));
@@ -258,7 +270,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[4];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 0.333, 0.0, 1.0));
@@ -272,7 +286,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[3];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 0.5, 0.0, 1.0));
@@ -285,7 +301,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[2];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 1.0, 0.0, 1.0));
@@ -297,7 +315,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[8];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 0.125, 0.0, 1.0));
@@ -315,7 +335,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[9];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 0.111, 0.0, 1.0));
@@ -334,7 +356,9 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
         uniform vec3 colors[2];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 1.0, 0.0, 1.0));
@@ -343,29 +367,33 @@ export const FRAGMENT_SHADERS: FramgnetShaderValue = {
     `,
 
 	rdBu: `
-    uniform vec3 colors[9];
-    varying vec2 vUv;
-        uniform float opacity;
-    void main() {
-        float t = vUv.y;
-        vec3 color = colors[0];
-        color = mix(color, colors[1], clamp((t - 0.0) / 0.125, 0.0, 1.0));
-        color = mix(color, colors[2], clamp((t - 0.125) / 0.125, 0.0, 1.0));
-        color = mix(color, colors[3], clamp((t - 0.25) / 0.125, 0.0, 1.0));
-        color = mix(color, colors[4], clamp((t - 0.375) / 0.125, 0.0, 1.0));
-        color = mix(color, colors[5], clamp((t - 0.5) / 0.125, 0.0, 1.0));
-        color = mix(color, colors[6], clamp((t - 0.625) / 0.125, 0.0, 1.0));
-        color = mix(color, colors[7], clamp((t - 0.75) / 0.125, 0.0, 1.0));
-        color = mix(color, colors[8], clamp((t - 0.875) / 0.125, 0.0, 1.0));
-        gl_FragColor = vec4(color, opacity);
-    }
+		uniform vec3 colors[9];
+		varying vec2 vUv;
+		uniform float opacity;
+		#include <clipping_planes_pars_fragment>
+		void main() {
+			#include <clipping_planes_fragment>
+			float t = vUv.y;
+			vec3 color = colors[0];
+			color = mix(color, colors[1], clamp((t - 0.0) / 0.125, 0.0, 1.0));
+			color = mix(color, colors[2], clamp((t - 0.125) / 0.125, 0.0, 1.0));
+			color = mix(color, colors[3], clamp((t - 0.25) / 0.125, 0.0, 1.0));
+			color = mix(color, colors[4], clamp((t - 0.375) / 0.125, 0.0, 1.0));
+			color = mix(color, colors[5], clamp((t - 0.5) / 0.125, 0.0, 1.0));
+			color = mix(color, colors[6], clamp((t - 0.625) / 0.125, 0.0, 1.0));
+			color = mix(color, colors[7], clamp((t - 0.75) / 0.125, 0.0, 1.0));
+			color = mix(color, colors[8], clamp((t - 0.875) / 0.125, 0.0, 1.0));
+			gl_FragColor = vec4(color, opacity);
+		}
     `,
 
 	picnic: `
         uniform vec3 colors[6];
         varying vec2 vUv;
         uniform float opacity;
+        #include <clipping_planes_pars_fragment>
         void main() {
+            #include <clipping_planes_fragment>
             float t = vUv.y;
             vec3 color = colors[0];
             color = mix(color, colors[1], clamp((t - 0.0) / 0.166, 0.0, 1.0));
