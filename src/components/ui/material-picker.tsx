@@ -258,7 +258,7 @@ export function MaterialPicker({
 									setBackground({
 										gradient: value.css,
 										colors: value.map,
-										name: name,
+										name: name ?? '',
 									});
 								}}
 							/>
