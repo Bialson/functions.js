@@ -1,0 +1,80 @@
+{
+	"sidebar": {
+		"export": "Export",
+		"equation": "Equation",
+		"parametric": "Parametric"
+	},
+	"math": {
+		"formula": {
+			"equation": "Formula",
+			"equationX": "FormulaX",
+			"equationY": "FormulaY",
+			"equationZ": "FormulaZ"
+		},
+		"axisRanges": {
+			"x": "X Range",
+			"y": "Y Range",
+			"z": "Z Range"
+		}
+	},
+	"toolbox": {
+		"texture": {
+			"title": "Texture",
+			"subtitle": "Choose texture",
+			"color-picker": {
+				"solid": "Color",
+				"gradient": "Gradient",
+				"image": "Image"
+			},
+			"opacity": {
+				"title": "Opacity"
+			}
+		},
+		"transform": {
+			"title": "Transform",
+			"subtitle": "Choose transformation mode",
+			"move": "Move",
+			"rotate": "Rotate",
+			"scale": "Scale"
+		},
+		"display": {
+			"title": "Display mode",
+			"subtitle": "Choose display mode",
+			"wireframe": "Wireframe",
+			"solid": "Solid",
+			"solidWireframe": "Solid + Wireframe"
+		},
+		"wireframe": {
+			"title": "Wireframe",
+			"subtitle": "Change wireframe settings",
+			"color": "Color",
+			"thickness": "Thickness"
+		}
+	},
+	"library": {
+		"library": "Library",
+		"title": "Resource library",
+		"subtitle": "Choose resource to load",
+		"button": "Load resource"
+	},
+	"export": {
+		"export": "Export",
+		"title": "Export to file",
+		"subtitle": "Choose export format",
+		"format": {
+			"obj": "OBJ",
+			"stl": "STL",
+			"csv": "CSV"
+		},
+		"button": "Export file"
+	},
+	"lang": {
+		"en": "English",
+		"pl": "Polish"
+	},
+	"theme": {
+		"light": "Light",
+		"dark": "Dark",
+		"system": "System"
+	}
+}

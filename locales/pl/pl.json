@@ -1,0 +1,80 @@
+{
+	"sidebar": {
+		"export": "Eksportuj",
+		"equation": "Równanie",
+		"parametric": "Parametry"
+	},
+	"math": {
+		"formula": {
+			"equation": "Równanie",
+			"equationX": "Równanie X",
+			"equationY": "Równanie Y",
+			"equationZ": "Równanie Z"
+		},
+		"axisRanges": {
+			"x": "Zakres osi X",
+			"y": "Zakres osi Y",
+			"z": "Zakres osi Z"
+		}
+	},
+	"toolbox": {
+		"texture": {
+			"title": "Tekstura",
+			"subtitle": "Wybierz teksturę",
+			"color-picker": {
+				"solid": "Kolor",
+				"gradient": "Gradient",
+				"image": "Obraz"
+			},
+			"opacity": {
+				"title": "Przezroczystość"
+			}
+		},
+		"transform": {
+			"title": "Transformacja",
+			"subtitle": "Wybierz tryb transformacji",
+			"move": "Przesuń",
+			"rotate": "Obróć",
+			"scale": "Skaluj"
+		},
+		"display": {
+			"title": "Tryb wyświetlania",
+			"subtitle": "Wybierz tryb wyświetlania",
+			"wireframe": "Siatka",
+			"solid": "Wypełnienie",
+			"solidWireframe": "Wypełnienie + siatka"
+		},
+		"wireframe": {
+			"title": "Siatka",
+			"subtitle": "Zmień ustawienia siatki",
+			"color": "Kolor",
+			"thickness": "Grubość"
+		}
+	},
+	"library": {
+		"library": "Biblioteka",
+		"title": "Biblioteka zasobów",
+		"subtitle": "Wybierz zasób do załadowania",
+		"button": "Załaduj zasób"
+	},
+	"export": {
+		"export": "Eksportuj",
+		"title": "Eksportuj do pliku",
+		"subtitle": "Wybierz format eksportu",
+		"format": {
+			"obj": "OBJ",
+			"stl": "STL",
+			"csv": "CSV"
+		},
+		"button": "Eksportuj plik"
+	},
+	"lang": {
+		"en": "Angielski",
+		"pl": "Polski"
+	},
+	"theme": {
+		"light": "Jasny",
+		"dark": "Ciemny",
+		"system": "Systemowy"
+	}
+}
