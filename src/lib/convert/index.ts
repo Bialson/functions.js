@@ -1,6 +1,6 @@
 import { Group, Mesh, Object3DEventMap } from 'three';
-import { OBJExporter } from 'three/examples/jsm/exporters/OBJExporter';
-import { STLExporter } from 'three/examples/jsm/exporters/STLExporter';
+import { OBJExporter } from 'three-stdlib';
+import { STLExporter } from 'three-stdlib';
 
 class CSVExporter {
 	parse(scene: Group<Object3DEventMap>): string {
