@@ -1,6 +1,6 @@
 import { LibraryAsset } from '@/lib/assets/types';
 
-export const LIBRARY_ASSETS: LibraryAsset[] = [
+const SURFACE_ASSETS = [
 	{
 		title: 'Peaks Function',
 		equation:
@@ -66,4 +66,204 @@ export const LIBRARY_ASSETS: LibraryAsset[] = [
 		xRange: { min: -5, max: 5 },
 		yRange: { min: -5, max: 5 },
 	},
-] as const;
+];
+
+const PARAMETRIC_ASSETS = [
+	{
+		title: 'Cylinder',
+
+		previewImageUrl: 'path/to/cylinder_image',
+		parametric: {
+			x: 'cos(u)',
+			y: 'sin(u)',
+			z: 'v',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Sphere',
+
+		previewImageUrl: 'path/to/sphere_image',
+		parametric: {
+			x: 'sin(u) * cos(v)',
+			y: 'sin(u) * sin(v)',
+			z: 'cos(u)',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Torus',
+
+		previewImageUrl: 'path/to/torus_image',
+		parametric: {
+			x: '(3 + cos(v)) * cos(u)',
+			y: '(3 + cos(v)) * sin(u)',
+			z: 'sin(v)',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Hyperboloid of One Sheet',
+
+		previewImageUrl: 'path/to/hyperboloid_image',
+		parametric: {
+			x: 'cosh(v) * cos(u)',
+			y: 'cosh(v) * sin(u)',
+			z: 'sinh(v)',
+		},
+		xRange: { min: -2, max: 2 },
+		yRange: { min: -2, max: 2 },
+	},
+	{
+		title: 'Ellipsoid',
+
+		previewImageUrl: 'path/to/ellipsoid_image',
+		parametric: {
+			x: 'a * cos(u) * sin(v)',
+			y: 'b * sin(u) * sin(v)',
+			z: 'cos(v)',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Cone',
+
+		previewImageUrl: 'path/to/cone_image',
+		parametric: {
+			x: 'v * cos(u)',
+			y: 'v * sin(u)',
+			z: '2 - v',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Möbius Strip',
+
+		previewImageUrl: 'path/to/mobius_strip_image',
+		parametric: {
+			x: '(1 + v / 2 * cos(u / 2)) * cos(u)',
+			y: '(1 + v / 2 * cos(u / 2)) * sin(u)',
+			z: 'v / 2 * sin(u / 2)',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Helicoid',
+
+		previewImageUrl: 'path/to/helicoid_image',
+		parametric: {
+			x: 'u * cos(v)',
+			y: 'u * sin(v)',
+			z: 'a * v',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Catenoid',
+
+		previewImageUrl: 'path/to/catenoid_image',
+		parametric: {
+			x: 'cosh(u) * cos(v)',
+			y: 'cosh(u) * sin(v)',
+			z: 'u',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Klein Bottle',
+
+		previewImageUrl: 'path/to/klein_bottle_image',
+		parametric: {
+			x: '(1 + cos(u / 2) * sin(v) - sin(u / 2) * sin(2 * v)) * cos(u)',
+			y: '(1 + cos(u / 2) * sin(v) - sin(u / 2) * sin(2 * v)) * sin(u)',
+			z: 'sin(u / 2) * sin(v) + cos(u / 2) * sin(2 * v)',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Paraboloid',
+
+		previewImageUrl: 'path/to/paraboloid_image',
+		parametric: {
+			x: 'u * cos(v)',
+			y: 'u * sin(v)',
+			z: 'u^2',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Hyperbolic Paraboloid',
+
+		previewImageUrl: 'path/to/hyperbolic_paraboloid_image',
+		parametric: {
+			x: 'u',
+			y: 'v',
+			z: 'u^2 - v^2',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Elliptic Cone',
+
+		previewImageUrl: 'path/to/elliptic_cone_image',
+		parametric: {
+			x: 'a * v * cos(u)',
+			y: 'b * v * sin(u)',
+			z: 'v',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Trefoil Knot',
+
+		previewImageUrl: 'path/to/trefoil_knot_image',
+		parametric: {
+			x: 'sin(u) + 2 * sin(2 * u)',
+			y: 'cos(u) - 2 * cos(2 * u)',
+			z: '-sin(3 * u)',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: 'Lemniscate of Gerono',
+
+		previewImageUrl: 'path/to/lemniscate_image',
+		parametric: {
+			x: 'cos(u)',
+			y: 'sin(2 * u) / 2',
+			z: '0',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+	{
+		title: "Viviani's Curve",
+
+		previewImageUrl: 'path/to/viviani_curve_image',
+		parametric: {
+			x: '1 + cos(u)',
+			y: 'sin(u)',
+			z: '2 * sin(u / 2)',
+		},
+		xRange: { min: -1, max: 1 },
+		yRange: { min: -1, max: 1 },
+	},
+];
+
+export const LIBRARY_ASSETS = {
+	surface: SURFACE_ASSETS,
+	parametric: PARAMETRIC_ASSETS,
+} as const;

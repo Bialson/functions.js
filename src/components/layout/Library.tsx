@@ -9,7 +9,7 @@ import { Button } from '../ui/button';
 import { DialogHeader, DialogFooter } from '../ui/dialog';
 import { BookOpenText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { ScrollArea } from '../ui/scroll-area';
+import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 import { Separator } from '../ui/separator';
 import Image from 'next/image';
 import ImagePlaceholder from '@/assets/images/image_placeholder.png';
@@ -21,12 +21,19 @@ import { useShallow } from 'zustand/react/shallow';
 import { useFormulaStore } from '@/store/formula';
 import { Label } from '@radix-ui/react-label';
 import Latex from 'react-latex-next';
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from '@/components/ui/accordion';
+import { usePlotStore } from '@/store/plot';
 
 export const AssetsLibrary: React.FC = () => {
 	const t = useTranslations('library');
 
 	const [selectedAsset, setSelectedAsset] = useState<LibraryAsset | null>(
-		LIBRARY_ASSETS[0],
+		null,
 	);
 
 	const [setAxisMin, setAxisMax] = useDataStore(
@@ -35,6 +42,10 @@ export const AssetsLibrary: React.FC = () => {
 
 	const [setEquation] = useFormulaStore(
 		useShallow((state) => [state.setEquation]),
+	);
+
+	const [setPlotType] = usePlotStore(
+		useShallow((state) => [state.setPlotType]),
 	);
 
 	const closeDialog = () =>
@@ -54,8 +65,10 @@ export const AssetsLibrary: React.FC = () => {
 				setEquation(selectedAsset.parametric.x, 'x');
 				setEquation(selectedAsset.parametric.y, 'y');
 				setEquation(selectedAsset.parametric.z, 'z');
+				setPlotType('parametric');
 			} else {
 				setEquation(selectedAsset.equation);
+				setPlotType('surface');
 			}
 		}
 		closeDialog();
@@ -71,22 +84,53 @@ export const AssetsLibrary: React.FC = () => {
 					{t('library')}
 				</Button>
 			</DialogTrigger>
-			<DialogContent className="w-full">
+			<DialogContent className="min-w-full/1">
 				<div className="flex flex-row gap-4 w-full">
-					<ScrollArea className="h-96">
-						<div className="p-4">
-							{LIBRARY_ASSETS.map((asset) => (
-								<Fragment key={asset.equation}>
-									<div
-										className="text-sm"
-										onClick={() => handleSelectAsset(asset)}
-									>
-										{asset.title}
-									</div>
-									<Separator className="my-2" />
-								</Fragment>
-							))}
-						</div>
+					<ScrollArea className="h-96 w-full">
+						<Accordion type="single" collapsible>
+							<AccordionItem value="item-1">
+								<AccordionTrigger className="text-sm">
+									{t('category.surface')}
+								</AccordionTrigger>
+								<AccordionContent className="px-4">
+									{LIBRARY_ASSETS.surface.map((asset) => (
+										<Fragment key={asset.equation}>
+											<div
+												className="text-sm"
+												onClick={() =>
+													handleSelectAsset(asset)
+												}
+											>
+												{asset.title}
+											</div>
+											<Separator className="my-2" />
+										</Fragment>
+									))}
+								</AccordionContent>
+							</AccordionItem>
+						</Accordion>
+						<Accordion type="single" collapsible>
+							<AccordionItem value="item-1">
+								<AccordionTrigger className="text-sm">
+									{t('category.parametric')}
+								</AccordionTrigger>
+								<AccordionContent className="px-4">
+									{LIBRARY_ASSETS.parametric.map((asset) => (
+										<Fragment key={asset.equation}>
+											<div
+												className="text-sm"
+												onClick={() =>
+													handleSelectAsset(asset)
+												}
+											>
+												{asset.title}
+											</div>
+											<Separator className="my-2" />
+										</Fragment>
+									))}
+								</AccordionContent>
+							</AccordionItem>
+						</Accordion>
 					</ScrollArea>
 					<Separator orientation="vertical" />
 					<div className="p-2 flex flex-col w-full h-full justify-around">

@@ -58,6 +58,10 @@
 		"library": "Biblioteka",
 		"title": "Biblioteka zasobów",
 		"subtitle": "Wybierz zasób do załadowania",
+		"category": {
+			"surface": "Powierzchnie standardowe",
+			"parametric": "Powierzchnie parametryczne"
+		},
 		"button": "Załaduj zasób"
 	},
 	"export": {

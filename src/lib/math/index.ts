@@ -52,9 +52,9 @@ export const meshFunction = (
 			y = v;
 			z = evaluate(formula, { x: u, y: v, a: a, b: b });
 		} else {
-			x = evaluate(formula.parametric.x, { u: u, v: v, a: 4, b: b });
-			y = evaluate(formula.parametric.y, { u: u, v: v, a: 4, b: b });
-			z = evaluate(formula.parametric.z, { u: u, v: v, a: 4, b: b });
+			x = evaluate(formula.parametric.x, { u: u, v: v, a: a, b: b });
+			y = evaluate(formula.parametric.y, { u: u, v: v, a: a, b: b });
+			z = evaluate(formula.parametric.z, { u: u, v: v, a: a, b: b });
 		}
 	} catch {
 		z = 0;

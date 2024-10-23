@@ -58,6 +58,10 @@
 		"library": "Library",
 		"title": "Resource library",
 		"subtitle": "Choose resource to load",
+		"category": {
+			"surface": "Standard surfaces",
+			"parametric": "Parametric surfaces"
+		},
 		"button": "Load resource"
 	},
 	"export": {
