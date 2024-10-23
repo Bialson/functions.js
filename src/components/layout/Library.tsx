@@ -93,19 +93,21 @@ export const AssetsLibrary: React.FC = () => {
 									{t('category.surface')}
 								</AccordionTrigger>
 								<AccordionContent className="px-4">
-									{LIBRARY_ASSETS.surface.map((asset) => (
-										<Fragment key={asset.equation}>
-											<div
-												className="text-sm"
-												onClick={() =>
-													handleSelectAsset(asset)
-												}
-											>
-												{asset.title}
-											</div>
-											<Separator className="my-2" />
-										</Fragment>
-									))}
+									{LIBRARY_ASSETS.surface.map(
+										(asset: LibraryAsset) => (
+											<Fragment key={asset.equation}>
+												<div
+													className="text-sm"
+													onClick={() =>
+														handleSelectAsset(asset)
+													}
+												>
+													{asset.title}
+												</div>
+												<Separator className="my-2" />
+											</Fragment>
+										),
+									)}
 								</AccordionContent>
 							</AccordionItem>
 						</Accordion>
@@ -115,19 +117,21 @@ export const AssetsLibrary: React.FC = () => {
 									{t('category.parametric')}
 								</AccordionTrigger>
 								<AccordionContent className="px-4">
-									{LIBRARY_ASSETS.parametric.map((asset) => (
-										<Fragment key={asset.title}>
-											<div
-												className="text-sm"
-												onClick={() =>
-													handleSelectAsset(asset)
-												}
-											>
-												{asset.title}
-											</div>
-											<Separator className="my-2" />
-										</Fragment>
-									))}
+									{LIBRARY_ASSETS.parametric.map(
+										(asset: LibraryAsset) => (
+											<Fragment key={asset.title}>
+												<div
+													className="text-sm"
+													onClick={() =>
+														handleSelectAsset(asset)
+													}
+												>
+													{asset.title}
+												</div>
+												<Separator className="my-2" />
+											</Fragment>
+										),
+									)}
 								</AccordionContent>
 							</AccordionItem>
 						</Accordion>
