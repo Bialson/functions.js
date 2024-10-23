@@ -8,6 +8,7 @@ import { useShallow } from 'zustand/react/shallow';
 import { ScrollArea } from '../ui/scroll-area';
 import { AssetsLibrary } from './Library';
 import { Export } from './Export';
+import { ParamInput } from '@/components/input/ParamInput';
 
 export const Sidebar: React.FC = () => {
 	const t = useTranslations('sidebar');
@@ -51,12 +52,13 @@ export const Sidebar: React.FC = () => {
 							</div>
 						</TabsContent>
 					</Tabs>
-					<div className="p-1 mt-2">
+					<Separator className="my-4" />
+					<div className="p-1 flex flex-col gap-4">
 						<AxisRangeInput axis="x" />
-						<Separator className="my-2" />
 						<AxisRangeInput axis="y" />
-						<Separator className="my-2" />
 						<AxisRangeInput axis="z" />
+						<Separator className="my-2" />
+						<ParamInput />
 					</div>
 					<div className="mt-auto p-1">
 						<Separator className="my-4" />

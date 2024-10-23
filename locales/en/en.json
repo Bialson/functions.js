@@ -5,6 +5,9 @@
 		"parametric": "Parametric"
 	},
 	"math": {
+		"params": {
+			"title": "Parameters"
+		},
 		"formula": {
 			"equation": "Formula",
 			"equationX": "FormulaX",

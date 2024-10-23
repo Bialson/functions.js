@@ -3,10 +3,11 @@ import { Input } from '@/components/ui/input';
 import { Axis } from '@/lib/math/types';
 import { useFormulaStore } from '@/store/formula';
 import { useShallow } from 'zustand/react/shallow';
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import Latex from 'react-latex-next';
 import { useDebouncedCallback } from 'use-debounce';
+import { extractMathFormula } from '@/lib/math';
 
 type FormulaInputProps = {
 	isParametric?: boolean;
@@ -18,6 +19,8 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 	axis,
 }) => {
 	const t = useTranslations('math.formula');
+
+	const inputRef = useRef<HTMLInputElement>(null);
 
 	const INPUT_PLACEHOLDER = isParametric ? 'f(u, v) = 0' : 'f(x, y) = 0';
 
@@ -51,16 +54,28 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 	}, [axis, getEquation]);
 
 	const formulaValue = useMemo(() => {
+		let value: string;
+
 		switch (axis) {
 			case 'x':
-				return equationX;
+				value = equationX;
+				break;
 			case 'y':
-				return equationY;
+				value = equationY;
+				break;
 			case 'z':
-				return equationZ;
+				value = equationZ;
+				break;
 			default:
-				return equation;
+				value = equation;
+				break;
 		}
+
+		if (inputRef.current) {
+			inputRef.current.value = extractMathFormula(value);
+		}
+
+		return value;
 	}, [equation, equationX, equationY, equationZ, axis]);
 
 	const handleChange = useDebouncedCallback(
@@ -84,6 +99,7 @@ export const FormulaInput: React.FC<FormulaInputProps> = ({
 				{axis ? t(`equation${axis.toUpperCase()}`) : t('equation')}
 			</Label>
 			<Input
+				ref={inputRef}
 				type="text"
 				defaultValue={defaultValue}
 				placeholder={INPUT_PLACEHOLDER}

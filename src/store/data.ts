@@ -15,8 +15,7 @@ interface DataState {
 	bParam: number;
 	setAxisMin: (axis: Axis, value: number) => void;
 	setAxisMax: (axis: Axis, value: number) => void;
-	setAParam: (a: number) => void;
-	setBParam: (b: number) => void;
+	setParam: (param: 'a' | 'b', value: number) => void;
 }
 
 export const useDataStore = create<DataState>((set) => ({
@@ -55,10 +54,11 @@ export const useDataStore = create<DataState>((set) => ({
 			}));
 		}
 	},
-	setAParam: (a) => {
-		set(() => ({ aParam: a }));
-	},
-	setBParam: (b) => {
-		set(() => ({ bParam: b }));
+	setParam: (param, value) => {
+		if (param === 'a') {
+			set({ aParam: value });
+		} else if (param === 'b') {
+			set({ bParam: value });
+		}
 	},
 }));
