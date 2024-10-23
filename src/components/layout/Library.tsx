@@ -54,7 +54,7 @@ export const AssetsLibrary: React.FC = () => {
 		).click();
 
 	const handleLoadAsset = () => {
-		if (selectedAsset) {
+		if (selectedAsset && selectedAsset.equation) {
 			setAxisMin('x', selectedAsset.xRange.min);
 			setAxisMax('x', selectedAsset.xRange.max);
 
