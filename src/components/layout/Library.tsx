@@ -116,7 +116,7 @@ export const AssetsLibrary: React.FC = () => {
 								</AccordionTrigger>
 								<AccordionContent className="px-4">
 									{LIBRARY_ASSETS.parametric.map((asset) => (
-										<Fragment key={asset.equation}>
+										<Fragment key={asset.title}>
 											<div
 												className="text-sm"
 												onClick={() =>
