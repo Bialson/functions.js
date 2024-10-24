@@ -5,6 +5,8 @@ type AxisRange = {
 	max: number;
 };
 
+export const DEFAULT_SURFACE_FORMULA = 'x^2 + y^2';
+
 type SurfaceFormula =
 	| string
 	| {
