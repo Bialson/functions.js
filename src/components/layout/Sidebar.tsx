@@ -25,7 +25,7 @@ export const Sidebar: React.FC = () => {
 				<h1 className="text-2xl font-bold">Functions 3D</h1>
 			</div>
 			<Separator className="my-4 hidden lg:flex" />
-			<ScrollArea className="h-full">
+			<ScrollArea className="h-full overflow-hidden">
 				<div className="h-full flex flex-col">
 					<Tabs
 						defaultValue="surface"

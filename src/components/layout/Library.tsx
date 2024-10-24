@@ -9,7 +9,7 @@ import { Button } from '../ui/button';
 import { DialogHeader, DialogFooter } from '../ui/dialog';
 import { BookOpenText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { ScrollArea, ScrollBar } from '../ui/scroll-area';
+import { ScrollArea } from '../ui/scroll-area';
 import { Separator } from '../ui/separator';
 import Image from 'next/image';
 import ImagePlaceholder from '@/assets/images/image_placeholder.png';
@@ -28,6 +28,7 @@ import {
 	AccordionTrigger,
 } from '@/components/ui/accordion';
 import { usePlotStore } from '@/store/plot';
+import { DEFAULT_SURFACE_FORMULA } from '@/lib/math/types';
 
 export const AssetsLibrary: React.FC = () => {
 	const t = useTranslations('library');
@@ -54,7 +55,7 @@ export const AssetsLibrary: React.FC = () => {
 		).click();
 
 	const handleLoadAsset = () => {
-		if (selectedAsset && selectedAsset.equation) {
+		if (selectedAsset) {
 			setAxisMin('x', selectedAsset.xRange.min);
 			setAxisMax('x', selectedAsset.xRange.max);
 
@@ -67,7 +68,7 @@ export const AssetsLibrary: React.FC = () => {
 				setEquation(selectedAsset.parametric.z, 'z');
 				setPlotType('parametric');
 			} else {
-				setEquation(selectedAsset.equation);
+				setEquation(selectedAsset.equation ?? DEFAULT_SURFACE_FORMULA);
 				setPlotType('surface');
 			}
 		}

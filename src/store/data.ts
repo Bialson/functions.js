@@ -21,7 +21,7 @@ interface DataState {
 export const useDataStore = create<DataState>((set) => ({
 	xRange: { min: -5, max: 5 },
 	yRange: { min: -5, max: 5 },
-	zRange: { min: -5, max: 5 },
+	zRange: { min: -10, max: 10 },
 	aParam: 1,
 	bParam: 1,
 	setAxisMin: (axis, value) => {

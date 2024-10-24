@@ -70,6 +70,17 @@ const SURFACE_ASSETS = [
 
 const PARAMETRIC_ASSETS = [
 	{
+		title: 'Heart Curve',
+		previewImageUrl: 'path/to/heart_curve_image',
+		parametric: {
+			x: 'sin(v)(15sin(u) - 4sin(3u))',
+			y: '8cos(v)',
+			z: 'sin(v)(15cos(u) - 5cos(2u) - 2cos(3u) - cos(2u))',
+		},
+		xRange: { min: 0, max: 6.28 },
+		yRange: { min: 0, max: 3.14 },
+	},
+	{
 		title: 'Cylinder',
 
 		previewImageUrl: 'path/to/cylinder_image',

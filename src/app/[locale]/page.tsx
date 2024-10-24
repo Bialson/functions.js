@@ -8,7 +8,7 @@ import { Scene } from '@/components/3d/Scene';
 
 export default function Home() {
 	return (
-		<main className="h-screen bg-editorBackground overflow-hidden">
+		<main className="h-dvh bg-editorBackground overflow-hidden">
 			<div className="h-full flex flex-col overflow-hidden">
 				<Scene />
 				<Sidebar />

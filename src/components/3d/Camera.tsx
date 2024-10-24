@@ -13,7 +13,7 @@ export const Camera: React.FC = () => {
 			near={near}
 			far={far}
 			position={[15, 10, 15]}
-			zoom={1}
+			zoom={1.5}
 		/>
 	);
 };
