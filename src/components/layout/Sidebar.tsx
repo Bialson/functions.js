@@ -9,6 +9,8 @@ import { ScrollArea } from '../ui/scroll-area';
 import { AssetsLibrary } from './Library';
 import { Export } from './Export';
 import { ParamInput } from '@/components/input/ParamInput';
+import Image from 'next/image';
+import IconSRC from 'src/assets/images/icon.png';
 
 export const Sidebar: React.FC = () => {
 	const t = useTranslations('sidebar');
@@ -21,8 +23,9 @@ export const Sidebar: React.FC = () => {
 
 	return (
 		<div className="lg:absolute lg:top-0 bottom-0 left-0 w-full lg:w-[18svw] p-8 h-2/3 lg:h-dvh overflow-hidden bg-white dark:bg-layoutBackground flex flex-col">
-			<div className="flex-row justify-between items-center hidden lg:flex">
+			<div className="justify-between items-center hidden lg:flex xl:flex-row flex-col">
 				<h1 className="text-2xl font-bold">Functions 3D</h1>
+				<Image src={IconSRC} alt={'Icon'} width={80} height={60} />
 			</div>
 			<Separator className="my-4 hidden lg:flex" />
 			<ScrollArea className="h-full overflow-hidden">
