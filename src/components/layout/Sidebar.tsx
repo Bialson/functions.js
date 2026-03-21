@@ -10,7 +10,7 @@ import { AssetsLibrary } from './Library';
 import { Export } from './Export';
 import { ParamInput } from '@/components/input/ParamInput';
 import Image from 'next/image';
-import IconSRC from 'src/assets/images/icon.png';
+import IconSRC from '@/assets/images/icon.png';
 
 export const Sidebar: React.FC = () => {
 	const t = useTranslations('sidebar');

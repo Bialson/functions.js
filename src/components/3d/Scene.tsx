@@ -47,11 +47,7 @@ export const Scene: React.FC = () => {
 			return () =>
 				controls.removeEventListener('dragging-changed', callback);
 		}
-	});
-
-	useEffect(() => {
-		console.log(transformControls);
-	}, [transformControls]);
+	}, [transformControls, orbitControls]);
 
 	useEffect(() => {
 		setTimeout(() => {
